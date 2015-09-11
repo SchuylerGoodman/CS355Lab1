@@ -1,0 +1,128 @@
+[
+  {
+    "a": {
+      "x": 23.0,
+      "y": 233.0
+    },
+    "b": {
+      "x": 79.0,
+      "y": 180.0
+    },
+    "c": {
+      "x": 162.0,
+      "y": 318.0
+    },
+    "color": {
+      "value": -1,
+      "falpha": 0.0
+    },
+    "SHAPE_TYPE": "cs355.model.drawing.Triangle"
+  },
+  {
+    "a": {
+      "x": 284.0,
+      "y": 185.0
+    },
+    "b": {
+      "x": 282.0,
+      "y": 310.0
+    },
+    "c": {
+      "x": 434.0,
+      "y": 280.0
+    },
+    "color": {
+      "value": -1,
+      "falpha": 0.0
+    },
+    "SHAPE_TYPE": "cs355.model.drawing.Triangle"
+  },
+  {
+    "upperLeft": {
+      "x": 138.0,
+      "y": 128.0
+    },
+    "size": 65.0,
+    "color": {
+      "value": -1,
+      "falpha": 0.0
+    },
+    "SHAPE_TYPE": "cs355.model.drawing.Square"
+  },
+  {
+    "center": {
+      "x": 209.5,
+      "y": 351.5
+    },
+    "width": 17.0,
+    "height": 211.0,
+    "color": {
+      "value": -1,
+      "falpha": 0.0
+    },
+    "SHAPE_TYPE": "cs355.model.drawing.Ellipse"
+  },
+  {
+    "center": {
+      "x": 356.0,
+      "y": 393.5
+    },
+    "width": 144.0,
+    "height": 99.0,
+    "color": {
+      "value": -13421569,
+      "falpha": 0.0
+    },
+    "SHAPE_TYPE": "cs355.model.drawing.Ellipse"
+  },
+  {
+    "upperLeft": {
+      "x": 261.0,
+      "y": 100.0
+    },
+    "width": 74.0,
+    "height": 165.0,
+    "color": {
+      "value": -13421569,
+      "falpha": 0.0
+    },
+    "SHAPE_TYPE": "cs355.model.drawing.Rectangle"
+  },
+  {
+    "upperLeft": {
+      "x": 17.0,
+      "y": 53.0
+    },
+    "width": 134.0,
+    "height": 110.0,
+    "color": {
+      "value": -13421569,
+      "falpha": 0.0
+    },
+    "SHAPE_TYPE": "cs355.model.drawing.Rectangle"
+  },
+  {
+    "upperLeft": {
+      "x": 269.0,
+      "y": 78.0
+    },
+    "size": 90.0,
+    "color": {
+      "value": -6723841,
+      "falpha": 0.0
+    },
+    "SHAPE_TYPE": "cs355.model.drawing.Square"
+  },
+  {
+    "upperLeft": {
+      "x": 35.0,
+      "y": 246.0
+    },
+    "size": 91.0,
+    "color": {
+      "value": -6723841,
+      "falpha": 0.0
+    },
+    "SHAPE_TYPE": "cs355.model.drawing.Square"
+  }
+]
