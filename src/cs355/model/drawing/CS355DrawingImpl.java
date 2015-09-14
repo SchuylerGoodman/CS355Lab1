@@ -1,7 +1,6 @@
 package cs355.model.drawing;
 
 import cs355.GUIFunctions;
-import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
 import java.util.Collections;
