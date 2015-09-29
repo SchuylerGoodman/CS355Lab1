@@ -9,7 +9,7 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
 /**
- * Created by goodman on 9/9/2015.
+ * Class that controls how a rectangle is drawn.
  */
 public class RectangleDrawable implements IDrawable {
 
@@ -21,12 +21,19 @@ public class RectangleDrawable implements IDrawable {
 
     @Override
     public void draw(Graphics2D g2d) {
-        Point2D.Double upperLeftCorner = this.rectangle.getUpperLeft();
+        Point2D.Double center = this.rectangle.getCenter();
+        double width = this.rectangle.getWidth();
+        double height = this.rectangle.getHeight();
+        Point2D.Double upperLeftCorner = new Point2D.Double(
+                center.getX() - width / 2,
+                center.getY() - height / 2
+        );
+
         Rectangle2D drawRectangle = new Rectangle2D.Double(
                 upperLeftCorner.getX(),
                 upperLeftCorner.getY(),
-                this.rectangle.getWidth(),
-                this.rectangle.getHeight()
+                width,
+                height
         );
 
         g2d.setPaint(this.rectangle.getColor());

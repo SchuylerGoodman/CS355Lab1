@@ -10,7 +10,7 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
 
 /**
- * Created by goodman on 9/10/2015.
+ * Class that handles input for drawing rectangles.
  */
 public class RectangleController implements IShapeController {
 
@@ -96,7 +96,11 @@ public class RectangleController implements IShapeController {
         double height = Math.abs(yDifference);
 
         // Set the new parameters
-        rectangle.setUpperLeft(upperLeftCorner);
+        Point2D.Double center = new Point2D.Double(
+                upperLeftCorner.getX() + width / 2,
+                upperLeftCorner.getY() + height / 2
+        );
+        rectangle.setCenter(center);
         rectangle.setWidth(width);
         rectangle.setHeight(height);
 

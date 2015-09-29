@@ -9,7 +9,7 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
 
 /**
- * Created by goodman on 9/10/2015.
+ * Class that handles input for drawing squares.
  */
 public class SquareController implements IShapeController {
 
@@ -97,7 +97,11 @@ public class SquareController implements IShapeController {
         }
 
         // Set the new parameters
-        square.setUpperLeft(upperLeftCorner);
+        Point2D.Double center = new Point2D.Double(
+                upperLeftCorner.getX() + size / 2,
+                upperLeftCorner.getY() + size / 2
+        );
+        square.setCenter(center);
         square.setSize(size);
 
         // Force the view to refresh now that we have changed the model

@@ -28,6 +28,14 @@ public class Line extends Shape {
 	}
 
 	/**
+	 * Getter for the Line's starting point
+	 * which for some inexplicable reason is being saved as the center...
+	 *
+	 * @return the starting point as a Java point.
+	 */
+	public Point2D.Double getStart() { return this.getCenter(); }
+
+	/**
 	 * Getter for this Line's ending point.
 	 * @return the ending point as a Java point.
 	 */

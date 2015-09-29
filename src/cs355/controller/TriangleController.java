@@ -8,7 +8,7 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
 
 /**
- * Created by goodman on 9/10/2015.
+ * Class that controls how a triangle is drawn.
  */
 public class TriangleController implements IShapeController {
 
@@ -48,9 +48,15 @@ public class TriangleController implements IShapeController {
             // Third click, last corner
             thirdCoordinates.setLocation(e.getPoint());
 
+            // Calculate centroid
+            double xAve = (firstCoordinates.getX() + secondCoordinates.getX() + thirdCoordinates.getX()) / 3;
+            double yAve = (firstCoordinates.getY() + secondCoordinates.getY() + thirdCoordinates.getY()) / 3;
+            Point2D.Double center = new Point2D.Double(xAve, yAve);
+
             // Initialize the triangle
             Triangle triangle = new Triangle(
                     c,
+                    center,
                     copyPoint(firstCoordinates),
                     copyPoint(secondCoordinates),
                     copyPoint(thirdCoordinates)
