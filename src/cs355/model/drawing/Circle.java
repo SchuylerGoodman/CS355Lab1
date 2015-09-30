@@ -1,6 +1,7 @@
 package cs355.model.drawing;
 
 import java.awt.Color;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 
 /**
@@ -46,14 +47,34 @@ public class Circle extends Shape {
 	/**
 	 * Add your code to do an intersection test
 	 * here. You shouldn't need the tolerance.
-	 * @param pt = the point to test against.
+	 * @param pt = the point to test against (in world coordinates).
 	 * @param tolerance = the allowable tolerance.
 	 * @return true if pt is in the shape,
 	 *		   false otherwise.
 	 */
 	@Override
 	public boolean pointInShape(Point2D.Double pt, double tolerance) {
-		throw new UnsupportedOperationException("Not supported yet.");
+
+		// get the point in object coordinates
+		AffineTransform worldToObj = this.getWorldToObj();
+		Point2D.Double ptObj = new Point2D.Double();
+		worldToObj.transform(pt, ptObj);
+
+		double radius = this.getRadius();
+
+		// check with simple bounding box (fast)
+		Point2D.Double bound = new Point2D.Double(radius, radius);
+		if (Math.abs(ptObj.getX()) > bound.getX() || Math.abs(ptObj.getY()) > bound.getY()) {
+			return false;
+		}
+
+		// check if the point is further from center than the radius
+		double magnitude = Math.sqrt(Math.pow(ptObj.getX(), 2.0) + Math.pow(ptObj.getY(), 2.0));
+		if (magnitude > radius) {
+			return false;
+		}
+
+		return true;
 	}
 
 }

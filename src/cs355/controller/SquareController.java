@@ -11,7 +11,7 @@ import java.awt.geom.Point2D;
 /**
  * Class that handles input for drawing squares.
  */
-public class SquareController implements IShapeController {
+public class SquareController implements IController {
 
     /**
      * The initial coordinates of the mouse press.
@@ -110,6 +110,11 @@ public class SquareController implements IShapeController {
 
     @Override
     public void mouseMoved(MouseEvent e, CS355Drawing model, Color c) {
+    }
+
+    @Override
+    public void close() {
+
     }
 }
 

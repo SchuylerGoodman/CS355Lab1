@@ -29,10 +29,7 @@ public class EllipseDrawable implements IDrawable {
 
         // Calculate upper left corner of bounding rectangle
         Point2D.Double upperLeftCorner = new Point2D.Double();
-        upperLeftCorner.setLocation(
-                center.getX() - (width / 2),
-                center.getY() - (height / 2)
-        );
+        upperLeftCorner.setLocation((width / 2) * -1, (height / 2) * -1);
 
         // Initialize ellipse geometric object
         Ellipse2D drawEllipse = new Ellipse2D.Double(
@@ -43,6 +40,7 @@ public class EllipseDrawable implements IDrawable {
         );
 
         g2d.setPaint(this.ellipse.getColor());
+        g2d.setTransform(this.ellipse.getObjToWorld());
         g2d.fill(drawEllipse);
         g2d.draw(drawEllipse);
     }

@@ -1,14 +1,25 @@
 package cs355.controller;
 
-import cs355.model.drawing.CS355Drawing;
+import cs355.model.drawing.*;
+import cs355.model.drawing.Shape;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
 
 /**
- * Default shape controller class - does absolutely nothing
+ * Class that handles input for selecting and manipulating objects.
  */
-public class NoneController implements IController {
+public class SelectController implements IController {
+
+    /**
+     * The shape which has been selected.
+     */
+    private Shape selectedShape;
+
+    public SelectController() {
+        this.selectedShape = null;
+    }
+
     @Override
     public void mouseClicked(MouseEvent e, CS355Drawing model, Color c) {
 
@@ -46,6 +57,6 @@ public class NoneController implements IController {
 
     @Override
     public void close() {
-
+        this.selectedShape.setSelected(false);
     }
 }

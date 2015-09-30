@@ -11,7 +11,7 @@ import java.awt.geom.Point2D;
 /**
  * Created by goodman on 9/10/2015.
  */
-public class EllipseController implements IShapeController {
+public class EllipseController implements IController {
 
     /**
      * The initial coordinates of the mouse press.
@@ -101,6 +101,11 @@ public class EllipseController implements IShapeController {
 
     @Override
     public void mouseMoved(MouseEvent e, CS355Drawing model, Color c) {
+    }
+
+    @Override
+    public void close() {
+
     }
 }
 

@@ -24,10 +24,10 @@ public class RectangleDrawable implements IDrawable {
         Point2D.Double center = this.rectangle.getCenter();
         double width = this.rectangle.getWidth();
         double height = this.rectangle.getHeight();
-        Point2D.Double upperLeftCorner = new Point2D.Double(
-                center.getX() - width / 2,
-                center.getY() - height / 2
-        );
+
+        // Calculate upper left corner of rectangle
+        Point2D.Double upperLeftCorner = new Point2D.Double();
+        upperLeftCorner.setLocation((width / 2) * -1, (height / 2) * -1);
 
         Rectangle2D drawRectangle = new Rectangle2D.Double(
                 upperLeftCorner.getX(),
@@ -37,6 +37,7 @@ public class RectangleDrawable implements IDrawable {
         );
 
         g2d.setPaint(this.rectangle.getColor());
+        g2d.setTransform(this.rectangle.getObjToWorld());
         g2d.fill(drawRectangle);
         g2d.draw(drawRectangle);
     }

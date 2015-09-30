@@ -11,7 +11,7 @@ import java.awt.geom.Point2D;
 /**
  * Created by goodman on 9/10/2015.
  */
-public class CircleController implements IShapeController {
+public class CircleController implements IController {
 
     /**
      * The initial coordinates of the mouse press.
@@ -82,11 +82,11 @@ public class CircleController implements IShapeController {
         double xDifference = currentCoordinates.getX() - initialCoordinates.getX();
         double yDifference = currentCoordinates.getY() - initialCoordinates.getY();
 
-        // Get width and height
+        // Get radius
         double radius = Math.min(
                 Math.abs(xDifference),
                 Math.abs(yDifference)
-        ) / 2;
+        ) / 2.0;
 
         // Get unit vectors for the differences to preserve sign
         double xDirection = xDifference / Math.abs(xDifference);
@@ -106,6 +106,11 @@ public class CircleController implements IShapeController {
 
     @Override
     public void mouseMoved(MouseEvent e, CS355Drawing model, Color c) {
+    }
+
+    @Override
+    public void close() {
+
     }
 }
 

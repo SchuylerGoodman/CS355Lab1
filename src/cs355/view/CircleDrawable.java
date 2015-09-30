@@ -27,10 +27,7 @@ public class CircleDrawable implements IDrawable {
 
         // Calculate upper left corner of bounding rectangle
         Point2D.Double upperLeftCorner = new Point2D.Double();
-        upperLeftCorner.setLocation(
-                center.getX() - radius,
-                center.getY() - radius
-        );
+        upperLeftCorner.setLocation(radius * -1, radius * -1);
 
         // Initialize circle geometric object
         Ellipse2D drawCircle = new Ellipse2D.Double(
@@ -41,6 +38,7 @@ public class CircleDrawable implements IDrawable {
         );
 
         g2d.setPaint(this.circle.getColor());
+        g2d.setTransform(this.circle.getObjToWorld());
         g2d.fill(drawCircle);
         g2d.draw(drawCircle);
     }

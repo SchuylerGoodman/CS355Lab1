@@ -1,6 +1,7 @@
 package cs355.model.drawing;
 
 import java.awt.Color;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 
 /**
@@ -17,6 +18,9 @@ public abstract class Shape {
 
 	// The rotation of this shape.
 	protected double rotation;
+
+	// Whether the shape is currently selected.
+	protected boolean selected;
 
 	/**
 	 * Basic constructor that sets fields.
@@ -64,10 +68,60 @@ public abstract class Shape {
 
 	/**
 	 * Getter for this shape's rotation.
+	 * Rotation is interpreted as radians to convert from object coordinates to world coordinates counter-clockwise.
 	 * @return the rotation as a double.
 	 */
 	public double getRotation() {
 		return rotation;
+	}
+
+	/**
+	 * Getter for whether the shape has been selected.
+	 * @return true if selected.
+	 * 			false otherwise.
+	 */
+	public boolean getSelected() { return selected; }
+
+	/**
+	 * Setter for whether the shape has been selected.
+	 * @param selected = whether the shape is being selected or deselected.
+	 */
+	public void setSelected(boolean selected) { this.selected = selected; }
+
+	/**
+	 * Getter for a transformation from world coordinates to this object's coordinates.
+	 * @return a transformation as an AffineTransform
+	 */
+	public AffineTransform getWorldToObj() {
+		AffineTransform worldToObj = new AffineTransform();
+
+		// rotate to neutral orientation
+		worldToObj.rotate(this.getRotation() * -1);
+
+		// translate to the origin
+		double x = this.getCenter().getX() * -1;
+		double y = this.getCenter().getY() * -1;
+		worldToObj.translate(x, y);
+
+		return worldToObj;
+	}
+
+	/**
+	 * Getter for a transformation from this object's coordinates to world coordinates.
+	 * @return a transformation as an AffineTransform
+	 */
+	public AffineTransform getObjToWorld() {
+		AffineTransform objToWorld = new AffineTransform();
+
+		// translate to its position in the world
+		double x = this.getCenter().getX();
+		double y = this.getCenter().getY();
+		objToWorld.translate(x, y);
+
+		// rotate to its orientation in the world
+		objToWorld.rotate(this.getRotation());
+
+		return objToWorld;
 	}
 
 	/**
@@ -85,4 +139,5 @@ public abstract class Shape {
 	 * @return true if pt is in the shape, false otherwise.
 	 */
 	public abstract boolean pointInShape(Point2D.Double pt, double tolerance);
+
 }

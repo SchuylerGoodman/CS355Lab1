@@ -22,10 +22,10 @@ public class SquareDrawable implements IDrawable {
     public void draw(Graphics2D g2d) {
         Point2D.Double center = this.square.getCenter();
         double size = this.square.getSize();
-        Point2D.Double upperLeftCorner = new Point2D.Double(
-                center.getX() - size / 2,
-                center.getY() - size / 2
-        );
+
+        // Calculate upper left corner of bounding rectangle
+        Point2D.Double upperLeftCorner = new Point2D.Double();
+        upperLeftCorner.setLocation(size / 2 * -1, size / 2 * -1);
 
         Rectangle2D drawSquare = new Rectangle2D.Double(
                 upperLeftCorner.getX(),
@@ -35,6 +35,7 @@ public class SquareDrawable implements IDrawable {
         );
 
         g2d.setPaint(this.square.getColor());
+        g2d.setTransform(this.square.getObjToWorld());
         g2d.fill(drawSquare);
         g2d.draw(drawSquare);
     }

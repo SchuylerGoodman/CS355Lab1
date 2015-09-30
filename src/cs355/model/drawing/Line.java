@@ -1,6 +1,7 @@
 package cs355.model.drawing;
 
 import java.awt.Color;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 
 /**
@@ -29,11 +30,18 @@ public class Line extends Shape {
 
 	/**
 	 * Getter for the Line's starting point
-	 * which for some inexplicable reason is being saved as the center...
-	 *
+	 * which for some inexplicable reason is being saved as "center".
 	 * @return the starting point as a Java point.
 	 */
 	public Point2D.Double getStart() { return this.getCenter(); }
+
+	/**
+	 * Setter for this Line's starting point.
+	 * @param start the new starting point for the Line.
+	 */
+	public void setStart(Point2D.Double start) {
+		this.center = start;
+	}
 
 	/**
 	 * Getter for this Line's ending point.
@@ -61,7 +69,48 @@ public class Line extends Shape {
 	 */
 	@Override
 	public boolean pointInShape(Point2D.Double pt, double tolerance) {
-		throw new UnsupportedOperationException("Not supported yet.");
+
+        // get the point in object coordinates
+        AffineTransform worldToObj = this.getWorldToObj();
+        Point2D.Double ptObj = new Point2D.Double();
+        worldToObj.transform(pt, ptObj);
+
+        // get the vector for the ray from start to end
+        Point2D.Double lineVector = new Point2D.Double(
+                this.getEnd().getX() - this.getStart().getX(),
+                this.getEnd().getY() - this.getStart().getY()
+        );
+
+        // calculate the unit normal for the line
+        Point2D.Double lineNormal = new Point2D.Double(
+                lineVector.getY(),
+                lineVector.getX() * -1
+        );
+        double magnitude = Math.sqrt(Math.pow(lineNormal.getX(), 2.0) + Math.pow(lineNormal.getY(), 2.0));
+        lineNormal.setLocation(
+                lineNormal.getX() / magnitude,
+                lineNormal.getY() / magnitude
+        );
+
+        // calculate the distance from the line to a parallel line that goes through the origin
+        // based on the implicit definition of a line: point \dot normal = distance
+        double distance = Math.abs(
+                this.getStart().getX() * lineNormal.getX()
+                        + this.getStart().getY() * lineNormal.getY()
+        );
+
+        // get the distance from the selected point to the line through the origin
+        double ptDistance = Math.abs(
+                ptObj.getX() * lineNormal.getX()
+                        + ptObj.getY() * lineNormal.getY()
+        );
+
+        // if the difference in distance is not within the tolerance, fail
+        if (ptDistance - distance > tolerance) {
+            return false;
+        }
+
+        return true;
 	}
 
 }

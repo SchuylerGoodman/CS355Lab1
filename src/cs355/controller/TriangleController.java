@@ -10,7 +10,7 @@ import java.awt.geom.Point2D;
 /**
  * Class that controls how a triangle is drawn.
  */
-public class TriangleController implements IShapeController {
+public class TriangleController implements IController {
 
     private static int MAX_POINTS = 3;
 
@@ -91,6 +91,11 @@ public class TriangleController implements IShapeController {
 
     @Override
     public void mouseMoved(MouseEvent e, CS355Drawing model, Color c) {
+    }
+
+    @Override
+    public void close() {
+
     }
 
     private Point2D.Double copyPoint(Point2D.Double point) {

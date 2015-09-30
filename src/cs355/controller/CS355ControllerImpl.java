@@ -26,12 +26,12 @@ public class CS355ControllerImpl implements CS355Controller {
     /**
      * The shape controller to use to handle events.
      */
-    private IShapeController selectedShapeController;
+    private IController selectedController;
 
     public CS355ControllerImpl(CS355Drawing model, Color c) {
         this.model = model;
         this.selectedColor = c;
-        this.selectedShapeController = new NoneController();
+        this.selectedController = new NoneController();
     }
 
     @Override
@@ -42,38 +42,36 @@ public class CS355ControllerImpl implements CS355Controller {
 
     @Override
     public void lineButtonHit() {
-        this.selectedShapeController = new LineController();
+        this.selectedController = new LineController();
     }
 
     @Override
     public void squareButtonHit() {
-        this.selectedShapeController = new SquareController();
+        this.selectedController = new SquareController();
     }
 
     @Override
     public void rectangleButtonHit() {
-        this.selectedShapeController = new RectangleController();
+        this.selectedController = new RectangleController();
     }
 
     @Override
     public void circleButtonHit() {
-        this.selectedShapeController = new CircleController();
+        this.selectedController = new CircleController();
     }
 
     @Override
     public void ellipseButtonHit() {
-        this.selectedShapeController = new EllipseController();
+        this.selectedController = new EllipseController();
     }
 
     @Override
     public void triangleButtonHit() {
-        this.selectedShapeController = new TriangleController();
+        this.selectedController = new TriangleController();
     }
 
     @Override
-    public void selectButtonHit() {
-
-    }
+    public void selectButtonHit() { this.selectedController = new SelectController(); }
 
     @Override
     public void zoomInButtonHit() {
@@ -197,37 +195,36 @@ public class CS355ControllerImpl implements CS355Controller {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        this.selectedShapeController.mouseClicked(e, this.model, this.selectedColor);
+        this.selectedController.mouseClicked(e, this.model, this.selectedColor);
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        this.selectedShapeController.mousePressed(e, this.model, this.selectedColor);
+        this.selectedController.mousePressed(e, this.model, this.selectedColor);
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        this.selectedShapeController.mouseReleased(e, this.model, this.selectedColor);
+        this.selectedController.mouseReleased(e, this.model, this.selectedColor);
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        this.selectedShapeController.mouseEntered(e, this.model, this.selectedColor);
+        this.selectedController.mouseEntered(e, this.model, this.selectedColor);
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-        this.selectedShapeController.mouseExited(e, this.model, this.selectedColor);
+        this.selectedController.mouseExited(e, this.model, this.selectedColor);
     }
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        GUIFunctions.printf("the debugger is here");
-        this.selectedShapeController.mouseDragged(e, this.model, this.selectedColor);
+        this.selectedController.mouseDragged(e, this.model, this.selectedColor);
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        this.selectedShapeController.mouseMoved(e, this.model, this.selectedColor);
+        this.selectedController.mouseMoved(e, this.model, this.selectedColor);
     }
 }

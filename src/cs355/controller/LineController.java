@@ -2,7 +2,6 @@ package cs355.controller;
 
 import cs355.GUIFunctions;
 import cs355.model.drawing.CS355Drawing;
-import cs355.model.drawing.InvalidShapeException;
 import cs355.model.drawing.Line;
 import cs355.model.drawing.Shape;
 
@@ -13,7 +12,7 @@ import java.awt.geom.Point2D;
 /**
  * Created by goodman on 9/10/2015.
  */
-public class LineController implements IShapeController {
+public class LineController implements IController {
 
     /**
      * The index of the shape being controlled in the model.
@@ -80,5 +79,10 @@ public class LineController implements IShapeController {
 
     @Override
     public void mouseMoved(MouseEvent e, CS355Drawing model, Color c) {
+    }
+
+    @Override
+    public void close() {
+
     }
 }

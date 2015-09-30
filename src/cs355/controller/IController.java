@@ -8,7 +8,7 @@ import java.awt.event.MouseEvent;
 /**
  * Interface for classes that handle mouse events in the controller to draw shapes in the drawing model.
  */
-interface IShapeController {
+interface IController {
 
     /**
      * Handles the mouse click event.
@@ -72,4 +72,9 @@ interface IShapeController {
      * @param c = the color to draw with
      */
     void mouseMoved(MouseEvent e, CS355Drawing model, Color c);
+
+    /**
+     * Handles anything that needs to be done when the controller changes
+     */
+    void close();
 }

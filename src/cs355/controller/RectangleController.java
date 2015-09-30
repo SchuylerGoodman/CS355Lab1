@@ -12,7 +12,7 @@ import java.awt.geom.Point2D;
 /**
  * Class that handles input for drawing rectangles.
  */
-public class RectangleController implements IShapeController {
+public class RectangleController implements IController {
 
     /**
      * The initial coordinates of the mouse press.
@@ -110,5 +110,10 @@ public class RectangleController implements IShapeController {
 
     @Override
     public void mouseMoved(MouseEvent e, CS355Drawing model, Color c) {
+    }
+
+    @Override
+    public void close() {
+
     }
 }
