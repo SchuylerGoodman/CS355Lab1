@@ -31,8 +31,14 @@ public class TriangleDrawable implements IDrawable {
 
         // Color and draw the triangle
         g2d.setPaint(this.triangle.getColor());
+        g2d.setTransform(this.triangle.getObjToWorld());
         g2d.fill(drawTriangle);
         g2d.draw(drawTriangle);
+
+        if (this.triangle.getSelected()) {
+            g2d.setPaint(Color.WHITE);
+            g2d.draw(drawTriangle);
+        }
     }
 
     @Override

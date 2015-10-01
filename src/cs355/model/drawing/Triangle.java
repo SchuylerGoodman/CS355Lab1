@@ -1,6 +1,7 @@
 package cs355.model.drawing;
 
 import java.awt.Color;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 
 /**
@@ -93,7 +94,62 @@ public class Triangle extends Shape {
 	 */
 	@Override
 	public boolean pointInShape(Point2D.Double pt, double tolerance) {
-		throw new UnsupportedOperationException("Not supported yet.");
+
+		// get the point in object coordinates.
+		AffineTransform worldToObj = this.getWorldToObj();
+		Point2D.Double ptObj = new Point2D.Double();
+		worldToObj.transform(pt, ptObj);
+
+		// get orthogonal vectors for triangle lines
+		Point2D.Double orthogonalAB = new Point2D.Double(
+				this.getB().getY() - this.getA().getY(),
+				(this.getB().getX() - this.getA().getX()) * -1
+		);
+		Point2D.Double orthogonalBC = new Point2D.Double(
+				this.getC().getY() - this.getB().getY(),
+				(this.getC().getX() - this.getB().getX()) * -1
+		);
+		Point2D.Double orthogonalCA = new Point2D.Double(
+				this.getA().getY() - this.getC().getY(),
+				(this.getA().getX() - this.getC().getX()) * -1
+		);
+
+		// get lines from each corner to the selected point
+		Point2D.Double lineAPt = new Point2D.Double(
+				ptObj.getX() - this.getA().getX(),
+				ptObj.getY() - this.getA().getY()
+		);
+		Point2D.Double lineBPt = new Point2D.Double(
+				ptObj.getX() - this.getB().getX(),
+				ptObj.getY() - this.getB().getY()
+		);
+		Point2D.Double lineCPt = new Point2D.Double(
+				ptObj.getX() - this.getC().getX(),
+				ptObj.getY() - this.getC().getY()
+		);
+
+		// see if lineT_1Pt and orthogonalT_1T_2 are pointing the same direction
+		double signAPt = lineAPt.getX() * orthogonalAB.getX() + lineAPt.getY() * orthogonalAB.getY();
+		double signBPt = lineBPt.getX() * orthogonalBC.getX() + lineBPt.getY() * orthogonalBC.getY();
+		double signCPt = lineCPt.getX() * orthogonalCA.getX() + lineCPt.getY() * orthogonalCA.getY();
+
+		// bound the sign so we get -1, 0, or 1
+		signAPt = signAPt > 0 ? 1 : signAPt == 0 ? 0 : -1;
+		signBPt = signBPt > 0 ? 1 : signBPt == 0 ? 0 : -1;
+		signCPt = signCPt > 0 ? 1 : signCPt == 0 ? 0 : -1;
+
+		// 0 means its on the line, and I say that's within the bounds
+		// So if the signs for any two adjacent lines are not equal, and neither is 0,
+		// then the point is outside the triangle.
+		if (
+				(signAPt != signBPt && signAPt != 0 && signBPt != 0) ||
+				(signBPt != signCPt && signBPt != 0 && signCPt != 0) ||
+				(signCPt != signAPt && signCPt != 0 && signAPt != 0))
+		{
+			return false;
+		}
+
+		return true;
 	}
 
 }

@@ -99,9 +99,6 @@ public class CircleController implements IController {
         // Set the new parameters
         circle.setCenter(center);
         circle.setRadius(radius);
-
-        // Force the view to refresh now that we have changed the model
-        GUIFunctions.refresh();
     }
 
     @Override

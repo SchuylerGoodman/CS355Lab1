@@ -103,9 +103,6 @@ public class SquareController implements IController {
         );
         square.setCenter(center);
         square.setSize(size);
-
-        // Force the view to refresh now that we have changed the model
-        GUIFunctions.refresh();
     }
 
     @Override

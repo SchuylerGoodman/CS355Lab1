@@ -74,7 +74,7 @@ interface IController {
     void mouseMoved(MouseEvent e, CS355Drawing model, Color c);
 
     /**
-     * Handles anything that needs to be done when the controller changes
+     * Handles anything that needs to be done when the controller changes.
      */
     void close();
 }

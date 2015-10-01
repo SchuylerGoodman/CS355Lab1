@@ -42,6 +42,8 @@ public class Square extends Shape {
 	 */
 	public void setSize(double size) {
 		this.size = size;
+		this.setChanged();
+		this.notifyObservers();
 	}
 
 	/**
@@ -60,10 +62,10 @@ public class Square extends Shape {
 		Point2D.Double ptObj = new Point2D.Double();
 		worldToObj.transform(pt, ptObj);
 
-		double size = this.getSize();
+		double halfSize = this.getSize() / 2.0;
 
 		// check the bounds of the square.
-		Point2D.Double bound = new Point2D.Double(size, size);
+		Point2D.Double bound = new Point2D.Double(halfSize, halfSize);
 		if (Math.abs(ptObj.getX()) > bound.getX() || Math.abs(ptObj.getY()) > bound.getY()) {
 			return false;
 		}

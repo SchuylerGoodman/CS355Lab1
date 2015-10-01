@@ -40,6 +40,11 @@ public class RectangleDrawable implements IDrawable {
         g2d.setTransform(this.rectangle.getObjToWorld());
         g2d.fill(drawRectangle);
         g2d.draw(drawRectangle);
+
+        if (this.rectangle.getSelected()) {
+            g2d.setPaint(Color.WHITE);
+            g2d.draw(drawRectangle);
+        }
     }
 
     @Override

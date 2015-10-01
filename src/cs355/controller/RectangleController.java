@@ -103,9 +103,6 @@ public class RectangleController implements IController {
         rectangle.setCenter(center);
         rectangle.setWidth(width);
         rectangle.setHeight(height);
-
-        // Force the view to refresh now that we have changed the model
-        GUIFunctions.refresh();
     }
 
     @Override

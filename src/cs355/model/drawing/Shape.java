@@ -3,12 +3,13 @@ package cs355.model.drawing;
 import java.awt.Color;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
+import java.util.Observable;
 
 /**
  * This is the base class for all of your shapes.
  * Make sure they all extend this class.
  */
-public abstract class Shape {
+public abstract class Shape extends Observable {
 
 	// The color of this shape.
 	protected Color color;
@@ -48,6 +49,8 @@ public abstract class Shape {
 	 */
 	public void setColor(Color color) {
 		this.color = color;
+		this.setChanged();
+		this.notifyObservers();
 	}
 
 	/**
@@ -64,6 +67,8 @@ public abstract class Shape {
 	 */
 	public void setCenter(Point2D.Double center) {
 		this.center = center;
+		this.setChanged();
+		this.notifyObservers();
 	}
 
 	/**
@@ -73,6 +78,16 @@ public abstract class Shape {
 	 */
 	public double getRotation() {
 		return rotation;
+	}
+
+	/**
+	 * Setter for this shape's rotation.
+	 * @param rotation the new rotation.
+	 */
+	public void setRotation(double rotation) {
+		this.rotation = rotation;
+		this.setChanged();
+		this.notifyObservers();
 	}
 
 	/**
@@ -86,7 +101,11 @@ public abstract class Shape {
 	 * Setter for whether the shape has been selected.
 	 * @param selected = whether the shape is being selected or deselected.
 	 */
-	public void setSelected(boolean selected) { this.selected = selected; }
+	public void setSelected(boolean selected) {
+		this.selected = selected;
+		this.setChanged();
+		this.notifyObservers();
+	}
 
 	/**
 	 * Getter for a transformation from world coordinates to this object's coordinates.
@@ -122,14 +141,6 @@ public abstract class Shape {
 		objToWorld.rotate(this.getRotation());
 
 		return objToWorld;
-	}
-
-	/**
-	 * Setter for this shape's rotation.
-	 * @param rotation the new rotation.
-	 */
-	public void setRotation(double rotation) {
-		this.rotation = rotation;
 	}
 
 	/**

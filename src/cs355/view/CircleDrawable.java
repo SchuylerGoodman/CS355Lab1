@@ -41,6 +41,11 @@ public class CircleDrawable implements IDrawable {
         g2d.setTransform(this.circle.getObjToWorld());
         g2d.fill(drawCircle);
         g2d.draw(drawCircle);
+
+        if (this.circle.getSelected()) {
+            g2d.setPaint(Color.WHITE);
+            g2d.draw(drawCircle);
+        }
     }
 
     @Override

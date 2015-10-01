@@ -72,9 +72,6 @@ public class LineController implements IController {
 
         // Save the new coordinates
         line.setEnd(currentCoordinates);
-
-        // Force the view to refresh now that we have changed the model
-        GUIFunctions.refresh();
     }
 
     @Override

@@ -38,6 +38,11 @@ public class SquareDrawable implements IDrawable {
         g2d.setTransform(this.square.getObjToWorld());
         g2d.fill(drawSquare);
         g2d.draw(drawSquare);
+
+        if (this.square.getSelected()) {
+            g2d.setPaint(Color.WHITE);
+            g2d.draw(drawSquare);
+        }
     }
 
     @Override

@@ -2,16 +2,14 @@ package cs355.model.drawing;
 
 import cs355.GUIFunctions;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by goodman on 9/8/2015.
  */
-public class CS355DrawingImpl extends CS355Drawing {
+public class CS355DrawingImpl extends CS355Drawing implements Observer {
 
-    private List<Shape> shapes;
+    private ArrayList<Shape> shapes;
 
     public CS355DrawingImpl() {
         shapes = new ArrayList<>();
@@ -33,6 +31,9 @@ public class CS355DrawingImpl extends CS355Drawing {
 
             // If added, get index of new shape
             index = this.shapes.size() - 1;
+
+            // Observe changes in the shape
+            this.shapes.get(index).addObserver(this);
 
             // Notify observers of change
             this.setChanged();
@@ -98,7 +99,7 @@ public class CS355DrawingImpl extends CS355Drawing {
     public List<Shape> getShapes() {
 
         // Copy list to preserve internal list structure (does not protect shapes, though)
-        List<Shape> shapeCopy = new ArrayList<Shape>(this.shapes);
+        List<Shape> shapeCopy = new ArrayList<>(this.shapes);
 
         // Return copied list
         return shapeCopy;
@@ -108,7 +109,7 @@ public class CS355DrawingImpl extends CS355Drawing {
     public List<Shape> getShapesReversed() {
 
         // Copy list so we don't reverse it permanently
-        List<Shape> shapeCopy = new ArrayList<Shape>(this.shapes);
+        List<Shape> shapeCopy = new ArrayList<>(this.shapes);
 
         // Reverse list
         Collections.reverse(shapeCopy);
@@ -121,7 +122,15 @@ public class CS355DrawingImpl extends CS355Drawing {
     public void setShapes(List<Shape> shapes) {
 
         // Replace the old shapes with the new shapes
-        this.shapes = shapes;
+        this.shapes = new ArrayList<>(shapes);
+
+        // Notify observers of change
+        this.setChanged();
+        this.notifyObservers();
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
 
         // Notify observers of change
         this.setChanged();

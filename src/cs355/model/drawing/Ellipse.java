@@ -3,6 +3,7 @@ package cs355.model.drawing;
 import java.awt.Color;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
+import java.util.Observable;
 
 /**
  * Add your ellipse code here. You can add fields, but you cannot
@@ -47,7 +48,9 @@ public class Ellipse extends Shape {
 	 */
 	public void setWidth(double width) {
 		this.width = width;
-	}
+        this.setChanged();
+        this.notifyObservers();
+    }
 
 	/**
 	 * Getter for this shape's height.
@@ -63,6 +66,8 @@ public class Ellipse extends Shape {
 	 */
 	public void setHeight(double height) {
 		this.height = height;
+        this.setChanged();
+        this.notifyObservers();
 	}
 
 	/**

@@ -41,6 +41,8 @@ public class Line extends Shape {
 	 */
 	public void setStart(Point2D.Double start) {
 		this.center = start;
+        this.setChanged();
+        this.notifyObservers();
 	}
 
 	/**
@@ -57,6 +59,8 @@ public class Line extends Shape {
 	 */
 	public void setEnd(Point2D.Double end) {
 		this.end = end;
+        this.setChanged();
+        this.notifyObservers();
 	}
 
 	/**

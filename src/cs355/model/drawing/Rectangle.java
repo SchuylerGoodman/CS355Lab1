@@ -47,6 +47,8 @@ public class Rectangle extends Shape {
 	 */
 	public void setWidth(double width) {
 		this.width = width;
+		this.setChanged();
+		this.notifyObservers();
 	}
 
 	/**
@@ -63,6 +65,8 @@ public class Rectangle extends Shape {
 	 */
 	public void setHeight(double height) {
 		this.height = height;
+		this.setChanged();
+		this.notifyObservers();
 	}
 
 	/**

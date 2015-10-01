@@ -7,11 +7,12 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.Iterator;
+import java.util.Observable;
 
 /**
  * Created by goodman on 9/8/2015.
  */
-public class CS355ControllerImpl implements CS355Controller {
+public class CS355ControllerImpl extends Observable implements CS355Controller {
 
     /**
      * The model for the current drawing.
@@ -38,40 +39,42 @@ public class CS355ControllerImpl implements CS355Controller {
     public void colorButtonHit(Color c) {
         GUIFunctions.changeSelectedColor(c);
         this.selectedColor = c;
+        this.setChanged();
+        this.notifyObservers(c);
     }
 
     @Override
     public void lineButtonHit() {
-        this.selectedController = new LineController();
+        this.setSelectedController(new LineController());
     }
 
     @Override
     public void squareButtonHit() {
-        this.selectedController = new SquareController();
+        this.setSelectedController(new SquareController());
     }
 
     @Override
     public void rectangleButtonHit() {
-        this.selectedController = new RectangleController();
+        this.setSelectedController(new RectangleController());
     }
 
     @Override
     public void circleButtonHit() {
-        this.selectedController = new CircleController();
+        this.setSelectedController(new CircleController());
     }
 
     @Override
     public void ellipseButtonHit() {
-        this.selectedController = new EllipseController();
+        this.setSelectedController(new EllipseController());
     }
 
     @Override
     public void triangleButtonHit() {
-        this.selectedController = new TriangleController();
+        this.setSelectedController(new TriangleController());
     }
 
     @Override
-    public void selectButtonHit() { this.selectedController = new SelectController(); }
+    public void selectButtonHit() { this.setSelectedController(new SelectController(this, this)); }
 
     @Override
     public void zoomInButtonHit() {
@@ -226,5 +229,18 @@ public class CS355ControllerImpl implements CS355Controller {
     @Override
     public void mouseMoved(MouseEvent e) {
         this.selectedController.mouseMoved(e, this.model, this.selectedColor);
+    }
+
+    private void setSelectedController(IController controller) {
+        this.selectedController.close();
+        this.selectedController = controller;
+    }
+
+    /**
+     * Getter for the color selected in the application
+     * @return the currently selected color
+     */
+    public Color getSelectedColor() {
+        return this.selectedColor;
     }
 }

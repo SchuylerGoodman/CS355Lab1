@@ -94,9 +94,6 @@ public class EllipseController implements IController {
         ellipse.setCenter(center);
         ellipse.setWidth(width);
         ellipse.setHeight(height);
-
-        // Force the view to refresh now that we have changed the model
-        GUIFunctions.refresh();
     }
 
     @Override

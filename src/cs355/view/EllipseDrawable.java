@@ -43,6 +43,11 @@ public class EllipseDrawable implements IDrawable {
         g2d.setTransform(this.ellipse.getObjToWorld());
         g2d.fill(drawEllipse);
         g2d.draw(drawEllipse);
+
+        if (this.ellipse.getSelected()) {
+            g2d.setPaint(Color.WHITE);
+            g2d.draw(drawEllipse);
+        }
     }
 
     @Override
