@@ -1,30 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="142b2127-3561-4edc-974d-f26c84a0d5cf" name="Default" comment="Added selection controller - can select shapes and change their colors (and set controller color). Lines are completely broken.">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs355/controller/CS355ControllerImpl.java" afterPath="$PROJECT_DIR$/src/cs355/controller/CS355ControllerImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs355/model/drawing/CS355DrawingImpl.java" afterPath="$PROJECT_DIR$/src/cs355/model/drawing/CS355DrawingImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs355/CS355Frame.java" afterPath="$PROJECT_DIR$/src/cs355/CS355Frame.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs355/model/drawing/Circle.java" afterPath="$PROJECT_DIR$/src/cs355/model/drawing/Circle.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs355/controller/CircleController.java" afterPath="$PROJECT_DIR$/src/cs355/controller/CircleController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs355/view/CircleDrawable.java" afterPath="$PROJECT_DIR$/src/cs355/view/CircleDrawable.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs355/model/drawing/Ellipse.java" afterPath="$PROJECT_DIR$/src/cs355/model/drawing/Ellipse.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs355/controller/EllipseController.java" afterPath="$PROJECT_DIR$/src/cs355/controller/EllipseController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs355/view/EllipseDrawable.java" afterPath="$PROJECT_DIR$/src/cs355/view/EllipseDrawable.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs355/controller/IController.java" afterPath="$PROJECT_DIR$/src/cs355/controller/IController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs355/model/drawing/Line.java" afterPath="$PROJECT_DIR$/src/cs355/model/drawing/Line.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs355/controller/LineController.java" afterPath="$PROJECT_DIR$/src/cs355/controller/LineController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs355/model/drawing/Rectangle.java" afterPath="$PROJECT_DIR$/src/cs355/model/drawing/Rectangle.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs355/controller/RectangleController.java" afterPath="$PROJECT_DIR$/src/cs355/controller/RectangleController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs355/view/RectangleDrawable.java" afterPath="$PROJECT_DIR$/src/cs355/view/RectangleDrawable.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs355/controller/SelectController.java" afterPath="$PROJECT_DIR$/src/cs355/controller/SelectController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs355/model/drawing/Shape.java" afterPath="$PROJECT_DIR$/src/cs355/model/drawing/Shape.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs355/model/drawing/Square.java" afterPath="$PROJECT_DIR$/src/cs355/model/drawing/Square.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs355/controller/SquareController.java" afterPath="$PROJECT_DIR$/src/cs355/controller/SquareController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs355/view/SquareDrawable.java" afterPath="$PROJECT_DIR$/src/cs355/view/SquareDrawable.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs355/model/drawing/Triangle.java" afterPath="$PROJECT_DIR$/src/cs355/model/drawing/Triangle.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs355/controller/TriangleController.java" afterPath="$PROJECT_DIR$/src/cs355/controller/TriangleController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs355/view/TriangleDrawable.java" afterPath="$PROJECT_DIR$/src/cs355/view/TriangleDrawable.java" />
+    <list default="true" id="142b2127-3561-4edc-974d-f26c84a0d5cf" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="CS355Painter.iws" />
@@ -640,7 +617,13 @@
       <option name="project" value="LOCAL" />
       <updated>1443588295946</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Added selection controller - can select shapes and change their colors (and set controller color). Lines are completely broken.">
+      <created>1443678624586</created>
+      <option name="number" value="00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1443678624586</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TodoView">
@@ -693,6 +676,7 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <MESSAGE value="Replaced models with new files from TAs." />
     <MESSAGE value="Fixed bugs caused by new TA code." />
     <MESSAGE value="Updated circle, ellipse, square, and rectangle to use new world coordinates object coordinates transformations." />
