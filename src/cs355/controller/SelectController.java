@@ -3,9 +3,11 @@ package cs355.controller;
 import cs355.GUIFunctions;
 import cs355.model.drawing.*;
 import cs355.model.drawing.Shape;
+import cs355.model.drawing.selectable.Handle;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 import java.util.*;
 import java.util.List;
@@ -35,6 +37,11 @@ public class SelectController implements IController, Observer {
      */
     private Shape selectedShape;
 
+    /**
+     * Controller for handling different actions that can occur while an object is selected.
+     */
+    private IController selectActionController;
+
     public SelectController(CS355Controller controller, Observable colorChangeNotifier) {
         initialCoordinates = new Point2D.Double();
         this.controller = controller;
@@ -54,14 +61,21 @@ public class SelectController implements IController, Observer {
         // Set initial coordinates
         initialCoordinates.setLocation(e.getPoint());
 
-        // Get the shapes from the model from top to bottom
-        List<Shape> shapes = model.getShapesReversed();
-
-        // If another shape is currently selected, deselect it
+        // If another shape is currently selected, see if we have selected a handle.
+        // If not, deselect the shape and find the newly selected shape.
         if (this.shapeSelected()) {
+            for (Handle handle : this.selectedShape.getHandles()) {
+                if (handle.pointInShape(initialCoordinates, 0.0)) {
+                    // TODO create handle for rotation
+                    // TODO create handle for moving line endpoints
+                }
+            }
             this.selectedShape.setSelected(false);
             this.selectedShape = null;
         }
+
+        // Get the shapes from the model from top to bottom
+        List<Shape> shapes = model.getShapesReversed();
 
         // Loop through the shapes to find the top one that intersects with the point
         ListIterator<Shape> shapeIterator = shapes.listIterator();

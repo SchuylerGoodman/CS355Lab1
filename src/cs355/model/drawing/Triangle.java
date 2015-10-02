@@ -40,6 +40,7 @@ public class Triangle extends Shape {
 		// Initialize the handles.
 		double minY = this.getMinimumYCoordinate();
 		CircleHandle handleStart = new CircleHandle(
+				this,
 				new Point2D.Double(0.0, minY - Shape.HANDLE_OFFSET),
 				Shape.HANDLE_COLOR,
 				Shape.HANDLE_RADIUS

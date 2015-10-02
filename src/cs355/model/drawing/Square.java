@@ -31,6 +31,7 @@ public class Square extends Shape {
 
         // Initialize the handles.
         CircleHandle handleStart = new CircleHandle(
+				this,
                 new Point2D.Double(0.0, (-1 * this.size / 2) - Shape.HANDLE_OFFSET),
                 Shape.HANDLE_COLOR,
                 Shape.HANDLE_RADIUS

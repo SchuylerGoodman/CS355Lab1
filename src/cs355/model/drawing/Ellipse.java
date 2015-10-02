@@ -37,6 +37,7 @@ public class Ellipse extends Shape {
 
 		// Initialize the handles.
 		CircleHandle handleStart = new CircleHandle(
+				this,
 				new Point2D.Double(0.0, (-1 * this.height / 2) - Shape.HANDLE_OFFSET),
 				Shape.HANDLE_COLOR,
 				Shape.HANDLE_RADIUS

@@ -31,6 +31,7 @@ public class Line extends Shape {
 
         // Initialize the handles.
         CircleHandle handleStart = new CircleHandle(
+                this,
                 new Point2D.Double(0.0, 0.0),
                 Shape.HANDLE_COLOR,
                 Shape.HANDLE_RADIUS
@@ -39,6 +40,7 @@ public class Line extends Shape {
 
         // End handle needs to be transformed back to world coordinates to initialize center.
         CircleHandle handleEnd = new CircleHandle(
+                this,
                 this.getEnd(),
                 Shape.HANDLE_COLOR,
                 Shape.HANDLE_RADIUS

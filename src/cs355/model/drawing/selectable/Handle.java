@@ -1,5 +1,7 @@
 package cs355.model.drawing.selectable;
 
+import cs355.model.drawing.Shape;
+
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
@@ -10,6 +12,8 @@ import java.util.Observer;
  */
 public abstract class Handle implements ISelectable {
 
+    private Shape shape;
+
     private Point2D.Double center;
 
     private Color color;
@@ -19,10 +23,13 @@ public abstract class Handle implements ISelectable {
      *
      * @param center the center point of the new shape.
      */
-    public Handle(Point2D.Double center, Color color) {
+    public Handle(Shape shape, Point2D.Double center, Color color) {
+        this.shape = shape;
         this.center = center;
         this.color = color;
     }
+
+    public Shape getShape() { return this.shape; }
 
     /**
      * Getter for the center point of the handle.
@@ -63,5 +70,5 @@ public abstract class Handle implements ISelectable {
     }
 
     @Override
-    public abstract boolean pointInShape(Point2D.Double pt, AffineTransform worldToObj);
+    public abstract boolean pointInShape(Point2D.Double pt, double tolerance);
 }

@@ -12,10 +12,9 @@ public interface ISelectable {
      * Checks if a point in world coordinates is inside this handle.
      *
      * @param pt = the point to check in world coordinates.
-     * @param worldToObj = a transformation from world coordinates
-     *                   to the coordinates of the object this handle is used to manipulate.
+     * @param tolerance = the amount of tolerance in pixels allowed around the selectable to successfully select it.
      * @return true if inside
      *          false otherwise
      */
-    public boolean pointInShape(Point2D.Double pt, AffineTransform worldToObj);
+    public boolean pointInShape(Point2D.Double pt, double tolerance);
 }

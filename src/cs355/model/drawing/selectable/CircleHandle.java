@@ -1,5 +1,7 @@
 package cs355.model.drawing.selectable;
 
+import cs355.model.drawing.Shape;
+
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
@@ -14,11 +16,12 @@ public class CircleHandle extends Handle {
     /**
      * Basic constructor that sets fields.
      *
+     * @param shape = the shape that this handle manipulates.
      * @param center = the center point of the new shape.
      * @param radius = the radius of the handle in pixels.
      */
-    public CircleHandle(Point2D.Double center, Color color, double radius) {
-        super(center, color);
+    public CircleHandle(Shape shape, Point2D.Double center, Color color, double radius) {
+        super(shape, center, color);
         this.radius = radius;
     }
 
@@ -41,7 +44,10 @@ public class CircleHandle extends Handle {
     }
 
     @Override
-    public boolean pointInShape(Point2D.Double pt, AffineTransform worldToObj) {
+    public boolean pointInShape(Point2D.Double pt, double tolerance) {
+
+        // Get the world to object coordinates transform
+        AffineTransform worldToObj = this.getShape().getWorldToObj();
 
         // get the point in object coordinates
         Point2D.Double ptObj = new Point2D.Double();
