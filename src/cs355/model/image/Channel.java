@@ -55,7 +55,7 @@ class Channel {
 	}
 
 	/**
-	 * Validates coordinates from the user. Throws an Exception
+	 * Validates coordinates from the user. Throws an exception
 	 * with an appropriate message if they are not valid.
 	 * @param x the x coordinate to test.
 	 * @param y the y coordinate to test.
@@ -70,7 +70,7 @@ class Channel {
 	}
 
 	/**
-	 * Validates data from the user. Throws an Exception
+	 * Validates data from the user. Throws an exception
 	 * with an appropriate message if it is not valid.
 	 * @param data the data to test.
 	 */
