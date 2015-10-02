@@ -38,9 +38,9 @@ public class SelectController implements IController, Observer {
     private Shape selectedShape;
 
     /**
-     * Controller for handling different actions that can occur while an object is selected.
+     * Controller for handling different actions that can occur when an object's handle is manipulated.
      */
-    private IController selectActionController;
+    private HandleController handleController;
 
     public SelectController(CS355Controller controller, Observable colorChangeNotifier) {
         initialCoordinates = new Point2D.Double();
@@ -64,7 +64,10 @@ public class SelectController implements IController, Observer {
         // If another shape is currently selected, see if we have selected a handle.
         // If not, deselect the shape and find the newly selected shape.
         if (this.shapeSelected()) {
-            for (Handle handle : this.selectedShape.getHandles()) {
+            ListIterator<Handle> handleIterator = this.selectedShape.getHandles().listIterator();
+            while (handleIterator.hasNext()) {
+                int handleIndex = handleIterator.nextIndex();
+                Handle handle = handleIterator.next();
                 if (handle.pointInShape(initialCoordinates, 0.0)) {
                     // TODO create handle for rotation
                     // TODO create handle for moving line endpoints
