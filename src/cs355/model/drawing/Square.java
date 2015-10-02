@@ -31,7 +31,7 @@ public class Square extends Shape {
 
         // Initialize the handles.
         CircleHandle handleStart = new CircleHandle(
-                new Point2D.Double(0.0, (this.size / 2) + Shape.HANDLE_OFFSET),
+                new Point2D.Double(0.0, (-1 * this.size / 2) - Shape.HANDLE_OFFSET),
                 Shape.HANDLE_COLOR,
                 Shape.HANDLE_RADIUS
         );
@@ -53,7 +53,7 @@ public class Square extends Shape {
 	public void setSize(double size) {
 		this.size = size;
 		this.handles.get(0).setCenter(
-				new Point2D.Double(0.0, -1 * (this.size / 2) - Shape.HANDLE_OFFSET)
+				new Point2D.Double(0.0, (-1 * this.size / 2) - Shape.HANDLE_OFFSET)
 		);
 		this.setChanged();
 		this.notifyObservers();

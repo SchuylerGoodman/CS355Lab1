@@ -1,7 +1,7 @@
 package cs355.view;
 
 import cs355.model.drawing.*;
-import cs355.model.drawing.exception.InvalidShapeException;
+import cs355.model.exception.InvalidShapeException;
 
 import java.awt.*;
 import java.awt.geom.Point2D;

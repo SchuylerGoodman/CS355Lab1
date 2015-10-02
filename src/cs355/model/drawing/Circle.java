@@ -1,5 +1,7 @@
 package cs355.model.drawing;
 
+import cs355.model.drawing.selectable.CircleHandle;
+
 import java.awt.Color;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
@@ -26,6 +28,14 @@ public class Circle extends Shape {
 
 		// Set the field.
 		this.radius = radius;
+
+        // Initialize the handles.
+        CircleHandle handleStart = new CircleHandle(
+                new Point2D.Double(0.0, (-1 * this.radius) - Shape.HANDLE_OFFSET),
+                Shape.HANDLE_COLOR,
+                Shape.HANDLE_RADIUS
+        );
+        this.handles.add(handleStart);
 	}
 
 	/**
@@ -42,6 +52,9 @@ public class Circle extends Shape {
 	 */
 	public void setRadius(double radius) {
 		this.radius = radius;
+		this.handles.get(0).setCenter(
+				new Point2D.Double(0.0, (-1 * this.radius) - Shape.HANDLE_OFFSET)
+		);
 		this.setChanged();
 		this.notifyObservers();
 	}

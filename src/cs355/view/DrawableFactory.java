@@ -1,8 +1,8 @@
 package cs355.view;
 
 import cs355.model.drawing.*;
-import cs355.model.drawing.exception.InvalidHandleException;
-import cs355.model.drawing.exception.InvalidShapeException;
+import cs355.model.exception.InvalidHandleException;
+import cs355.model.exception.InvalidShapeException;
 import cs355.model.drawing.selectable.CircleHandle;
 import cs355.model.drawing.selectable.Handle;
 

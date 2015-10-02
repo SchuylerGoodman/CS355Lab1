@@ -1,4 +1,4 @@
-package cs355.model.drawing.exception;
+package cs355.model.exception;
 
 public class InvalidHandleException extends InvalidModelException {
     public InvalidHandleException() {

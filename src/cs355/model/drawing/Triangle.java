@@ -1,5 +1,7 @@
 package cs355.model.drawing;
 
+import cs355.model.drawing.selectable.CircleHandle;
+
 import java.awt.Color;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
@@ -34,6 +36,15 @@ public class Triangle extends Shape {
 		this.a = a;
 		this.b = b;
 		this.c = c;
+
+		// Initialize the handles.
+		double minY = this.getMinimumYCoordinate();
+		CircleHandle handleStart = new CircleHandle(
+				new Point2D.Double(0.0, minY - Shape.HANDLE_OFFSET),
+				Shape.HANDLE_COLOR,
+				Shape.HANDLE_RADIUS
+		);
+		this.handles.add(handleStart);
 	}
 
 	/**
@@ -50,6 +61,12 @@ public class Triangle extends Shape {
 	 */
 	public void setA(Point2D.Double a) {
 		this.a = a;
+		double minY = this.getMinimumYCoordinate();
+		this.handles.get(0).setCenter(
+				new Point2D.Double(0.0, minY - Shape.HANDLE_OFFSET)
+		);
+		this.setChanged();
+		this.notifyObservers();
 	}
 
 	/**
@@ -66,6 +83,12 @@ public class Triangle extends Shape {
 	 */
 	public void setB(Point2D.Double b) {
 		this.b = b;
+		double minY = this.getMinimumYCoordinate();
+		this.handles.get(0).setCenter(
+				new Point2D.Double(0.0, minY - Shape.HANDLE_OFFSET)
+		);
+		this.setChanged();
+		this.notifyObservers();
 	}
 
 	/**
@@ -82,6 +105,12 @@ public class Triangle extends Shape {
 	 */
 	public void setC(Point2D.Double c) {
 		this.c = c;
+		double minY = this.getMinimumYCoordinate();
+		this.handles.get(0).setCenter(
+				new Point2D.Double(0.0, minY - Shape.HANDLE_OFFSET)
+		);
+		this.setChanged();
+		this.notifyObservers();
 	}
 
 	/**
@@ -150,6 +179,23 @@ public class Triangle extends Shape {
 		}
 
 		return true;
+	}
+
+	/**
+	 * Get the minimum Y coordinate relative to the center of the triangle.
+	 * @return the minimum Y coordinate as a double.
+	 */
+	private double getMinimumYCoordinate() {
+
+		double min = Math.min(this.getA().getY(), this.getB().getY());
+		min = Math.min(min, this.getC().getY());
+
+		System.out.println("A: " + this.getA().getY());
+		System.out.println("B: " + this.getB().getY());
+		System.out.println("C: " + this.getC().getY());
+		System.out.println("max: " + min);
+
+		return min;
 	}
 
 }

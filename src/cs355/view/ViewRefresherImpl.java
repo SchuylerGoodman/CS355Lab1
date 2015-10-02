@@ -2,7 +2,7 @@ package cs355.view;
 
 import cs355.GUIFunctions;
 import cs355.model.drawing.*;
-import cs355.model.drawing.exception.InvalidModelException;
+import cs355.model.exception.InvalidModelException;
 
 import java.awt.Graphics2D;
 import java.util.*;

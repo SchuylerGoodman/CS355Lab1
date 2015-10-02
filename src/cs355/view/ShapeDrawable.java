@@ -2,7 +2,7 @@ package cs355.view;
 
 import cs355.GUIFunctions;
 import cs355.model.drawing.selectable.Handle;
-import cs355.model.drawing.exception.InvalidHandleException;
+import cs355.model.exception.InvalidHandleException;
 import cs355.model.drawing.Shape;
 
 import java.awt.*;
@@ -38,13 +38,6 @@ public abstract class ShapeDrawable implements IDrawable {
 
         ArrayList<Handle> handles = this.shape.getHandles();
         for (Handle handle : handles) {
-            System.out.println("object: " + handle.getCenter());
-
-            AffineTransform objToWorld = this.shape.getObjToWorld();
-            Point2D.Double world = new Point2D.Double();
-            objToWorld.transform(handle.getCenter(), world);
-            System.out.println("world: " + world);
-
             try {
                 IDrawable drawHandle = factory.create(handle, this.shape);
                 drawHandle.draw(g2d);

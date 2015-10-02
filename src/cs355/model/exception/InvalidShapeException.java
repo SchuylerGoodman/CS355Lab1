@@ -1,4 +1,4 @@
-package cs355.model.drawing.exception;
+package cs355.model.exception;
 
 /**
  * Created by goodman on 9/10/2015.
