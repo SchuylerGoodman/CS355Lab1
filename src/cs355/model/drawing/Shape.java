@@ -1,8 +1,11 @@
 package cs355.model.drawing;
 
+import cs355.model.drawing.selectable.Handle;
+
 import java.awt.Color;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
 import java.util.Observable;
 
 /**
@@ -10,6 +13,10 @@ import java.util.Observable;
  * Make sure they all extend this class.
  */
 public abstract class Shape extends Observable {
+
+    protected static Color HANDLE_COLOR = Color.WHITE;
+    protected static double HANDLE_RADIUS = 5.0;
+    protected static double HANDLE_OFFSET = 15.0;
 
 	// The color of this shape.
 	protected Color color;
@@ -23,6 +30,9 @@ public abstract class Shape extends Observable {
 	// Whether the shape is currently selected.
 	protected boolean selected;
 
+	// The handles for manipulating the shape when it is selected.
+	protected ArrayList<Handle> handles;
+
 	/**
 	 * Basic constructor that sets fields.
 	 * It initializes rotation to 0.
@@ -33,6 +43,8 @@ public abstract class Shape extends Observable {
 		this.color = color;
 		this.center = center;
 		rotation = 0.0;
+        this.selected = false;
+        this.handles = new ArrayList<>();
 	}
 
 	/**
@@ -106,6 +118,12 @@ public abstract class Shape extends Observable {
 		this.setChanged();
 		this.notifyObservers();
 	}
+
+	/**
+	 * Getter for the handles for manipulating the shape.
+	 * @return a list of shapes used as handles.
+	 */
+	public ArrayList<Handle> getHandles() { return handles; }
 
 	/**
 	 * Getter for a transformation from world coordinates to this object's coordinates.

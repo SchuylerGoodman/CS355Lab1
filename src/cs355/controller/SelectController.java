@@ -21,6 +21,11 @@ public class SelectController implements IController, Observer {
     private static double SELECTION_TOLERANCE = 4.0;
 
     /**
+     * The initial coordinates of the mouse press.
+     */
+    private Point2D.Double initialCoordinates;
+
+    /**
      * The controller instance that is managing events.
      */
     private CS355Controller controller;
@@ -31,6 +36,7 @@ public class SelectController implements IController, Observer {
     private Shape selectedShape;
 
     public SelectController(CS355Controller controller, Observable colorChangeNotifier) {
+        initialCoordinates = new Point2D.Double();
         this.controller = controller;
         this.selectedShape = null;
 
@@ -45,8 +51,8 @@ public class SelectController implements IController, Observer {
     @Override
     public void mousePressed(MouseEvent e, CS355Drawing model, Color c) {
 
-        Point2D.Double location = new Point2D.Double();
-        location.setLocation(e.getPoint());
+        // Set initial coordinates
+        initialCoordinates.setLocation(e.getPoint());
 
         // Get the shapes from the model from top to bottom
         List<Shape> shapes = model.getShapesReversed();
@@ -61,7 +67,7 @@ public class SelectController implements IController, Observer {
         ListIterator<Shape> shapeIterator = shapes.listIterator();
         while (shapeIterator.hasNext()) {
             Shape shape = shapeIterator.next();
-            if (shape.pointInShape(location, SelectController.SELECTION_TOLERANCE)) {
+            if (shape.pointInShape(this.initialCoordinates, SelectController.SELECTION_TOLERANCE)) {
 
                 // Select the new shape
                 this.selectedShape = shape;
@@ -90,6 +96,33 @@ public class SelectController implements IController, Observer {
     @Override
     public void mouseDragged(MouseEvent e, CS355Drawing model, Color c) {
 
+        // If nothing selected, dragging does nothing.
+        if (!this.shapeSelected()) {
+            return;
+        }
+
+        // Get the current pointer location.
+        Point2D.Double current = new Point2D.Double();
+        current.setLocation(e.getPoint());
+
+        // Find the distance moved since the initial location.
+        double xDiff = current.getX() - this.initialCoordinates.getX();
+        double yDiff = current.getY() - this.initialCoordinates.getY();
+
+        // Get the center of the selected shape.
+        Point2D.Double center = this.selectedShape.getCenter();
+
+        // Get the destination for the center of the shape.
+        Point2D.Double destination = new Point2D.Double(
+                center.getX() + xDiff,
+                center.getY() + yDiff
+        );
+
+        // Set the initial location to the current point, for the next drag.
+        this.initialCoordinates.setLocation(current);
+
+        // Update the center of the shape.
+        this.selectedShape.setCenter(destination);
     }
 
     @Override
@@ -99,12 +132,10 @@ public class SelectController implements IController, Observer {
 
     @Override
     public void close() {
-        this.selectedShape.setSelected(false);
-        this.selectedShape = null;
-    }
-
-    private boolean shapeSelected() {
-        return this.selectedShape != null;
+        if (this.shapeSelected()) {
+            this.selectedShape.setSelected(false);
+            this.selectedShape = null;
+        }
     }
 
     @Override
@@ -115,5 +146,9 @@ public class SelectController implements IController, Observer {
             Color color = (Color) arg;
             this.selectedShape.setColor(color);
         }
+    }
+
+    private boolean shapeSelected() {
+        return this.selectedShape != null;
     }
 }

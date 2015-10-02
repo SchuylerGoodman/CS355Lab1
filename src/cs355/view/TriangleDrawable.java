@@ -1,12 +1,10 @@
 package cs355.view;
 
-import cs355.model.drawing.InvalidShapeException;
-import cs355.model.drawing.Shape;
+import cs355.model.drawing.exception.InvalidShapeException;
 import cs355.model.drawing.Triangle;
 
 import java.awt.*;
 import java.awt.geom.GeneralPath;
-import java.awt.geom.Line2D;
 
 /**
  * Created by goodman on 9/9/2015.
@@ -15,8 +13,8 @@ public class TriangleDrawable implements IDrawable {
 
     private Triangle triangle;
 
-    public TriangleDrawable(Shape s) throws InvalidShapeException {
-        this.setShape(s);
+    public TriangleDrawable(Triangle t) throws InvalidShapeException {
+        this.triangle = t;
     }
 
     @Override
@@ -38,27 +36,6 @@ public class TriangleDrawable implements IDrawable {
         if (this.triangle.getSelected()) {
             g2d.setPaint(Color.WHITE);
             g2d.draw(drawTriangle);
-        }
-    }
-
-    @Override
-    public Shape getShape() {
-        return this.triangle;
-    }
-
-    @Override
-    public void setShape(Shape s) throws InvalidShapeException {
-        if (s instanceof Triangle) {
-            this.triangle = (Triangle) s;
-        }
-        else {
-            this.triangle = null;
-            throw new InvalidShapeException(
-                    String.format(
-                            "Cannot convert input shape \"%s\" to cs355.model.drawing.Triangle",
-                            s.getClass().getName()
-                    )
-            );
         }
     }
 }

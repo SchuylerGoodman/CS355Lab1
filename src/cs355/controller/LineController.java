@@ -7,6 +7,7 @@ import cs355.model.drawing.Shape;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 
 /**
@@ -34,8 +35,10 @@ public class LineController implements IController {
         Point2D.Double initialCoordinates = new Point2D.Double();
         initialCoordinates.setLocation(e.getPoint());
 
+        Point2D.Double endPoint = new Point2D.Double(0.0, 0.0);
+
         // Create new line
-        Line line = new Line(c, initialCoordinates, initialCoordinates);
+        Line line = new Line(c, initialCoordinates, endPoint);
 
         // Add line to model and save index
         this.index = model.addShape(line);
@@ -66,9 +69,10 @@ public class LineController implements IController {
         // Cast the shape to a line
         Line line = (Line) shape;
 
-        // Get current coordinates
+        // Get current coordinates in object space
         Point2D.Double currentCoordinates = new Point2D.Double();
-        currentCoordinates.setLocation(e.getPoint());
+        AffineTransform worldToObj = line.getWorldToObj();
+        worldToObj.transform(e.getPoint(), currentCoordinates);
 
         // Save the new coordinates
         line.setEnd(currentCoordinates);

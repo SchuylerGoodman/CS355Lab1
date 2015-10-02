@@ -1,7 +1,7 @@
 package cs355.view;
 
 import cs355.model.drawing.*;
-import cs355.model.drawing.Shape;
+import cs355.model.drawing.exception.InvalidShapeException;
 
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
@@ -14,15 +14,14 @@ public class CircleDrawable implements IDrawable {
 
     private Circle circle;
 
-    public CircleDrawable(Shape s) throws InvalidShapeException {
-        this.setShape(s);
+    public CircleDrawable(Circle c) throws InvalidShapeException {
+        this.circle = c;
     }
 
     @Override
     public void draw(Graphics2D g2d) {
 
         // Get directional parameters
-        Point2D.Double center = this.circle.getCenter();
         double radius = this.circle.getRadius();
 
         // Calculate upper left corner of bounding rectangle
@@ -45,27 +44,6 @@ public class CircleDrawable implements IDrawable {
         if (this.circle.getSelected()) {
             g2d.setPaint(Color.WHITE);
             g2d.draw(drawCircle);
-        }
-    }
-
-    @Override
-    public Shape getShape() {
-        return this.circle;
-    }
-
-    @Override
-    public void setShape(Shape s) throws InvalidShapeException {
-        if (s instanceof Circle) {
-            this.circle = (Circle) s;
-        }
-        else {
-            this.circle = null;
-            throw new InvalidShapeException(
-                    String.format(
-                            "Cannot convert input shape \"%s\" to cs355.model.drawing.Circle",
-                            s.getClass().getName()
-                    )
-            );
         }
     }
 }

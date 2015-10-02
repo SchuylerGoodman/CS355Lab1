@@ -1,5 +1,7 @@
 package cs355.model.drawing;
 
+import cs355.model.drawing.selectable.CircleHandle;
+
 import java.awt.Color;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
@@ -26,6 +28,22 @@ public class Line extends Shape {
 
 		// Set the field.
 		this.end = end;
+
+        // Initialize the handles.
+        CircleHandle handleStart = new CircleHandle(
+                new Point2D.Double(0.0, 0.0),
+                Shape.HANDLE_COLOR,
+                Shape.HANDLE_RADIUS
+        );
+        this.handles.add(handleStart);
+
+        // End handle needs to be transformed back to world coordinates to initialize center.
+        CircleHandle handleEnd = new CircleHandle(
+                this.getEnd(),
+                Shape.HANDLE_COLOR,
+                Shape.HANDLE_RADIUS
+        );
+        this.handles.add(handleEnd);
 	}
 
 	/**
@@ -40,7 +58,7 @@ public class Line extends Shape {
 	 * @param start the new starting point for the Line.
 	 */
 	public void setStart(Point2D.Double start) {
-		this.center = start;
+		this.center.setLocation(start.getX(), start.getY());
         this.setChanged();
         this.notifyObservers();
 	}
@@ -58,7 +76,7 @@ public class Line extends Shape {
 	 * @param end the new ending point for the Line.
 	 */
 	public void setEnd(Point2D.Double end) {
-		this.end = end;
+		this.end.setLocation(end.getX(), end.getY());
         this.setChanged();
         this.notifyObservers();
 	}
@@ -80,9 +98,10 @@ public class Line extends Shape {
         worldToObj.transform(pt, ptObj);
 
         // get the vector for the ray from start to end
+        // this is really just the end point, since in object coordinates the start point is (0, 0)
         Point2D.Double lineVector = new Point2D.Double(
-                this.getEnd().getX() - this.getStart().getX(),
-                this.getEnd().getY() - this.getStart().getY()
+                this.getEnd().getX(),
+                this.getEnd().getY()
         );
 
         // calculate the unit normal for the line
@@ -98,10 +117,10 @@ public class Line extends Shape {
 
         // calculate the distance from the line to a parallel line that goes through the origin
         // based on the implicit definition of a line: point \dot normal = distance
-        double distance = Math.abs(
-                this.getStart().getX() * lineNormal.getX()
-                        + this.getStart().getY() * lineNormal.getY()
-        );
+        //double distance = Math.abs(
+        //        this.getStart().getX() * lineNormal.getX()
+        //                + this.getStart().getY() * lineNormal.getY()
+        //);
 
         // get the distance from the selected point to the line through the origin
         double ptDistance = Math.abs(
@@ -110,7 +129,7 @@ public class Line extends Shape {
         );
 
         // if the difference in distance is not within the tolerance, fail
-        if (ptDistance - distance > tolerance) {
+        if (ptDistance > tolerance) {
             return false;
         }
 

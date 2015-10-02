@@ -2,6 +2,7 @@ package cs355.view;
 
 import cs355.GUIFunctions;
 import cs355.model.drawing.*;
+import cs355.model.drawing.exception.InvalidModelException;
 
 import java.awt.Graphics2D;
 import java.util.*;
@@ -39,7 +40,7 @@ public class ViewRefresherImpl implements ViewRefresher {
                 IDrawable drawable = drawableFactory.create(s);
                 drawable.draw(g2d);
             }
-            catch (InvalidShapeException e) {
+            catch (InvalidModelException e) {
                 GUIFunctions.printf(
                         "Shape in model could not be found, or an error was encountered while creating the drawable: \"%s\"",
                         e.getMessage()
