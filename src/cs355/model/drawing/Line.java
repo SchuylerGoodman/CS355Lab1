@@ -1,6 +1,7 @@
 package cs355.model.drawing;
 
 import cs355.model.drawing.selectable.CircleHandle;
+import cs355.model.drawing.selectable.Handle;
 
 import java.awt.Color;
 import java.awt.geom.AffineTransform;
@@ -31,26 +32,6 @@ public class Line extends Shape {
 
         // Line has two handles.
         this.setNumHandles(2);
-
-        // Initialize the handles.
-        CircleHandle handleStart = new CircleHandle(
-                this,
-                new Point2D.Double(0.0, 0.0),
-                new Point2D.Double(0.0, 0.0),
-                Shape.HANDLE_COLOR,
-                Shape.HANDLE_RADIUS
-        );
-        this.handles.add(handleStart);
-
-        // End handle needs to be transformed back to world coordinates to initialize center.
-        CircleHandle handleEnd = new CircleHandle(
-                this,
-                this.getEnd(),
-                this.getEnd(),
-                Shape.HANDLE_COLOR,
-                Shape.HANDLE_RADIUS
-        );
-        this.handles.add(handleEnd);
 	}
 
 	/**
@@ -88,9 +69,19 @@ public class Line extends Shape {
         this.notifyObservers();
 	}
 
-    @Override
-    protected void updateHandles() {
-
+    /**
+     * Setter for both of this Line's endpoints.
+     * Necessary because if changed individually they will be draw at different times,
+     * causing glitching in the interface.
+     *
+     * @param start = the new starting point for the line, in world coordinates.
+     * @param end = the new ending point for the line, in object coordinates.
+     */
+    public void setEndpoints(Point2D.Double start, Point2D.Double end) {
+        this.center.setLocation(start);
+        this.end.setLocation(end);
+        this.setChanged();
+        this.notifyObservers();
     }
 
     /**
@@ -127,13 +118,6 @@ public class Line extends Shape {
                 lineNormal.getY() / magnitude
         );
 
-        // calculate the distance from the line to a parallel line that goes through the origin
-        // based on the implicit definition of a line: point \dot normal = distance
-        //double distance = Math.abs(
-        //        this.getStart().getX() * lineNormal.getX()
-        //                + this.getStart().getY() * lineNormal.getY()
-        //);
-
         // get the distance from the selected point to the line through the origin
         double ptDistance = Math.abs(
                 ptObj.getX() * lineNormal.getX()
@@ -148,4 +132,20 @@ public class Line extends Shape {
         return true;
 	}
 
+    @Override
+    protected void updateHandles() {
+
+        Point2D.Double handleStartPoint = new Point2D.Double(this.center.getX(), this.center.getY());
+        Handle startHandle = this.handles.get(0);
+        startHandle.getHandleShape().setCenter(handleStartPoint);
+        startHandle.getAnchorPoint().setLocation(new Point2D.Double(0.0, 0.0));
+
+        Point2D.Double handleEndPoint = new Point2D.Double(
+                handleStartPoint.getX() + this.end.getX(),
+                handleStartPoint.getY() + this.end.getY()
+        );
+        Handle endHandle = this.handles.get(1);
+        endHandle.getHandleShape().setCenter(handleEndPoint);
+        endHandle.getAnchorPoint().setLocation(this.end);
+    }
 }
