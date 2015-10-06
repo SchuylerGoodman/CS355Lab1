@@ -29,9 +29,13 @@ public class Line extends Shape {
 		// Set the field.
 		this.end = end;
 
+        // Line has two handles.
+        this.setNumHandles(2);
+
         // Initialize the handles.
         CircleHandle handleStart = new CircleHandle(
                 this,
+                new Point2D.Double(0.0, 0.0),
                 new Point2D.Double(0.0, 0.0),
                 Shape.HANDLE_COLOR,
                 Shape.HANDLE_RADIUS
@@ -41,6 +45,7 @@ public class Line extends Shape {
         // End handle needs to be transformed back to world coordinates to initialize center.
         CircleHandle handleEnd = new CircleHandle(
                 this,
+                this.getEnd(),
                 this.getEnd(),
                 Shape.HANDLE_COLOR,
                 Shape.HANDLE_RADIUS
@@ -83,7 +88,12 @@ public class Line extends Shape {
         this.notifyObservers();
 	}
 
-	/**
+    @Override
+    protected void updateHandles() {
+
+    }
+
+    /**
 	 * Add your code to do an intersection test
 	 * here. You <i>will</i> need the tolerance.
 	 * @param pt = the point to test against.

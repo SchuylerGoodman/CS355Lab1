@@ -13,16 +13,12 @@ public abstract class HandleController implements IController {
 
     private Handle handle;
 
-    private int handleIndex;
-
     /**
      * Base constructor for handle controllers.
      * @param handle = the handle being controlled.
-     * @param handleIndex = the index of the handle in the shape it manipulates.
      */
-    public HandleController(Handle handle, int handleIndex) {
+    public HandleController(Handle handle) {
         this.handle = handle;
-        this.handleIndex = handleIndex;
     }
 
     /**
@@ -31,14 +27,6 @@ public abstract class HandleController implements IController {
      */
     public Handle getHandle() {
         return this.handle;
-    }
-
-    /**
-     * Getter for the index of the handle being controlled int the shape it manipulates.
-     * @return the index of the handle.
-     */
-    public int getHandleIndex() {
-        return this.handleIndex;
     }
 
     @Override

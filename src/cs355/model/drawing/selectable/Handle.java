@@ -12,63 +12,51 @@ import java.util.Observer;
  */
 public abstract class Handle implements ISelectable {
 
-    private Shape shape;
+    private Shape referenceShape;
 
-    private Point2D.Double center;
+    private Shape handleShape;
 
-    private Color color;
+    private Point2D.Double anchorPoint;
 
     /**
      * Basic constructor that sets fields.
      *
-     * @param center the center point of the new shape.
+     * @param referenceShape the shape this handle manipulates.
      */
-    public Handle(Shape shape, Point2D.Double center, Color color) {
-        this.shape = shape;
-        this.center = center;
-        this.color = color;
-    }
-
-    public Shape getShape() { return this.shape; }
-
-    /**
-     * Getter for the center point of the handle.
-     *
-     * @return a point representing the handle in object coordinates
-     * relative to the object the handle is used to manipulate.
-     */
-    public Point2D.Double getCenter() {
-        return this.center;
+    public Handle(Shape referenceShape, Point2D.Double anchorPoint) {
+        this.referenceShape = referenceShape;
+        this.anchorPoint = anchorPoint;
+        this.handleShape = null;
     }
 
     /**
-     * Setter for the center point of the handle in object coordinates
-     * relative to the object the handle is used to manipulate.
+     * Getter for the shape this handle manipulates.
      *
-     * @param center = the new center point.
+     * @return the shape model this handle manipulates.
      */
-    public void setCenter(Point2D.Double center) {
-        this.center.setLocation(center.getX(), center.getY());
-    }
+    public Shape getReferenceShape() { return this.referenceShape; }
 
     /**
-     * Getter for the color of the handle.
+     * Getter for the point this handle is anchored to in the shape
      *
-     * @return the color of the handle.
+     * @return a Point2D with the coordinates of the anchor point in object space.
      */
-    public Color getColor() {
-        return this.color;
-    }
+    public Point2D.Double getAnchorPoint() { return this.anchorPoint; }
 
     /**
-     * Setter for the color of the handle.
+     * Getter for the shape of the handle.
      *
-     * @param color = the new color.
+     * @return the shape model that represents the "physical" location of the handle.
      */
-    public void setColor(Color color) {
-        this.color = color;
-    }
+    public Shape getHandleShape() { return this.handleShape; }
+
+    /**
+     * Setter for the shape of the handle.
+     *
+     * @param handleShape a model to represent the "physical" location of the handle.
+     */
+    protected void setHandleShape(Shape handleShape) { this.handleShape = handleShape; }
 
     @Override
-    public abstract boolean pointInShape(Point2D.Double pt, double tolerance);
+    public abstract boolean pointInside(Point2D.Double pt, double tolerance);
 }

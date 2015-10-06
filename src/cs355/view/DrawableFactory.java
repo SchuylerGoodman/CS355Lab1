@@ -49,14 +49,13 @@ public class DrawableFactory {
      * Creates an IDrawable for a handle.
      *
      * @param h = the model for the handle to draw.
-     * @param s = the shape the handle is used to manipulate.
      * @return an IDrawable for the given handle
      * @throws InvalidHandleException if the handle is not supported by the factory.
      */
-    public IDrawable create(Handle h, Shape s) throws InvalidHandleException {
+    public IDrawable create(Handle h) throws InvalidHandleException {
         if (h instanceof CircleHandle) {
             CircleHandle circleHandle = (CircleHandle) h;
-            return new CircleHandleDrawable(s, circleHandle);
+            return new CircleHandleDrawable(circleHandle);
         }
         else {
             throw new InvalidHandleException(

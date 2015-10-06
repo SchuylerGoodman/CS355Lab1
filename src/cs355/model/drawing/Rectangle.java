@@ -30,18 +30,12 @@ public class Rectangle extends Shape {
 		// Initialize the superclass.
 		super(color, center);
 
+		// Rectangle has one rotation handle.
+		this.setNumHandles(1);
+
 		// Set fields.
 		this.width = width;
 		this.height = height;
-
-        // Initialize the handles.
-        CircleHandle handleStart = new CircleHandle(
-				this,
-                new Point2D.Double(0.0, (-1 * this.height / 2) - Shape.HANDLE_OFFSET),
-                Shape.HANDLE_COLOR,
-                Shape.HANDLE_RADIUS
-        );
-        this.handles.add(handleStart);
 	}
 
 	/**
@@ -76,9 +70,7 @@ public class Rectangle extends Shape {
 	 */
 	public void setHeight(double height) {
 		this.height = height;
-		this.handles.get(0).setCenter(
-				new Point2D.Double(0.0, (-1 * this.height / 2) - Shape.HANDLE_OFFSET)
-		);
+
 		this.setChanged();
 		this.notifyObservers();
 	}
@@ -109,6 +101,22 @@ public class Rectangle extends Shape {
 		}
 
 		return true;
+	}
+
+	@Override
+	protected void updateHandles() {
+
+		AffineTransform fixedRotation = AffineTransform.getRotateInstance(
+				this.rotation,
+				this.center.getX(),
+				this.center.getY()
+		);
+
+        double handleY = center.getY() - (this.height / 2 + Shape.HANDLE_OFFSET);
+		Point2D.Double handleCenter = new Point2D.Double(this.center.getX(), handleY);
+		fixedRotation.transform(handleCenter, handleCenter);
+
+		this.handles.get(0).getHandleShape().setCenter(handleCenter);
 	}
 
 }

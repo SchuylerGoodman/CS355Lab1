@@ -39,7 +39,7 @@ public abstract class ShapeDrawable implements IDrawable {
         ArrayList<Handle> handles = this.shape.getHandles();
         for (Handle handle : handles) {
             try {
-                IDrawable drawHandle = factory.create(handle, this.shape);
+                IDrawable drawHandle = factory.create(handle);
                 drawHandle.draw(g2d);
             }
             catch (InvalidHandleException e) {

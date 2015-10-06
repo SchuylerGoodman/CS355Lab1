@@ -1,5 +1,6 @@
 package cs355.model.drawing.selectable;
 
+import cs355.model.drawing.Circle;
 import cs355.model.drawing.Shape;
 
 import java.awt.*;
@@ -11,51 +12,42 @@ import java.awt.geom.Point2D;
  */
 public class CircleHandle extends Handle {
 
-    private double radius;
-
     /**
      * Basic constructor that sets fields.
      *
      * @param shape = the shape that this handle manipulates.
-     * @param center = the center point of the new shape.
+     * @param center = the center point of the handle.
+     * @param color = the color of the handle.
      * @param radius = the radius of the handle in pixels.
      */
-    public CircleHandle(Shape shape, Point2D.Double center, Color color, double radius) {
-        super(shape, center, color);
-        this.radius = radius;
-    }
+    public CircleHandle(Shape shape, Point2D.Double anchorPoint, Point2D.Double center, Color color, double radius) {
+        super(shape, anchorPoint);
 
-    /**
-     * Getter for the radius of the handle.
-     *
-     * @return the radius of the handle circle in pixels as a double.
-     */
-    public double getRadius() {
-        return this.radius;
-    }
-
-    /**
-     * Setter for the radius of the handle.
-     *
-     * @param radius = the radius of the handle circle in pixels as a double.
-     */
-    public void setRadius(double radius) {
-        this.radius = radius;
+        Circle handleShape = new Circle(color, center, radius);
+        this.setHandleShape(handleShape);
     }
 
     @Override
-    public boolean pointInShape(Point2D.Double pt, double tolerance) {
+    public boolean pointInside(Point2D.Double pt, double tolerance) {
 
+        return this.getHandleShape().pointInShape(pt, tolerance);
+        /*
         // Get the world to object coordinates transform
-        AffineTransform worldToObj = this.getShape().getWorldToObj();
+        AffineTransform worldToObj = this.getReferenceShape().getWorldToObj();
 
-        // get the point in object coordinates
+        // Get the point in object coordinates
+        Shape handleShape = this.getHandleShape();
         Point2D.Double ptObj = new Point2D.Double();
         worldToObj.transform(pt, ptObj);
+        ptObj.setLocation(
+                ptObj.getX() - handleShape.getCenter().getX(),
+                ptObj.getY() - handleShape.getCenter().getY()
+        );
 
-        double radius = this.getRadius();
+        Circle handleCircle = (Circle) handleShape;
+        double radius = handleCircle.getRadius();
 
-        // check with simple bounding box (fast)
+        // Check with simple bounding box (fast)
         Point2D.Double bound = new Point2D.Double(radius, radius);
         if (Math.abs(ptObj.getX()) > bound.getX() || Math.abs(ptObj.getY()) > bound.getY()) {
             return false;
@@ -67,6 +59,6 @@ public class CircleHandle extends Handle {
             return false;
         }
 
-        return true;
+        return true;*/
     }
 }

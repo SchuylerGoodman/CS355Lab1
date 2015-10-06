@@ -12,16 +12,15 @@ public class HandleControllerFactory {
     /**
      * Factory method for creating HandleController objects based on the type of handle.
      * @param handle = the handle to control.
-     * @param handleIndex = the index of the handle in the shape it manipulates.
      * @return a HandleController object for making the handle work.
      */
-    public HandleController create(Handle handle, int handleIndex) {
-        Shape shape = handle.getShape();
+    public HandleController create(Handle handle) {
+        Shape shape = handle.getReferenceShape();
         if (shape instanceof Line) {
-            return new LineHandleController(handle, handleIndex);
+            return new LineHandleController(handle);
         }
         else {
-            return new RotationHandleController(handle, handleIndex);
+            return new RotationHandleController(handle);
         }
     }
 }

@@ -2,7 +2,7 @@ package cs355.model.drawing;
 
 import cs355.model.drawing.selectable.CircleHandle;
 
-import java.awt.Color;
+import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 
@@ -26,17 +26,11 @@ public class Square extends Shape {
 		// Initialize the superclass.
 		super(color, center);
 
+		// Square has one rotation handle.
+		this.setNumHandles(1);
+
 		// Set the field.
 		this.size = size;
-
-        // Initialize the handles.
-        CircleHandle handleStart = new CircleHandle(
-				this,
-                new Point2D.Double(0.0, (-1 * this.size / 2) - Shape.HANDLE_OFFSET),
-                Shape.HANDLE_COLOR,
-                Shape.HANDLE_RADIUS
-        );
-        this.handles.add(handleStart);
 	}
 
 	/**
@@ -53,9 +47,7 @@ public class Square extends Shape {
 	 */
 	public void setSize(double size) {
 		this.size = size;
-		this.handles.get(0).setCenter(
-				new Point2D.Double(0.0, (-1 * this.size / 2) - Shape.HANDLE_OFFSET)
-		);
+
 		this.setChanged();
 		this.notifyObservers();
 	}
@@ -87,4 +79,19 @@ public class Square extends Shape {
 		return true;
 	}
 
+	@Override
+	protected void updateHandles() {
+
+		AffineTransform fixedRotation = AffineTransform.getRotateInstance(
+				this.rotation,
+				this.center.getX(),
+				this.center.getY()
+		);
+
+		double handleY = center.getY() - (this.size / 2 + Shape.HANDLE_OFFSET);
+		Point2D.Double handleCenter = new Point2D.Double(this.center.getX(), handleY);
+		fixedRotation.transform(handleCenter, handleCenter);
+
+		this.handles.get(0).getHandleShape().setCenter(handleCenter);
+	}
 }

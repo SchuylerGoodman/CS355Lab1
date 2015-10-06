@@ -1,23 +1,30 @@
 package cs355.controller;
 
-import cs355.model.drawing.CS355Drawing;
+import cs355.model.drawing.*;
+import cs355.model.drawing.Shape;
 import cs355.model.drawing.selectable.Handle;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Point2D;
 
 /**
  * Created by BaronVonBaerenstein on 10/2/2015.
  */
 public class RotationHandleController extends HandleController {
+
+    private double initialDifference;
+
     /**
      * Base constructor for handle controllers.
      *
-     * @param handle      = the handle being controlled.
-     * @param handleIndex = the index of the handle in the shape it manipulates.
+     * @param handle = the handle being controlled.
      */
-    public RotationHandleController(Handle handle, int handleIndex) {
-        super(handle, handleIndex);
+    public RotationHandleController(Handle handle) {
+
+        super(handle);
+        this.initialDifference = 0.0;
     }
 
     @Override
@@ -28,6 +35,21 @@ public class RotationHandleController extends HandleController {
     @Override
     public void mousePressed(MouseEvent e, CS355Drawing model, Color c) {
 
+        // Set the initial coordinates of the press
+        Point2D.Double initialCoordinates = new Point2D.Double();
+        initialCoordinates.setLocation(e.getPoint());
+
+        // Get the shape center and translate the point to object space.
+        Shape shape = this.getHandle().getReferenceShape();
+        Point2D.Double shapeCenter = shape.getCenter();
+        initialCoordinates.setLocation(
+                initialCoordinates.getX() - shapeCenter.getX(),
+                initialCoordinates.getY() - shapeCenter.getY()
+        );
+
+        // Set the initial angle of the press.
+        double initialAngle = Math.atan2(initialCoordinates.getY(), initialCoordinates.getX());
+        this.initialDifference = initialAngle - shape.getRotation();
     }
 
     @Override
@@ -47,6 +69,25 @@ public class RotationHandleController extends HandleController {
 
     @Override
     public void mouseDragged(MouseEvent e, CS355Drawing model, Color c) {
+
+        // Set the initial coordinates of the drag.
+        Point2D.Double dragCoordinates = new Point2D.Double();
+        dragCoordinates.setLocation(e.getPoint());
+
+        // Get the shape center and translate the point to object space.
+        Shape shape = this.getHandle().getReferenceShape();
+        Point2D.Double shapeCenter = shape.getCenter();
+        dragCoordinates.setLocation(
+                dragCoordinates.getX() - shapeCenter.getX(),
+                dragCoordinates.getY() - shapeCenter.getY()
+        );
+
+        // Set the initial angle of the drag.
+        double dragAngle = Math.atan2(dragCoordinates.getY(), dragCoordinates.getX());
+        double targetAngle = dragAngle - this.initialDifference;
+
+        // Set rotation angle of shape.
+        shape.setRotation(targetAngle);
 
     }
 

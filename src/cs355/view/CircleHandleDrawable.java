@@ -1,5 +1,6 @@
 package cs355.view;
 
+import cs355.model.drawing.Circle;
 import cs355.model.drawing.Shape;
 import cs355.model.drawing.selectable.CircleHandle;
 
@@ -13,37 +14,29 @@ import java.awt.geom.Point2D;
 public class CircleHandleDrawable implements IDrawable {
 
     /**
-     * The shape the the handle is used to manipulate.
-     */
-    private Shape handledShape;
-
-    /**
      * The handle being drawn.
      */
     private CircleHandle handle;
 
     /**
      * Constructor for handle drawables.
-     * @param handledShape = the model for the shape that the handle is used to manipulate.
      * @param h = the handle model.
      */
-    public CircleHandleDrawable(Shape handledShape, CircleHandle h) {
-        this.handledShape = handledShape;
+    public CircleHandleDrawable(CircleHandle h) {
         this.handle = h;
     }
 
     @Override
     public void draw(Graphics2D g2d) {
 
+        Circle handleCircle = (Circle) this.handle.getHandleShape();
+
         // Get directional parameters
-        double radius = this.handle.getRadius();
+        double radius = handleCircle.getRadius();
 
         // Calculate upper left corner of bounding rectangle
         Point2D.Double upperLeftCorner = new Point2D.Double();
-        upperLeftCorner.setLocation(
-                this.handle.getCenter().getX() - radius,
-                this.handle.getCenter().getY() - radius
-        );
+        upperLeftCorner.setLocation(radius * -1, radius * -1);
 
         // Initialize circle geometric object
         Ellipse2D drawCircle = new Ellipse2D.Double(
@@ -53,8 +46,8 @@ public class CircleHandleDrawable implements IDrawable {
                 radius * 2
         );
 
-        g2d.setPaint(this.handle.getColor());
-        g2d.setTransform(this.handledShape.getObjToWorld());
+        g2d.setPaint(handleCircle.getColor());
+        g2d.setTransform(handleCircle.getObjToWorld());
         g2d.draw(drawCircle);
     }
 }

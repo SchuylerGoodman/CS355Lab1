@@ -1,5 +1,6 @@
 package cs355.model.drawing;
 
+import cs355.model.drawing.selectable.CircleHandle;
 import cs355.model.drawing.selectable.Handle;
 
 import java.awt.Color;
@@ -33,6 +34,9 @@ public abstract class Shape extends Observable {
 	// The handles for manipulating the shape when it is selected.
 	protected ArrayList<Handle> handles;
 
+	// The number of handles in the shape.
+	protected int numHandles;
+
 	/**
 	 * Basic constructor that sets fields.
 	 * It initializes rotation to 0.
@@ -45,6 +49,7 @@ public abstract class Shape extends Observable {
 		rotation = 0.0;
         this.selected = false;
         this.handles = new ArrayList<>();
+		this.numHandles = 1;
 	}
 
 	/**
@@ -121,9 +126,39 @@ public abstract class Shape extends Observable {
 
 	/**
 	 * Getter for the handles for manipulating the shape.
+	 *
 	 * @return a list of shapes used as handles.
 	 */
-	public ArrayList<Handle> getHandles() { return handles; }
+	public ArrayList<Handle> getHandles() {
+
+		if (this.numHandles	!= this.handles.size())
+		{
+			this.handles = new ArrayList<>();
+			for (int i = 0; i < this.numHandles; ++i) {
+				this.handles.add(new CircleHandle(
+						this,
+                        new Point2D.Double(0.0, 0.0),
+                        new Point2D.Double(0.0, 0.0),
+                        Shape.HANDLE_COLOR,
+                        Shape.HANDLE_RADIUS
+				));
+			}
+		}
+
+		this.updateHandles();
+		return this.handles;
+	}
+
+	/**
+	 * Setter for how many handles this shape should have.
+	 * @param numHandles = the integer number of handles for the shape.
+	 */
+	public void setNumHandles(int numHandles) { this.numHandles = numHandles; }
+
+	/**
+	 * Update the handles with new information about it's reference shape.
+	 */
+	protected abstract void updateHandles();
 
 	/**
 	 * Getter for a transformation from world coordinates to this object's coordinates.

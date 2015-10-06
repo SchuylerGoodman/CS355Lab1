@@ -1,6 +1,7 @@
 package cs355.model.drawing;
 
 import cs355.model.drawing.selectable.CircleHandle;
+import cs355.model.drawing.selectable.Handle;
 
 import java.awt.Color;
 import java.awt.geom.AffineTransform;
@@ -32,20 +33,14 @@ public class Triangle extends Shape {
 		// Initialize the superclass.
 		super(color, center);
 
+		// Triangle has one rotation handle.
+		this.setNumHandles(1);
+
 		// Set fields.
 		this.a = a;
 		this.b = b;
 		this.c = c;
 
-		// Initialize the handles.
-		double minY = this.getMinimumYCoordinate();
-		CircleHandle handleStart = new CircleHandle(
-				this,
-				new Point2D.Double(0.0, minY - Shape.HANDLE_OFFSET),
-				Shape.HANDLE_COLOR,
-				Shape.HANDLE_RADIUS
-		);
-		this.handles.add(handleStart);
 	}
 
 	/**
@@ -62,10 +57,6 @@ public class Triangle extends Shape {
 	 */
 	public void setA(Point2D.Double a) {
 		this.a = a;
-		double minY = this.getMinimumYCoordinate();
-		this.handles.get(0).setCenter(
-				new Point2D.Double(0.0, minY - Shape.HANDLE_OFFSET)
-		);
 		this.setChanged();
 		this.notifyObservers();
 	}
@@ -84,10 +75,6 @@ public class Triangle extends Shape {
 	 */
 	public void setB(Point2D.Double b) {
 		this.b = b;
-		double minY = this.getMinimumYCoordinate();
-		this.handles.get(0).setCenter(
-				new Point2D.Double(0.0, minY - Shape.HANDLE_OFFSET)
-		);
 		this.setChanged();
 		this.notifyObservers();
 	}
@@ -106,10 +93,6 @@ public class Triangle extends Shape {
 	 */
 	public void setC(Point2D.Double c) {
 		this.c = c;
-		double minY = this.getMinimumYCoordinate();
-		this.handles.get(0).setCenter(
-				new Point2D.Double(0.0, minY - Shape.HANDLE_OFFSET)
-		);
 		this.setChanged();
 		this.notifyObservers();
 	}
@@ -191,12 +174,24 @@ public class Triangle extends Shape {
 		double min = Math.min(this.getA().getY(), this.getB().getY());
 		min = Math.min(min, this.getC().getY());
 
-		System.out.println("A: " + this.getA().getY());
-		System.out.println("B: " + this.getB().getY());
-		System.out.println("C: " + this.getC().getY());
-		System.out.println("max: " + min);
-
 		return min;
+	}
+
+	@Override
+	protected void updateHandles() {
+
+		AffineTransform fixedRotation = AffineTransform.getRotateInstance(
+				this.rotation,
+				this.center.getX(),
+				this.center.getY()
+		);
+
+        double minY = this.getMinimumYCoordinate();
+        double handleY = this.getCenter().getY() + minY - Shape.HANDLE_OFFSET;
+		Point2D.Double handleCenter = new Point2D.Double(this.center.getX(), handleY);
+		fixedRotation.transform(handleCenter, handleCenter);
+
+        this.handles.get(0).getHandleShape().setCenter(handleCenter);
 	}
 
 }

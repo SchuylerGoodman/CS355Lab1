@@ -26,17 +26,11 @@ public class Circle extends Shape {
 		// Initialize the superclass.
 		super(color, center);
 
+		// Circle has one rotation handle.
+		this.setNumHandles(1);
+
 		// Set the field.
 		this.radius = radius;
-
-        // Initialize the handles.
-        CircleHandle handleStart = new CircleHandle(
-				this,
-                new Point2D.Double(0.0, (-1 * this.radius) - Shape.HANDLE_OFFSET),
-                Shape.HANDLE_COLOR,
-                Shape.HANDLE_RADIUS
-        );
-        this.handles.add(handleStart);
 	}
 
 	/**
@@ -53,9 +47,7 @@ public class Circle extends Shape {
 	 */
 	public void setRadius(double radius) {
 		this.radius = radius;
-		this.handles.get(0).setCenter(
-				new Point2D.Double(0.0, (-1 * this.radius) - Shape.HANDLE_OFFSET)
-		);
+
 		this.setChanged();
 		this.notifyObservers();
 	}
@@ -91,6 +83,22 @@ public class Circle extends Shape {
 		}
 
 		return true;
+	}
+
+	@Override
+	protected void updateHandles() {
+
+		AffineTransform fixedRotation = AffineTransform.getRotateInstance(
+				this.rotation,
+				this.center.getX(),
+				this.center.getY()
+		);
+
+        double handleY = center.getY() - (this.radius + Shape.HANDLE_OFFSET);
+		Point2D.Double handleCenter = new Point2D.Double(this.center.getX(), handleY);
+		fixedRotation.transform(handleCenter, handleCenter);
+
+		this.handles.get(0).getHandleShape().setCenter(handleCenter);
 	}
 
 }

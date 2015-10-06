@@ -14,10 +14,9 @@ public class LineHandleController extends HandleController {
      * Base constructor for handle controllers.
      *
      * @param handle      = the handle being controlled.
-     * @param handleIndex = the index of the handle in the shape it manipulates.
      */
-    public LineHandleController(Handle handle, int handleIndex) {
-        super(handle, handleIndex);
+    public LineHandleController(Handle handle) {
+        super(handle);
     }
 
     @Override

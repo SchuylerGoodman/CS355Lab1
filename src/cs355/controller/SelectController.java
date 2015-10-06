@@ -1,13 +1,11 @@
 package cs355.controller;
 
-import cs355.GUIFunctions;
 import cs355.model.drawing.*;
 import cs355.model.drawing.Shape;
 import cs355.model.drawing.selectable.Handle;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
-import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 import java.util.*;
 import java.util.List;
@@ -38,6 +36,11 @@ public class SelectController implements IController, Observer {
     private Shape selectedShape;
 
     /**
+     * Factory for creating handle controllers.
+     */
+    private HandleControllerFactory handleControllerFactory;
+
+    /**
      * Controller for handling different actions that can occur when an object's handle is manipulated.
      */
     private HandleController handleController;
@@ -47,11 +50,20 @@ public class SelectController implements IController, Observer {
         this.controller = controller;
         this.selectedShape = null;
 
+        this.handleControllerFactory = new HandleControllerFactory();
+        this.handleController = null;
+
         colorChangeNotifier.addObserver(this);
     }
 
     @Override
     public void mouseClicked(MouseEvent e, CS355Drawing model, Color c) {
+
+        // If a handle has been selected, default to that behavior instead.
+        if (this.handleSelected()) {
+            this.handleController.mouseClicked(e, model, c);
+            return;
+        }
 
     }
 
@@ -60,21 +72,27 @@ public class SelectController implements IController, Observer {
 
         // Set initial coordinates
         initialCoordinates.setLocation(e.getPoint());
+        this.deselectHandle();
 
         // If another shape is currently selected, see if we have selected a handle.
         // If not, deselect the shape and find the newly selected shape.
         if (this.shapeSelected()) {
             ListIterator<Handle> handleIterator = this.selectedShape.getHandles().listIterator();
-            while (handleIterator.hasNext()) {
-                int handleIndex = handleIterator.nextIndex();
+            while (!this.handleSelected() && handleIterator.hasNext()) {
                 Handle handle = handleIterator.next();
-                if (handle.pointInShape(initialCoordinates, 0.0)) {
-                    // TODO create handle for rotation
-                    // TODO create handle for moving line endpoints
+                if (handle.pointInside(initialCoordinates, 0.0)) {
+                    this.handleController = this.handleControllerFactory.create(handle);
                 }
             }
-            this.selectedShape.setSelected(false);
-            this.selectedShape = null;
+        }
+
+        // If a handle has been selected, default to that behavior instead.
+        if (this.handleSelected()) {
+            this.handleController.mousePressed(e, model, c);
+            return;
+        }
+        else {
+            this.deselectShape();
         }
 
         // Get the shapes from the model from top to bottom
@@ -87,8 +105,7 @@ public class SelectController implements IController, Observer {
             if (shape.pointInShape(this.initialCoordinates, SelectController.SELECTION_TOLERANCE)) {
 
                 // Select the new shape
-                this.selectedShape = shape;
-                this.selectedShape.setSelected(true);
+                this.selectShape(shape);
                 this.controller.colorButtonHit(this.selectedShape.getColor());
                 break;
             }
@@ -98,15 +115,32 @@ public class SelectController implements IController, Observer {
     @Override
     public void mouseReleased(MouseEvent e, CS355Drawing model, Color c) {
 
+        // If a handle has been selected, default to that behavior instead.
+        if (this.handleSelected()) {
+            this.handleController.mouseReleased(e, model, c);
+            return;
+        }
     }
 
     @Override
     public void mouseEntered(MouseEvent e, CS355Drawing model, Color c) {
 
+        // If a handle has been selected, default to that behavior instead.
+        if (this.handleSelected()) {
+            this.handleController.mouseEntered(e, model, c);
+            return;
+        }
+
     }
 
     @Override
     public void mouseExited(MouseEvent e, CS355Drawing model, Color c) {
+
+        // If a handle has been selected, default to that behavior instead.
+        if (this.handleSelected()) {
+            this.handleController.mouseExited(e, model, c);
+            return;
+        }
 
     }
 
@@ -115,6 +149,12 @@ public class SelectController implements IController, Observer {
 
         // If nothing selected, dragging does nothing.
         if (!this.shapeSelected()) {
+            return;
+        }
+
+        // If a handle has been selected, default to that behavior instead.
+        if (this.handleSelected()) {
+            this.handleController.mouseDragged(e, model, c);
             return;
         }
 
@@ -145,14 +185,17 @@ public class SelectController implements IController, Observer {
     @Override
     public void mouseMoved(MouseEvent e, CS355Drawing model, Color c) {
 
+        // If a handle has been selected, default to that behavior instead.
+        if (this.handleSelected()) {
+            this.handleController.mouseMoved(e, model, c);
+            return;
+        }
+
     }
 
     @Override
     public void close() {
-        if (this.shapeSelected()) {
-            this.selectedShape.setSelected(false);
-            this.selectedShape = null;
-        }
+        this.deselectShape();
     }
 
     @Override
@@ -167,5 +210,29 @@ public class SelectController implements IController, Observer {
 
     private boolean shapeSelected() {
         return this.selectedShape != null;
+    }
+
+    private void selectShape(Shape shape) {
+        this.deselectShape();
+        this.selectedShape = shape;
+        this.selectedShape.setSelected(true);
+    }
+
+    private void deselectShape() {
+        if (this.shapeSelected()) {
+            this.selectedShape.setSelected(false);
+            this.selectedShape = null;
+        }
+        this.deselectHandle();
+    }
+
+    private boolean handleSelected() {
+        return this.handleController != null;
+    }
+
+    private void deselectHandle() {
+        if (this.handleSelected()) {
+            this.handleController = null;
+        }
     }
 }
