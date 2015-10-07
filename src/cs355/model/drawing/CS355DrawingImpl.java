@@ -62,37 +62,51 @@ public class CS355DrawingImpl extends CS355Drawing implements Observer {
     @Override
     public void moveToFront(int index) {
 
-        // Save moving shape temporarily
-        Shape tempShape = this.shapes.get(index);
+        int listSize = this.shapes.size();
+        if (index > -1 && index < listSize - 1) {
+            for (int shapeIndex = index; shapeIndex < listSize; ++shapeIndex) {
+                this.moveForward(shapeIndex);
+            }
 
-        // Get the front shape in the list
-        int frontIndex = this.shapes.size() - 1;
-        Shape frontShape = this.shapes.get(frontIndex);
-
-        // Set the front shape to the given index
-        this.shapes.set(index, frontShape);
-
-        // Set the temp shape to the front index
-        this.shapes.set(frontIndex, tempShape);
-
-        // Notify observers of change
-        this.setChanged();
-        this.notifyObservers();
+            this.setChanged();
+            this.notifyObservers();
+        }
     }
 
     @Override
     public void movetoBack(int index) {
 
+        int listSize = this.shapes.size();
+        if (index > 0 && index < listSize) {
+            for (int shapeIndex = index; shapeIndex > 0; --shapeIndex) {
+                this.moveBackward(shapeIndex);
+            }
+
+            this.setChanged();
+            this.notifyObservers();
+        }
     }
 
     @Override
     public void moveForward(int index) {
 
+        int nextIndex = index + 1;
+        if (nextIndex < this.shapes.size()) {
+            Collections.swap(this.shapes, index, nextIndex);
+            this.setChanged();
+            this.notifyObservers();
+        }
     }
 
     @Override
     public void moveBackward(int index) {
 
+        int lastIndex = index - 1;
+        if (lastIndex > -1) {
+            Collections.swap(this.shapes, lastIndex, index);
+            this.setChanged();
+            this.notifyObservers();
+        }
     }
 
     @Override

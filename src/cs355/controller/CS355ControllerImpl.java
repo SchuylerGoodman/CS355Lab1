@@ -2,11 +2,13 @@ package cs355.controller;
 
 import cs355.GUIFunctions;
 import cs355.model.drawing.CS355Drawing;
+import cs355.model.drawing.Shape;
 
-import java.awt.*;
+import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Observable;
 
 /**
@@ -138,7 +140,10 @@ public class CS355ControllerImpl extends Observable implements CS355Controller {
 
     @Override
     public void doDeleteShape() {
-
+        int index = this.findSelectedShapeIndex();
+        if (index > -1) {
+            this.model.deleteShape(index);
+        }
     }
 
     @Override
@@ -178,22 +183,34 @@ public class CS355ControllerImpl extends Observable implements CS355Controller {
 
     @Override
     public void doMoveForward() {
-
+        int index = this.findSelectedShapeIndex();
+        if (index > -1) {
+            this.model.moveForward(index);
+        }
     }
 
     @Override
     public void doMoveBackward() {
-
+        int index = this.findSelectedShapeIndex();
+        if (index > -1) {
+            this.model.moveBackward(index);
+        }
     }
 
     @Override
     public void doSendToFront() {
-
+        int index = this.findSelectedShapeIndex();
+        if (index > -1) {
+            this.model.moveToFront(index);
+        }
     }
 
     @Override
     public void doSendtoBack() {
-
+        int index = this.findSelectedShapeIndex();
+        if (index > -1) {
+            this.model.movetoBack(index);
+        }
     }
 
     @Override
@@ -242,5 +259,21 @@ public class CS355ControllerImpl extends Observable implements CS355Controller {
      */
     public Color getSelectedColor() {
         return this.selectedColor;
+    }
+
+    private int findSelectedShapeIndex() {
+        if (!(this.selectedController instanceof SelectController)) {
+            return -1;
+        }
+
+        List<Shape> shapes = this.model.getShapes();
+        for (int i = 0; i < shapes.size(); ++i) {
+            Shape shape = shapes.get(i);
+            if (shape.getSelected()) {
+                return i;
+            }
+        }
+
+        return -1;
     }
 }
