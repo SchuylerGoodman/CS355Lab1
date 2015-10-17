@@ -165,15 +165,26 @@ public abstract class Shape extends Observable {
 	 * @return a transformation as an AffineTransform
 	 */
 	public AffineTransform getWorldToObj() {
-		AffineTransform worldToObj = new AffineTransform();
+
+		//AffineTransform worldToObj = new AffineTransform();
 
 		// rotate to neutral orientation
-		worldToObj.rotate(this.getRotation() * -1);
+		//worldToObj.rotate(this.getRotation() * -1);
+		double rotationFactor = this.getRotation() * -1;
+		double m00 = Math.cos(rotationFactor);
+		double m11 = Math.cos(rotationFactor);
+		double m01 = Math.sin(rotationFactor) * -1;
+		double m10 = Math.sin(rotationFactor);
 
 		// translate to the origin
 		double x = this.getCenter().getX() * -1;
 		double y = this.getCenter().getY() * -1;
-		worldToObj.translate(x, y);
+		//worldToObj.translate(x, y);
+
+		double m02 = x * m00 + y * m01;
+		double m12 = x * m10 + y * m11;
+
+		AffineTransform worldToObj = new AffineTransform(m00, m10, m01, m11, m02, m12);
 
 		return worldToObj;
 	}
