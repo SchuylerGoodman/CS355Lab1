@@ -1,6 +1,7 @@
 package cs355.model.drawing;
 
 import cs355.model.drawing.selectable.CircleHandle;
+import cs355.model.drawing.selectable.Handle;
 
 import java.awt.Color;
 import java.awt.geom.AffineTransform;
@@ -104,19 +105,15 @@ public class Rectangle extends Shape {
 	}
 
 	@Override
-	protected void updateHandles() {
+	public void updateHandles(double zoomFactor) {
+		for (Handle handle : this.handles) {
+			handle.updateHandle(this.getCenter(), this.getCenter(), zoomFactor);
+		}
+	}
 
-		AffineTransform fixedRotation = AffineTransform.getRotateInstance(
-				this.rotation,
-				this.center.getX(),
-				this.center.getY()
-		);
-
-        double handleY = center.getY() - (this.height / 2 + Shape.HANDLE_OFFSET);
-		Point2D.Double handleCenter = new Point2D.Double(this.center.getX(), handleY);
-		fixedRotation.transform(handleCenter, handleCenter);
-
-		this.handles.get(0).getHandleShape().setCenter(handleCenter);
+	@Override
+	public double getMinimumY() {
+		return -1 * ( this.height / 2 );
 	}
 
 }

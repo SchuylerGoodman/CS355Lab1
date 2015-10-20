@@ -4,10 +4,9 @@ import cs355.GUIFunctions;
 import cs355.model.drawing.selectable.Handle;
 import cs355.model.exception.InvalidHandleException;
 import cs355.model.drawing.Shape;
+import cs355.model.view.AbstractViewModel;
 
 import java.awt.*;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 /**
@@ -22,17 +21,23 @@ public abstract class ShapeDrawable implements IDrawable {
     }
 
     @Override
-    public void draw(Graphics2D g2d) {
+    public void draw(Graphics2D g2d, AbstractViewModel viewModel) {
+
+        // Regulate the stroke, so the width of the border doesn't change with the zoom level
+        float strokeWidth = 2 / (float) viewModel.getZoomFactor();
+        g2d.setStroke(new BasicStroke(strokeWidth));
+
         if (this.shape.getSelected()) {
-            this.drawHandles(g2d);
+            this.drawHandles(g2d, viewModel);
         }
     }
 
     /**
      * Method for drawing the handles for a shape.
      * @param g2d = the graphics object on which to draw the handles.
+     * @param viewModel = transformation from world space to view space.
      */
-    protected void drawHandles(Graphics2D g2d) {
+    protected void drawHandles(Graphics2D g2d, AbstractViewModel viewModel) {
 
         DrawableFactory factory = new DrawableFactory();
 
@@ -40,7 +45,7 @@ public abstract class ShapeDrawable implements IDrawable {
         for (Handle handle : handles) {
             try {
                 IDrawable drawHandle = factory.create(handle);
-                drawHandle.draw(g2d);
+                drawHandle.draw(g2d, viewModel);
             }
             catch (InvalidHandleException e) {
                 GUIFunctions.printf(
@@ -52,4 +57,5 @@ public abstract class ShapeDrawable implements IDrawable {
             }
         }
     }
+
 }

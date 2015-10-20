@@ -1,6 +1,7 @@
 package cs355.model.drawing;
 
 import cs355.model.drawing.selectable.CircleHandle;
+import cs355.model.drawing.selectable.Handle;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
@@ -80,9 +81,14 @@ public class Square extends Shape {
 	}
 
 	@Override
-	protected void updateHandles() {
+	public double getMinimumY() {
+		return -1 * ( this.getSize() / 2 );
+	}
 
-		AffineTransform fixedRotation = AffineTransform.getRotateInstance(
+	@Override
+	public void updateHandles(double zoomFactor) {
+
+		/*AffineTransform fixedRotation = AffineTransform.getRotateInstance(
 				this.rotation,
 				this.center.getX(),
 				this.center.getY()
@@ -91,7 +97,9 @@ public class Square extends Shape {
 		double handleY = center.getY() - (this.size / 2 + Shape.HANDLE_OFFSET);
 		Point2D.Double handleCenter = new Point2D.Double(this.center.getX(), handleY);
 		fixedRotation.transform(handleCenter, handleCenter);
-
-		this.handles.get(0).getHandleShape().setCenter(handleCenter);
+		*/
+		for (Handle handle : this.getHandles()) {
+			handle.updateHandle(this.getCenter(), this.getCenter(), zoomFactor);
+		}
 	}
 }

@@ -37,7 +37,7 @@ public class CS355DrawingImpl extends CS355Drawing implements Observer {
 
             // Notify observers of change
             this.setChanged();
-            this.notifyObservers();
+            //this.notifyObservers();
         }
 
         return index;
@@ -52,7 +52,7 @@ public class CS355DrawingImpl extends CS355Drawing implements Observer {
 
             // Notify observers of removal if successful
             this.setChanged();
-            this.notifyObservers();
+            //this.notifyObservers();
         }
         catch (IndexOutOfBoundsException e) {
             GUIFunctions.printf("Tried to remove shape from drawing at index %d, index does not exist", index);
@@ -69,7 +69,7 @@ public class CS355DrawingImpl extends CS355Drawing implements Observer {
             }
 
             this.setChanged();
-            this.notifyObservers();
+            //this.notifyObservers();
         }
     }
 
@@ -83,7 +83,7 @@ public class CS355DrawingImpl extends CS355Drawing implements Observer {
             }
 
             this.setChanged();
-            this.notifyObservers();
+            //this.notifyObservers();
         }
     }
 
@@ -94,7 +94,7 @@ public class CS355DrawingImpl extends CS355Drawing implements Observer {
         if (nextIndex < this.shapes.size()) {
             Collections.swap(this.shapes, index, nextIndex);
             this.setChanged();
-            this.notifyObservers();
+            //this.notifyObservers();
         }
     }
 
@@ -105,7 +105,7 @@ public class CS355DrawingImpl extends CS355Drawing implements Observer {
         if (lastIndex > -1) {
             Collections.swap(this.shapes, lastIndex, index);
             this.setChanged();
-            this.notifyObservers();
+            //this.notifyObservers();
         }
     }
 
@@ -140,7 +140,7 @@ public class CS355DrawingImpl extends CS355Drawing implements Observer {
 
         // Notify observers of change
         this.setChanged();
-        this.notifyObservers();
+        //this.notifyObservers();
     }
 
     @Override
@@ -148,6 +148,5 @@ public class CS355DrawingImpl extends CS355Drawing implements Observer {
 
         // Notify observers of change
         this.setChanged();
-        this.notifyObservers();
     }
 }

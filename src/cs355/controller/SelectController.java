@@ -3,6 +3,7 @@ package cs355.controller;
 import cs355.model.drawing.*;
 import cs355.model.drawing.Shape;
 import cs355.model.drawing.selectable.Handle;
+import cs355.model.view.AbstractViewModel;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -31,6 +32,11 @@ public class SelectController implements IController, Observer {
     private CS355Controller controller;
 
     /**
+     * Model that controls the size and orientation of the view.
+     */
+    private AbstractViewModel viewModel;
+
+    /**
      * The shape which has been selected.
      */
     private Shape selectedShape;
@@ -45,9 +51,17 @@ public class SelectController implements IController, Observer {
      */
     private HandleController handleController;
 
-    public SelectController(CS355Controller controller, Observable colorChangeNotifier) {
+    /**
+     * Constructor for the SelectController class.
+     *
+     * @param controller = the main controller for the drawing.
+     * @param colorChangeNotifier = an observable that notifies this controller if the color has changed.
+     * @param viewModel = a model for the view, which stores information about the orientation.
+     */
+    public SelectController(CS355Controller controller, Observable colorChangeNotifier, AbstractViewModel viewModel) {
         initialCoordinates = new Point2D.Double();
         this.controller = controller;
+        this.viewModel = viewModel;
         this.selectedShape = null;
 
         this.handleControllerFactory = new HandleControllerFactory();
@@ -60,11 +74,13 @@ public class SelectController implements IController, Observer {
     public void mouseClicked(MouseEvent e, CS355Drawing model, Color c) {
 
         // If a handle has been selected, default to that behavior instead.
-        if (this.handleSelected()) {
+        if (!this.handleSelected()) {
+        }
+        else {
             this.handleController.mouseClicked(e, model, c);
-            return;
         }
 
+        this.updateSelectedShapeHandles();
     }
 
     @Override
@@ -87,61 +103,70 @@ public class SelectController implements IController, Observer {
         }
 
         // If a handle has been selected, default to that behavior instead.
-        if (this.handleSelected()) {
-            this.handleController.mousePressed(e, model, c);
-            return;
-        }
-        else {
+        if (!this.handleSelected()) {
+
             this.deselectShape();
-        }
 
-        // Get the shapes from the model from top to bottom
-        List<Shape> shapes = model.getShapesReversed();
+            // Get the shapes from the model from top to bottom
+            List<Shape> shapes = model.getShapesReversed();
 
-        // Loop through the shapes to find the top one that intersects with the point
-        ListIterator<Shape> shapeIterator = shapes.listIterator();
-        while (shapeIterator.hasNext()) {
-            Shape shape = shapeIterator.next();
-            if (shape.pointInShape(this.initialCoordinates, SelectController.SELECTION_TOLERANCE)) {
+            // Loop through the shapes to find the top one that intersects with the point
+            ListIterator<Shape> shapeIterator = shapes.listIterator();
+            while (shapeIterator.hasNext()) {
+                Shape shape = shapeIterator.next();
+                if (shape.pointInShape(this.initialCoordinates, SelectController.SELECTION_TOLERANCE)) {
 
-                // Select the new shape
-                this.selectShape(shape);
-                this.controller.colorButtonHit(this.selectedShape.getColor());
-                break;
+                    // Select the new shape
+                    this.selectShape(shape);
+                    this.controller.colorButtonHit(this.selectedShape.getColor());
+                    break;
+                }
             }
         }
+        else {
+            this.handleController.mousePressed(e, model, c);
+        }
+
+        this.updateSelectedShapeHandles();
     }
 
     @Override
     public void mouseReleased(MouseEvent e, CS355Drawing model, Color c) {
 
         // If a handle has been selected, default to that behavior instead.
-        if (this.handleSelected()) {
-            this.handleController.mouseReleased(e, model, c);
-            return;
+        if (!this.handleSelected()) {
         }
+        else {
+            this.handleController.mouseReleased(e, model, c);
+        }
+
+        this.updateSelectedShapeHandles();
     }
 
     @Override
     public void mouseEntered(MouseEvent e, CS355Drawing model, Color c) {
 
         // If a handle has been selected, default to that behavior instead.
-        if (this.handleSelected()) {
+        if (!this.handleSelected()) {
+        }
+        else {
             this.handleController.mouseEntered(e, model, c);
-            return;
         }
 
+        this.updateSelectedShapeHandles();
     }
 
     @Override
     public void mouseExited(MouseEvent e, CS355Drawing model, Color c) {
 
         // If a handle has been selected, default to that behavior instead.
-        if (this.handleSelected()) {
+        if (!this.handleSelected()) {
+        }
+        else {
             this.handleController.mouseExited(e, model, c);
-            return;
         }
 
+        this.updateSelectedShapeHandles();
     }
 
     @Override
@@ -153,44 +178,48 @@ public class SelectController implements IController, Observer {
         }
 
         // If a handle has been selected, default to that behavior instead.
-        if (this.handleSelected()) {
+        if (!this.handleSelected()) {
+            // Get the current pointer location.
+            Point2D.Double current = new Point2D.Double();
+            current.setLocation(e.getPoint());
+
+            // Find the distance moved since the initial location.
+            double xDiff = current.getX() - this.initialCoordinates.getX();
+            double yDiff = current.getY() - this.initialCoordinates.getY();
+
+            // Get the center of the selected shape.
+            Point2D.Double center = this.selectedShape.getCenter();
+
+            // Get the destination for the center of the shape.
+            Point2D.Double destination = new Point2D.Double(
+                    center.getX() + xDiff,
+                    center.getY() + yDiff
+            );
+
+            // Set the initial location to the current point, for the next drag.
+            this.initialCoordinates.setLocation(current);
+
+            // Update the center of the shape.
+            this.selectedShape.setCenter(destination);
+        }
+        else {
             this.handleController.mouseDragged(e, model, c);
-            return;
         }
 
-        // Get the current pointer location.
-        Point2D.Double current = new Point2D.Double();
-        current.setLocation(e.getPoint());
-
-        // Find the distance moved since the initial location.
-        double xDiff = current.getX() - this.initialCoordinates.getX();
-        double yDiff = current.getY() - this.initialCoordinates.getY();
-
-        // Get the center of the selected shape.
-        Point2D.Double center = this.selectedShape.getCenter();
-
-        // Get the destination for the center of the shape.
-        Point2D.Double destination = new Point2D.Double(
-                center.getX() + xDiff,
-                center.getY() + yDiff
-        );
-
-        // Set the initial location to the current point, for the next drag.
-        this.initialCoordinates.setLocation(current);
-
-        // Update the center of the shape.
-        this.selectedShape.setCenter(destination);
+        this.updateSelectedShapeHandles();
     }
 
     @Override
     public void mouseMoved(MouseEvent e, CS355Drawing model, Color c) {
 
         // If a handle has been selected, default to that behavior instead.
-        if (this.handleSelected()) {
+        if (!this.handleSelected()) {
+        }
+        else {
             this.handleController.mouseMoved(e, model, c);
-            return;
         }
 
+        this.updateSelectedShapeHandles();
     }
 
     @Override
@@ -233,6 +262,12 @@ public class SelectController implements IController, Observer {
     private void deselectHandle() {
         if (this.handleSelected()) {
             this.handleController = null;
+        }
+    }
+
+    private void updateSelectedShapeHandles() {
+        if (this.shapeSelected()) {
+            this.selectedShape.updateHandles(this.viewModel.getZoomFactor());
         }
     }
 }

@@ -2,8 +2,10 @@ package cs355.view;
 
 import cs355.model.drawing.*;
 import cs355.model.exception.InvalidShapeException;
+import cs355.model.view.AbstractViewModel;
 
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
@@ -17,7 +19,9 @@ public class SquareDrawable extends ShapeDrawable {
     }
 
     @Override
-    public void draw(Graphics2D g2d) {
+    public void draw(Graphics2D g2d, AbstractViewModel viewModel) {
+
+        super.draw(g2d, viewModel);
 
         Square square = (Square) this.shape;
         double size = square.getSize();
@@ -33,8 +37,12 @@ public class SquareDrawable extends ShapeDrawable {
                 size
         );
 
+        // Concatenate objToWorld and worldToView transforms to get objToView
+        AffineTransform objToView = new AffineTransform(viewModel.getWorldToView());
+        objToView.concatenate(square.getObjToWorld());
+
         g2d.setPaint(square.getColor());
-        g2d.setTransform(square.getObjToWorld());
+        g2d.setTransform(objToView);
         g2d.fill(drawSquare);
         g2d.draw(drawSquare);
 
@@ -42,8 +50,6 @@ public class SquareDrawable extends ShapeDrawable {
             g2d.setPaint(Color.WHITE);
             g2d.draw(drawSquare);
         }
-
-        super.draw(g2d);
     }
 }
 

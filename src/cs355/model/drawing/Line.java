@@ -133,19 +133,26 @@ public class Line extends Shape {
 	}
 
     @Override
-    protected void updateHandles() {
+    public void updateHandles(double zoomFactor) {
 
-        Point2D.Double handleStartPoint = new Point2D.Double(this.center.getX(), this.center.getY());
+        // Update start handle.
         Handle startHandle = this.handles.get(0);
-        startHandle.getHandleShape().setCenter(handleStartPoint);
-        startHandle.getAnchorPoint().setLocation(new Point2D.Double(0.0, 0.0));
+        Point2D.Double newStartAnchorPoint = new Point2D.Double(0.0, 0.0);
+        Point2D.Double newStartCenter = new Point2D.Double(this.center.getX(), this.center.getY());
+        startHandle.updateHandle(newStartAnchorPoint, newStartCenter, zoomFactor);
 
-        Point2D.Double handleEndPoint = new Point2D.Double(
-                handleStartPoint.getX() + this.end.getX(),
-                handleStartPoint.getY() + this.end.getY()
-        );
+        // Update end handle.
         Handle endHandle = this.handles.get(1);
-        endHandle.getHandleShape().setCenter(handleEndPoint);
-        endHandle.getAnchorPoint().setLocation(this.end);
+        Point2D.Double newEndAnchorPoint = new Point2D.Double(this.end.getX(), this.end.getY());
+        Point2D.Double newEndCenter = new Point2D.Double(
+                newStartCenter.getX() + this.end.getX(),
+                newStartCenter.getY() + this.end.getY()
+        );
+        endHandle.updateHandle(newEndAnchorPoint, newEndCenter, zoomFactor);
+    }
+
+    @Override
+    public double getMinimumY() {
+        return Math.min(this.getStart().getY(), this.getEnd().getY());
     }
 }

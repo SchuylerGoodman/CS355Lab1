@@ -3,6 +3,7 @@ package cs355.solution;
 import cs355.GUIFunctions;
 import cs355.controller.CS355Controller;
 import cs355.controller.CS355ControllerImpl;
+import cs355.model.view.ViewModel;
 import cs355.model.drawing.CS355Drawing;
 import cs355.model.drawing.CS355DrawingImpl;
 import cs355.view.ViewRefresher;
@@ -28,10 +29,13 @@ public class CS355 {
 
 		// Construct model, view, and controller
 		CS355Drawing model = new CS355DrawingImpl();
-		ViewRefresher view = new ViewRefresherImpl(model);
-		CS355Controller controller = new CS355ControllerImpl(model, initialColor);
+
+        ViewModel viewModel = new ViewModel();
+		ViewRefresher view = new ViewRefresherImpl(viewModel, model);
+		CS355Controller controller = new CS355ControllerImpl(model, viewModel, initialColor);
 
 		// Register view with model as observer
+        viewModel.addObserver(view);
 		model.addObserver(view);
 
 		// Initialize frame

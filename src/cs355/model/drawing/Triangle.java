@@ -165,11 +165,8 @@ public class Triangle extends Shape {
 		return true;
 	}
 
-	/**
-	 * Get the minimum Y coordinate relative to the center of the triangle.
-	 * @return the minimum Y coordinate as a double.
-	 */
-	private double getMinimumYCoordinate() {
+	@Override
+	public double getMinimumY() {
 
 		double min = Math.min(this.getA().getY(), this.getB().getY());
 		min = Math.min(min, this.getC().getY());
@@ -178,20 +175,10 @@ public class Triangle extends Shape {
 	}
 
 	@Override
-	protected void updateHandles() {
-
-		AffineTransform fixedRotation = AffineTransform.getRotateInstance(
-				this.rotation,
-				this.center.getX(),
-				this.center.getY()
-		);
-
-        double minY = this.getMinimumYCoordinate();
-        double handleY = this.getCenter().getY() + minY - Shape.HANDLE_OFFSET;
-		Point2D.Double handleCenter = new Point2D.Double(this.center.getX(), handleY);
-		fixedRotation.transform(handleCenter, handleCenter);
-
-        this.handles.get(0).getHandleShape().setCenter(handleCenter);
+	public void updateHandles(double zoomFactor) {
+		for (Handle handle : this.handles) {
+			handle.updateHandle(this.getCenter(), this.getCenter(), zoomFactor);
+		}
 	}
 
 }

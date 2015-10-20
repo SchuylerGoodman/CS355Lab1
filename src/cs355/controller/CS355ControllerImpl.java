@@ -3,9 +3,11 @@ package cs355.controller;
 import cs355.GUIFunctions;
 import cs355.model.drawing.CS355Drawing;
 import cs355.model.drawing.Shape;
+import cs355.model.view.AbstractViewModel;
 
 import java.awt.Color;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Point2D;
 import java.io.File;
 import java.util.Iterator;
 import java.util.List;
@@ -22,6 +24,11 @@ public class CS355ControllerImpl extends Observable implements CS355Controller {
     private CS355Drawing model;
 
     /**
+     * Model that controls the size and orientation of the view.
+     */
+    private AbstractViewModel viewModel;
+
+    /**
      * The color selected in the UI.
      */
     private Color selectedColor;
@@ -31,8 +38,9 @@ public class CS355ControllerImpl extends Observable implements CS355Controller {
      */
     private IController selectedController;
 
-    public CS355ControllerImpl(CS355Drawing model, Color c) {
+    public CS355ControllerImpl(CS355Drawing model, AbstractViewModel viewModel, Color c) {
         this.model = model;
+        this.viewModel = viewModel;
         this.selectedColor = c;
         this.selectedController = new NoneController();
     }
@@ -76,26 +84,30 @@ public class CS355ControllerImpl extends Observable implements CS355Controller {
     }
 
     @Override
-    public void selectButtonHit() { this.setSelectedController(new SelectController(this, this)); }
+    public void selectButtonHit() { this.setSelectedController(new SelectController(this, this, viewModel)); }
 
     @Override
     public void zoomInButtonHit() {
-
+        this.viewModel.zoomIn();
+        this.updateShapeHandles();
+        this.viewModel.notifyObservers();
     }
 
     @Override
     public void zoomOutButtonHit() {
-
+        this.viewModel.zoomOut();
+        this.updateShapeHandles();
+        this.viewModel.notifyObservers();
     }
 
     @Override
     public void hScrollbarChanged(int value) {
-
+        this.viewModel.setHScrollPosition(value);
     }
 
     @Override
     public void vScrollbarChanged(int value) {
-
+        this.viewModel.setVScrollPosition(value);
     }
 
     @Override
@@ -136,6 +148,7 @@ public class CS355ControllerImpl extends Observable implements CS355Controller {
     @Override
     public void openDrawing(File file) {
         this.model.open(file);
+        this.model.notifyObservers();
     }
 
     @Override
@@ -143,42 +156,43 @@ public class CS355ControllerImpl extends Observable implements CS355Controller {
         int index = this.findSelectedShapeIndex();
         if (index > -1) {
             this.model.deleteShape(index);
+            this.model.notifyObservers();
         }
     }
 
     @Override
     public void doEdgeDetection() {
-
+        this.model.notifyObservers();
     }
 
     @Override
     public void doSharpen() {
-
+        this.model.notifyObservers();
     }
 
     @Override
     public void doMedianBlur() {
-
+        this.model.notifyObservers();
     }
 
     @Override
     public void doUniformBlur() {
-
+        this.model.notifyObservers();
     }
 
     @Override
     public void doGrayscale() {
-
+        this.model.notifyObservers();
     }
 
     @Override
     public void doChangeContrast(int contrastAmountNum) {
-
+        this.model.notifyObservers();
     }
 
     @Override
     public void doChangeBrightness(int brightnessAmountNum) {
-
+        this.model.notifyObservers();
     }
 
     @Override
@@ -186,6 +200,7 @@ public class CS355ControllerImpl extends Observable implements CS355Controller {
         int index = this.findSelectedShapeIndex();
         if (index > -1) {
             this.model.moveForward(index);
+            this.model.notifyObservers();
         }
     }
 
@@ -194,6 +209,7 @@ public class CS355ControllerImpl extends Observable implements CS355Controller {
         int index = this.findSelectedShapeIndex();
         if (index > -1) {
             this.model.moveBackward(index);
+            this.model.notifyObservers();
         }
     }
 
@@ -202,6 +218,7 @@ public class CS355ControllerImpl extends Observable implements CS355Controller {
         int index = this.findSelectedShapeIndex();
         if (index > -1) {
             this.model.moveToFront(index);
+            this.model.notifyObservers();
         }
     }
 
@@ -210,47 +227,82 @@ public class CS355ControllerImpl extends Observable implements CS355Controller {
         int index = this.findSelectedShapeIndex();
         if (index > -1) {
             this.model.movetoBack(index);
+            this.model.notifyObservers();
         }
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        this.mouseEventToWorldSpace(e);
         this.selectedController.mouseClicked(e, this.model, this.selectedColor);
+        this.model.notifyObservers();
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
+        this.mouseEventToWorldSpace(e);
         this.selectedController.mousePressed(e, this.model, this.selectedColor);
+        this.model.notifyObservers();
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
+        this.mouseEventToWorldSpace(e);
         this.selectedController.mouseReleased(e, this.model, this.selectedColor);
+        this.model.notifyObservers();
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
+        this.mouseEventToWorldSpace(e);
         this.selectedController.mouseEntered(e, this.model, this.selectedColor);
+        this.model.notifyObservers();
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
+        this.mouseEventToWorldSpace(e);
         this.selectedController.mouseExited(e, this.model, this.selectedColor);
+        this.model.notifyObservers();
     }
 
     @Override
     public void mouseDragged(MouseEvent e) {
+        this.mouseEventToWorldSpace(e);
         this.selectedController.mouseDragged(e, this.model, this.selectedColor);
+        this.model.notifyObservers();
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
+        this.mouseEventToWorldSpace(e);
         this.selectedController.mouseMoved(e, this.model, this.selectedColor);
+        this.model.notifyObservers();
     }
 
     private void setSelectedController(IController controller) {
         this.selectedController.close();
         this.selectedController = controller;
+        this.model.notifyObservers();
+    }
+
+    /**
+     * Convert a mouse event in place to world coordinates from view coordinates.
+     *
+     * @param e = mouse event to convert in place.
+     */
+    private void mouseEventToWorldSpace(MouseEvent e) {
+
+        Point2D mousePoint = new Point2D.Double();
+        mousePoint.setLocation(e.getPoint());
+
+        Point2D newPoint = new Point2D.Double();
+        this.viewModel.getViewToWorld().transform(mousePoint, newPoint);
+
+        int xDiff = (int) ( newPoint.getX() - mousePoint.getX() );
+        int yDiff = (int) ( newPoint.getY() - mousePoint.getY() );
+
+        e.translatePoint(xDiff, yDiff);
     }
 
     /**
@@ -275,5 +327,14 @@ public class CS355ControllerImpl extends Observable implements CS355Controller {
         }
 
         return -1;
+    }
+
+    /**
+     * Updates the handles for all shapes in the model.
+     */
+    private void updateShapeHandles() {
+        for (Shape shape : this.model.getShapes()) {
+            shape.updateHandles(this.viewModel.getZoomFactor());
+        }
     }
 }

@@ -2,6 +2,8 @@ package cs355.model.drawing;
 
 import cs355.model.drawing.selectable.CircleHandle;
 import cs355.model.drawing.selectable.Handle;
+import cs355.model.drawing.selectable.HandleFactory;
+import javafx.scene.transform.Affine;
 
 import java.awt.Color;
 import java.awt.geom.AffineTransform;
@@ -15,9 +17,7 @@ import java.util.Observable;
  */
 public abstract class Shape extends Observable {
 
-    protected static Color HANDLE_COLOR = Color.WHITE;
-    protected static double HANDLE_RADIUS = 5.0;
-    protected static double HANDLE_OFFSET = 15.0;
+    protected static double HANDLE_OFFSET = 16.0;
 
 	// The color of this shape.
 	protected Color color;
@@ -133,19 +133,26 @@ public abstract class Shape extends Observable {
 
 		if (this.numHandles	!= this.handles.size())
 		{
+			/*
+			 This is kinda crappy because there's no reason
+			 that other shapes would need multiple rotation handles.
+
+			 It really all comes down to the "Line" being represented in a weird way.
+			 TODO think of a better way to handle needing different types of handles. Maybe some ShapeHandles class?
+			 */
+			HandleFactory factory = new HandleFactory();
 			this.handles = new ArrayList<>();
 			for (int i = 0; i < this.numHandles; ++i) {
-				this.handles.add(new CircleHandle(
-						this,
-                        new Point2D.Double(0.0, 0.0),
-                        new Point2D.Double(0.0, 0.0),
-                        Shape.HANDLE_COLOR,
-                        Shape.HANDLE_RADIUS
-				));
+				this.handles.add(
+						factory.create(
+								this,
+                                new Point2D.Double(0.0, 0.0),
+                                new Point2D.Double(0.0, 0.0)
+						)
+				);
 			}
 		}
 
-		this.updateHandles();
 		return this.handles;
 	}
 
@@ -154,11 +161,6 @@ public abstract class Shape extends Observable {
 	 * @param numHandles = the integer number of handles for the shape.
 	 */
 	public void setNumHandles(int numHandles) { this.numHandles = numHandles; }
-
-	/**
-	 * Update the handles with new information about it's reference shape.
-	 */
-	protected abstract void updateHandles();
 
 	/**
 	 * Getter for a transformation from world coordinates to this object's coordinates.
@@ -175,16 +177,18 @@ public abstract class Shape extends Observable {
 		double m11 = Math.cos(rotationFactor);
 		double m01 = Math.sin(rotationFactor) * -1;
 		double m10 = Math.sin(rotationFactor);
+		AffineTransform worldToObj = new AffineTransform(m00, m10, m01, m11, 0, 0);
 
 		// translate to the origin
 		double x = this.getCenter().getX() * -1;
 		double y = this.getCenter().getY() * -1;
+		AffineTransform translationMatrix = new AffineTransform(1, 0, 0, 1, x, y);
 		//worldToObj.translate(x, y);
 
 		double m02 = x * m00 + y * m01;
 		double m12 = x * m10 + y * m11;
 
-		AffineTransform worldToObj = new AffineTransform(m00, m10, m01, m11, m02, m12);
+		worldToObj.concatenate(translationMatrix);
 
 		return worldToObj;
 	}
@@ -194,18 +198,41 @@ public abstract class Shape extends Observable {
 	 * @return a transformation as an AffineTransform
 	 */
 	public AffineTransform getObjToWorld() {
-		AffineTransform objToWorld = new AffineTransform();
+
+		//AffineTransform objToWorld = new AffineTransform();
 
 		// translate to its position in the world
 		double x = this.getCenter().getX();
 		double y = this.getCenter().getY();
-		objToWorld.translate(x, y);
+		AffineTransform objToWorld = new AffineTransform(1, 0, 0, 1, x, y);
+		//objToWorld.translate(x, y);
 
 		// rotate to its orientation in the world
-		objToWorld.rotate(this.getRotation());
+		double rotationFactor = this.getRotation();
+		double m00 = Math.cos(rotationFactor);
+		double m11 = Math.cos(rotationFactor);
+		double m01 = Math.sin(rotationFactor) * -1;
+		double m10 = Math.sin(rotationFactor);
+		AffineTransform rotationMatrix = new AffineTransform(m00, m10, m01, m11, 0, 0);
+		//objToWorld.rotate(this.getRotation());
+
+		objToWorld.concatenate(rotationMatrix);
 
 		return objToWorld;
 	}
+
+	/**
+	 * Update the handles with new information about it's reference shape.
+	 *
+	 * @param zoomFactor = the zoom factor in the view.
+	 */
+	public abstract void updateHandles(double zoomFactor);
+
+	/**
+	 * Get the minimum Y value relative to the center of the shape.
+	 * @return the minimum Y value as a double.
+	 */
+	public abstract double getMinimumY();
 
 	/**
 	 * Used to test for whether the user clicked inside a shape or not.

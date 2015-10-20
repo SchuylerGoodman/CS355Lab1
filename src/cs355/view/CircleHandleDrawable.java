@@ -1,10 +1,12 @@
 package cs355.view;
 
-import cs355.model.drawing.Circle;
+import cs355.model.drawing.*;
 import cs355.model.drawing.Shape;
 import cs355.model.drawing.selectable.CircleHandle;
+import cs355.model.view.AbstractViewModel;
 
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 
@@ -27,16 +29,17 @@ public class CircleHandleDrawable implements IDrawable {
     }
 
     @Override
-    public void draw(Graphics2D g2d) {
+    public void draw(Graphics2D g2d, AbstractViewModel viewModel) {
 
         Circle handleCircle = (Circle) this.handle.getHandleShape();
+        Point2D.Double handleCenter = handleCircle.getCenter();
 
-        // Get directional parameters
-        double radius = handleCircle.getRadius();
+        // Get radius (needs to be the same at all zoom levels
+        double radius = handleCircle.getRadius() / viewModel.getZoomFactor();
 
         // Calculate upper left corner of bounding rectangle
         Point2D.Double upperLeftCorner = new Point2D.Double();
-        upperLeftCorner.setLocation(radius * -1, radius * -1);
+        upperLeftCorner.setLocation(handleCenter.getX() - radius, handleCenter.getY() - radius);
 
         // Initialize circle geometric object
         Ellipse2D drawCircle = new Ellipse2D.Double(
@@ -46,8 +49,19 @@ public class CircleHandleDrawable implements IDrawable {
                 radius * 2
         );
 
+        // Concatenate objToWorld and worldToView transforms to get objToView
+        Shape referenceShape = this.handle.getReferenceShape();
+        AffineTransform objToView = new AffineTransform(viewModel.getWorldToView());
+        objToView.concatenate(referenceShape.getObjToWorld());
+        //objToView.concatenate(offsetTransform);
+
+        // Regulate the stroke, so the width of the border doesn't change with the zoom level
+        // and keep the width of the circle line at 1.
+        float strokeWidth = 1 / (float) viewModel.getZoomFactor();
+        g2d.setStroke(new BasicStroke(strokeWidth));
+
         g2d.setPaint(handleCircle.getColor());
-        g2d.setTransform(handleCircle.getObjToWorld());
+        g2d.setTransform(objToView);
         g2d.draw(drawCircle);
     }
 }

@@ -1,6 +1,7 @@
 package cs355.model.drawing;
 
 import cs355.model.drawing.selectable.CircleHandle;
+import cs355.model.drawing.selectable.Handle;
 
 import java.awt.Color;
 import java.awt.geom.AffineTransform;
@@ -49,7 +50,7 @@ public class Circle extends Shape {
 		this.radius = radius;
 
 		this.setChanged();
-		this.notifyObservers();
+		//this.notifyObservers();
 	}
 
 	/**
@@ -75,6 +76,7 @@ public class Circle extends Shape {
 		if (Math.abs(ptObj.getX()) > bound.getX() || Math.abs(ptObj.getY()) > bound.getY()) {
 			return false;
 		}
+		//TODO Zoom messes with handle bounding box
 
 		// check if the point is further from center than the radius
 		double magnitude = Math.sqrt(Math.pow(ptObj.getX(), 2.0) + Math.pow(ptObj.getY(), 2.0));
@@ -86,19 +88,15 @@ public class Circle extends Shape {
 	}
 
 	@Override
-	protected void updateHandles() {
+	public void updateHandles(double zoomFactor) {
+		for (Handle handle : this.handles) {
+			handle.updateHandle(this.getCenter(), this.getCenter(), zoomFactor);
+		}
+	}
 
-		AffineTransform fixedRotation = AffineTransform.getRotateInstance(
-				this.rotation,
-				this.center.getX(),
-				this.center.getY()
-		);
-
-        double handleY = center.getY() - (this.radius + Shape.HANDLE_OFFSET);
-		Point2D.Double handleCenter = new Point2D.Double(this.center.getX(), handleY);
-		fixedRotation.transform(handleCenter, handleCenter);
-
-		this.handles.get(0).getHandleShape().setCenter(handleCenter);
+	@Override
+	public double getMinimumY() {
+		return -1 * radius;
 	}
 
 }
