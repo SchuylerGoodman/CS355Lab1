@@ -1,9 +1,7 @@
 package cs355.model.drawing;
 
-import cs355.model.drawing.selectable.CircleHandle;
 import cs355.model.drawing.selectable.Handle;
-import cs355.model.drawing.selectable.HandleFactory;
-import javafx.scene.transform.Affine;
+import cs355.model.drawing.selectable.CircleHandleFactory;
 
 import java.awt.Color;
 import java.awt.geom.AffineTransform;
@@ -140,7 +138,7 @@ public abstract class Shape extends Observable {
 			 It really all comes down to the "Line" being represented in a weird way.
 			 TODO think of a better way to handle needing different types of handles. Maybe some ShapeHandles class?
 			 */
-			HandleFactory factory = new HandleFactory();
+			CircleHandleFactory factory = new CircleHandleFactory();
 			this.handles = new ArrayList<>();
 			for (int i = 0; i < this.numHandles; ++i) {
 				this.handles.add(

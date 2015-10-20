@@ -136,18 +136,15 @@ public class Line extends Shape {
     public void updateHandles(double zoomFactor) {
 
         // Update start handle.
-        Handle startHandle = this.handles.get(0);
+        Handle startHandle = this.getHandles().get(0);
         Point2D.Double newStartAnchorPoint = new Point2D.Double(0.0, 0.0);
-        Point2D.Double newStartCenter = new Point2D.Double(this.center.getX(), this.center.getY());
+        Point2D.Double newStartCenter = new Point2D.Double(0.0, 0.0);
         startHandle.updateHandle(newStartAnchorPoint, newStartCenter, zoomFactor);
 
         // Update end handle.
-        Handle endHandle = this.handles.get(1);
+        Handle endHandle = this.getHandles().get(1);
         Point2D.Double newEndAnchorPoint = new Point2D.Double(this.end.getX(), this.end.getY());
-        Point2D.Double newEndCenter = new Point2D.Double(
-                newStartCenter.getX() + this.end.getX(),
-                newStartCenter.getY() + this.end.getY()
-        );
+        Point2D.Double newEndCenter = new Point2D.Double(this.end.getX(), this.end.getY());
         endHandle.updateHandle(newEndAnchorPoint, newEndCenter, zoomFactor);
     }
 

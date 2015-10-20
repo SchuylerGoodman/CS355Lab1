@@ -12,11 +12,15 @@ import java.util.Observer;
  */
 public abstract class Handle implements ISelectable {
 
+    protected static Color HANDLE_COLOR = Color.WHITE;
+
     private Shape referenceShape;
 
     private Shape handleShape;
 
     private Point2D.Double anchorPoint;
+
+    protected double zoomFactor;
 
     /**
      * Basic constructor that sets fields.
@@ -27,6 +31,7 @@ public abstract class Handle implements ISelectable {
         this.referenceShape = referenceShape;
         this.handleShape = null;
         this.anchorPoint = anchorPoint;
+        this.zoomFactor = 1.0;
     }
 
     /**
@@ -57,14 +62,8 @@ public abstract class Handle implements ISelectable {
      */
     protected void setHandleShape(Shape handleShape) { this.handleShape = handleShape; }
 
-    @Override
-    public boolean pointInside(Point2D.Double pt, double tolerance) {
-        Point2D.Double objPoint = new Point2D.Double();
-        AffineTransform worldToObj = this.referenceShape.getWorldToObj();
-        worldToObj.transform(pt, objPoint);
-        return this.getHandleShape().pointInShape(objPoint, tolerance);
+    public void updateHandle(Point2D.Double anchorPoint, Point2D.Double center, double zoomFactor) {
+        this.zoomFactor = zoomFactor;
     }
-
-    public abstract void updateHandle(Point2D.Double anchorPoint, Point2D.Double center, double zoomFactor);
 
 }

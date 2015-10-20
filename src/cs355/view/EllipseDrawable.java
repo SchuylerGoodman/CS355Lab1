@@ -22,6 +22,8 @@ public class EllipseDrawable extends ShapeDrawable {
     @Override
     public void draw(Graphics2D g2d, AbstractViewModel viewModel) {
 
+        super.draw(g2d, viewModel);
+
         Ellipse ellipse = (Ellipse) this.shape;
         
         // Get directional parameters

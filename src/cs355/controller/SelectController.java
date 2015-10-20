@@ -114,7 +114,10 @@ public class SelectController implements IController, Observer {
             ListIterator<Shape> shapeIterator = shapes.listIterator();
             while (shapeIterator.hasNext()) {
                 Shape shape = shapeIterator.next();
-                if (shape.pointInShape(this.initialCoordinates, SelectController.SELECTION_TOLERANCE)) {
+
+                // Normalize selection tolerance by zoom factor.
+                double tolerance = SelectController.SELECTION_TOLERANCE / this.viewModel.getZoomFactor();
+                if (shape.pointInShape(this.initialCoordinates, tolerance)) {
 
                     // Select the new shape
                     this.selectShape(shape);

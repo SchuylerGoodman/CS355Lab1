@@ -1,5 +1,6 @@
 package cs355.model.drawing.selectable;
 
+import cs355.model.drawing.Circle;
 import cs355.model.drawing.Shape;
 
 import java.awt.*;
@@ -28,6 +29,8 @@ public class RotationHandle extends CircleHandle {
     @Override
     public void updateHandle(Point2D.Double anchorPoint, Point2D.Double center, double zoomFactor) {
 
+        super.updateHandle(anchorPoint, center, zoomFactor);
+
         // Set the new anchor point.
         this.getAnchorPoint().setLocation(anchorPoint);
 
@@ -35,13 +38,10 @@ public class RotationHandle extends CircleHandle {
         double minY = this.getReferenceShape().getMinimumY();
 
         // Normalize the offset so the zoom factor doesn't change the way it looks.
-        int offset = (int) ( RotationHandle.OFFSET / zoomFactor );
+        int offset = (int) ( RotationHandle.OFFSET / this.zoomFactor );
 
         offset += minY;
 
         this.getHandleShape().setCenter(new Point2D.Double(0.0, offset));
-        //Point2D.Double handleCenter = this.getHandleShape().getCenter();
-        //handleCenter.setLocation(center.getX(), center.getY() + offset);
-        //handleCenter.setLocation(0.0, offset);
     }
 }

@@ -87,17 +87,6 @@ public class Square extends Shape {
 
 	@Override
 	public void updateHandles(double zoomFactor) {
-
-		/*AffineTransform fixedRotation = AffineTransform.getRotateInstance(
-				this.rotation,
-				this.center.getX(),
-				this.center.getY()
-		);
-
-		double handleY = center.getY() - (this.size / 2 + Shape.HANDLE_OFFSET);
-		Point2D.Double handleCenter = new Point2D.Double(this.center.getX(), handleY);
-		fixedRotation.transform(handleCenter, handleCenter);
-		*/
 		for (Handle handle : this.getHandles()) {
 			handle.updateHandle(this.getCenter(), this.getCenter(), zoomFactor);
 		}

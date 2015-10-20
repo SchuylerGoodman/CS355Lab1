@@ -2,35 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="142b2127-3561-4edc-974d-f26c84a0d5cf" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/cs355/model/view/AbstractViewModel.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/cs355/model/drawing/selectable/DragHandle.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/cs355/model/drawing/selectable/HandleFactory.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/cs355/model/drawing/selectable/RotationHandle.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/cs355/model/view/ViewModel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs355/solution/CS355.java" afterPath="$PROJECT_DIR$/src/cs355/solution/CS355.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs355/controller/CS355ControllerImpl.java" afterPath="$PROJECT_DIR$/src/cs355/controller/CS355ControllerImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs355/model/drawing/CS355DrawingImpl.java" afterPath="$PROJECT_DIR$/src/cs355/model/drawing/CS355DrawingImpl.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs355/model/drawing/Circle.java" afterPath="$PROJECT_DIR$/src/cs355/model/drawing/Circle.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs355/view/CircleDrawable.java" afterPath="$PROJECT_DIR$/src/cs355/view/CircleDrawable.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs355/model/drawing/selectable/CircleHandle.java" afterPath="$PROJECT_DIR$/src/cs355/model/drawing/selectable/CircleHandle.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs355/view/CircleHandleDrawable.java" afterPath="$PROJECT_DIR$/src/cs355/view/CircleHandleDrawable.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs355/model/drawing/selectable/DragHandle.java" afterPath="$PROJECT_DIR$/src/cs355/model/drawing/selectable/DragHandle.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs355/model/drawing/Ellipse.java" afterPath="$PROJECT_DIR$/src/cs355/model/drawing/Ellipse.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs355/view/EllipseDrawable.java" afterPath="$PROJECT_DIR$/src/cs355/view/EllipseDrawable.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs355/model/drawing/selectable/Handle.java" afterPath="$PROJECT_DIR$/src/cs355/model/drawing/selectable/Handle.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs355/view/IDrawable.java" afterPath="$PROJECT_DIR$/src/cs355/view/IDrawable.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs355/model/drawing/Line.java" afterPath="$PROJECT_DIR$/src/cs355/model/drawing/Line.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs355/view/LineDrawable.java" afterPath="$PROJECT_DIR$/src/cs355/view/LineDrawable.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs355/model/drawing/Rectangle.java" afterPath="$PROJECT_DIR$/src/cs355/model/drawing/Rectangle.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs355/view/RectangleDrawable.java" afterPath="$PROJECT_DIR$/src/cs355/view/RectangleDrawable.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs355/model/drawing/selectable/RotationHandle.java" afterPath="$PROJECT_DIR$/src/cs355/model/drawing/selectable/RotationHandle.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs355/controller/SelectController.java" afterPath="$PROJECT_DIR$/src/cs355/controller/SelectController.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs355/model/drawing/Shape.java" afterPath="$PROJECT_DIR$/src/cs355/model/drawing/Shape.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs355/view/ShapeDrawable.java" afterPath="$PROJECT_DIR$/src/cs355/view/ShapeDrawable.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs355/model/drawing/Square.java" afterPath="$PROJECT_DIR$/src/cs355/model/drawing/Square.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs355/view/SquareDrawable.java" afterPath="$PROJECT_DIR$/src/cs355/view/SquareDrawable.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs355/model/drawing/Triangle.java" afterPath="$PROJECT_DIR$/src/cs355/model/drawing/Triangle.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs355/view/TriangleDrawable.java" afterPath="$PROJECT_DIR$/src/cs355/view/TriangleDrawable.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs355/view/ViewRefresherImpl.java" afterPath="$PROJECT_DIR$/src/cs355/view/ViewRefresherImpl.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MOVED" beforePath="F:\GitHub\CS355Painter\src\cs355\model\drawing\selectable\HandleFactory.java" afterPath="$PROJECT_DIR$/src/cs355/model/drawing/selectable/CircleHandleFactory.java" />
     </list>
     <ignored path="CS355Painter.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -52,72 +38,70 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="ViewModel.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/cs355/model/view/ViewModel.java">
+      <file leaf-file-name="Rectangle.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/cs355/model/drawing/Rectangle.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="10" column="30" selection-start-line="10" selection-start-column="30" selection-end-line="10" selection-end-column="30" />
+              <caret line="108" column="0" selection-start-line="108" selection-start-column="0" selection-end-line="108" selection-end-column="0" />
               <folding>
-                <element signature="e#1329#1330#0" expanded="true" />
-                <element signature="e#1397#1398#0" expanded="true" />
-                <element signature="e#2203#2204#0" expanded="true" />
-                <element signature="e#2252#2253#0" expanded="true" />
+                <element signature="e#2752#2753#0" expanded="true" />
+                <element signature="e#2797#2798#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CS355Drawing.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/cs355/model/drawing/CS355Drawing.java">
+      <file leaf-file-name="Line.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/cs355/model/drawing/Line.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="36" column="47" selection-start-line="36" selection-start-column="47" selection-end-line="36" selection-end-column="47" />
-              <folding />
+              <caret line="16" column="4" selection-start-line="16" selection-start-column="4" selection-end-line="16" selection-end-column="4" />
+              <folding>
+                <element signature="e#4813#4814#0" expanded="true" />
+                <element signature="e#4890#4891#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SelectController.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="SelectController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/cs355/controller/SelectController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="205" column="16" selection-start-line="205" selection-start-column="16" selection-end-line="205" selection-end-column="16" />
-              <folding>
-                <element signature="e#7587#7588#0" expanded="true" />
-                <element signature="e#7636#7637#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CS355ControllerImpl.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/cs355/controller/CS355ControllerImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="98" column="8" selection-start-line="98" selection-start-column="8" selection-end-line="98" selection-end-column="8" />
+            <state vertical-scroll-proportion="0.47715735">
+              <caret line="115" column="50" selection-start-line="115" selection-start-column="50" selection-end-line="115" selection-end-column="51" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AbstractViewModel.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/cs355/model/view/AbstractViewModel.java">
+      <file leaf-file-name="LineController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/cs355/controller/LineController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="9" column="57" selection-start-line="9" selection-start-column="57" selection-end-line="9" selection-end-column="57" />
+              <caret line="58" column="13" selection-start-line="58" selection-start-column="13" selection-end-line="58" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CircleHandleDrawable.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/cs355/view/CircleHandleDrawable.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="54" column="0" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DragHandle.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/cs355/model/drawing/selectable/DragHandle.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="26" column="8" selection-start-line="26" selection-start-column="8" selection-end-line="26" selection-end-column="8" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RotationHandleController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/cs355/controller/RotationHandleController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="52" column="0" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -126,17 +110,7 @@
         <entry file="file://$PROJECT_DIR$/src/cs355/model/drawing/selectable/Handle.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="61" column="0" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Circle.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/cs355/model/drawing/Circle.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.509839">
-              <caret line="78" column="50" selection-start-line="78" selection-start-column="50" selection-end-line="78" selection-end-column="50" />
+              <caret line="48" column="0" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -154,12 +128,25 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="Circle.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/cs355/model/drawing/Circle.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="76" column="0" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="CircleHandle.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/cs355/model/drawing/selectable/CircleHandle.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="27" column="4" selection-start-line="27" selection-start-column="4" selection-end-line="27" selection-end-column="4" />
-              <folding />
+              <caret line="44" column="0" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
+              <folding>
+                <element signature="e#1959#1960#0" expanded="true" />
+                <element signature="e#2012#2013#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -185,7 +172,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/cs355/controller/EllipseController.java" />
         <option value="$PROJECT_DIR$/src/cs355/controller/CircleController.java" />
         <option value="$PROJECT_DIR$/src/cs355/controller/LineController.java" />
         <option value="$PROJECT_DIR$/src/cs355/model/drawing/ISelectable.java" />
@@ -208,34 +194,35 @@
         <option value="$PROJECT_DIR$/src/cs355/controller/ViewTransform.java" />
         <option value="$PROJECT_DIR$/src/cs355/view/IDrawable.java" />
         <option value="$PROJECT_DIR$/src/cs355/view/CircleDrawable.java" />
-        <option value="$PROJECT_DIR$/src/cs355/view/EllipseDrawable.java" />
         <option value="$PROJECT_DIR$/src/cs355/view/RectangleDrawable.java" />
         <option value="$PROJECT_DIR$/src/cs355/view/SquareDrawable.java" />
         <option value="$PROJECT_DIR$/src/cs355/view/TriangleDrawable.java" />
         <option value="$PROJECT_DIR$/src/cs355/CS355Frame.java" />
         <option value="$PROJECT_DIR$/src/cs355/model/drawing/selectable/LineHandle.java" />
-        <option value="$PROJECT_DIR$/src/cs355/model/drawing/selectable/HandleFactory.java" />
         <option value="$PROJECT_DIR$/src/cs355/view/ShapeDrawable.java" />
         <option value="$PROJECT_DIR$/src/cs355/view/ViewRefresherImpl.java" />
-        <option value="$PROJECT_DIR$/src/cs355/model/drawing/selectable/CircleHandle.java" />
-        <option value="$PROJECT_DIR$/src/cs355/model/drawing/selectable/DragHandle.java" />
         <option value="$PROJECT_DIR$/src/cs355/view/LineDrawable.java" />
-        <option value="$PROJECT_DIR$/src/cs355/model/drawing/Triangle.java" />
-        <option value="$PROJECT_DIR$/src/cs355/model/drawing/Line.java" />
-        <option value="$PROJECT_DIR$/src/cs355/model/drawing/Rectangle.java" />
-        <option value="$PROJECT_DIR$/src/cs355/model/drawing/Ellipse.java" />
         <option value="$PROJECT_DIR$/src/cs355/solution/CS355.java" />
         <option value="$PROJECT_DIR$/src/cs355/model/drawing/CS355DrawingImpl.java" />
         <option value="$PROJECT_DIR$/src/cs355/model/drawing/Shape.java" />
-        <option value="$PROJECT_DIR$/src/cs355/model/drawing/selectable/RotationHandle.java" />
-        <option value="$PROJECT_DIR$/src/cs355/model/drawing/Square.java" />
         <option value="$PROJECT_DIR$/src/cs355/view/CircleHandleDrawable.java" />
-        <option value="$PROJECT_DIR$/src/cs355/controller/SelectController.java" />
         <option value="$PROJECT_DIR$/src/cs355/model/view/IViewModel.java" />
         <option value="$PROJECT_DIR$/src/cs355/model/view/ViewModel.java" />
         <option value="$PROJECT_DIR$/src/cs355/controller/CS355ControllerImpl.java" />
+        <option value="$PROJECT_DIR$/src/cs355/model/drawing/selectable/HandleFactory.java" />
+        <option value="$PROJECT_DIR$/src/cs355/model/drawing/selectable/CircleHandleFactory.java" />
+        <option value="$PROJECT_DIR$/src/cs355/model/drawing/selectable/DragHandle.java" />
         <option value="$PROJECT_DIR$/src/cs355/model/drawing/selectable/Handle.java" />
+        <option value="$PROJECT_DIR$/src/cs355/view/EllipseDrawable.java" />
+        <option value="$PROJECT_DIR$/src/cs355/model/drawing/selectable/RotationHandle.java" />
+        <option value="$PROJECT_DIR$/src/cs355/model/drawing/Square.java" />
+        <option value="$PROJECT_DIR$/src/cs355/model/drawing/Rectangle.java" />
+        <option value="$PROJECT_DIR$/src/cs355/model/drawing/Ellipse.java" />
+        <option value="$PROJECT_DIR$/src/cs355/model/drawing/Triangle.java" />
         <option value="$PROJECT_DIR$/src/cs355/model/drawing/Circle.java" />
+        <option value="$PROJECT_DIR$/src/cs355/model/drawing/selectable/CircleHandle.java" />
+        <option value="$PROJECT_DIR$/src/cs355/model/drawing/Line.java" />
+        <option value="$PROJECT_DIR$/src/cs355/controller/SelectController.java" />
       </list>
     </option>
   </component>
@@ -330,8 +317,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -567,6 +552,8 @@
         </subPane>
       </pane>
       <pane id="PackagesPane" />
+      <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -580,6 +567,22 @@
     <property name="OverrideImplement.combined" value="true" />
     <property name="OverrideImplement.overriding.sorted" value="false" />
     <property name="SearchEverywhereHistoryKey" value="Affine&#9;FILE&#9;jar://C:/Program Files/Java/jdk1.8.0_60/src.zip!/java/awt/geom/AffineTransform.java" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="218" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="250" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="251" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder2" value="2" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="1158" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder3" value="3" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="230" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder0" value="0" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth1" value="246" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder1" value="1" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth2" value="247" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder2" value="2" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="1154" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder3" value="3" />
   </component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
@@ -832,7 +835,13 @@
       <option name="project" value="LOCAL" />
       <updated>1444181572012</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Added custom transformation code. Added zoom functionality for squares. Need to fix bug where bounding box for handles is off when zoomed. Need to finish zoom for other objects.">
+      <created>1445315900227</created>
+      <option name="number" value="00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1445315900227</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TodoView">
@@ -855,7 +864,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.30312836" sideWeight="0.50208336" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3508772" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3505933" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32686085" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -896,31 +905,20 @@
     <MESSAGE value="Shape handles and rotations work. Except lines. Lines are completely broken again." />
     <MESSAGE value="Lines fixed. Handles now move line endpoints around correctly." />
     <MESSAGE value="Added moving shapes forward and backward, as well as delete. Lab 2 done." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added moving shapes forward and backward, as well as delete. Lab 2 done." />
+    <MESSAGE value="Added custom transformation code. Added zoom functionality for squares. Need to fix bug where bounding box for handles is off when zoomed. Need to finish zoom for other objects." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added custom transformation code. Added zoom functionality for squares. Need to fix bug where bounding box for handles is off when zoomed. Need to finish zoom for other objects." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/cs355/model/drawing/CS355DrawingImpl.java</url>
-          <line>92</line>
-          <properties />
-          <option name="timeStamp" value="34" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/cs355/controller/RotationHandleController.java</url>
           <line>73</line>
           <properties />
           <option name="timeStamp" value="52" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/cs355/controller/SelectController.java</url>
-          <line>175</line>
-          <properties />
-          <option name="timeStamp" value="53" />
-        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="54" />
+      <option name="time" value="60" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -929,20 +927,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/cs355/controller/TriangleController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="64" column="27" selection-start-line="64" selection-start-column="27" selection-end-line="64" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/cs355/view/DrawableFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="57" column="43" selection-start-line="57" selection-start-column="43" selection-end-line="57" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/cs355/controller/HandleController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -960,13 +944,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/cs355/controller/LineController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="58" column="13" selection-start-line="58" selection-start-column="13" selection-end-line="58" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/cs355/CS355Canvas.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -978,7 +955,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -986,7 +962,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.82251084">
           <caret line="49" column="42" selection-start-line="49" selection-start-column="42" selection-end-line="49" selection-end-column="42" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1002,23 +977,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="16" column="43" selection-start-line="16" selection-start-column="43" selection-end-line="16" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/cs355/view/EllipseDrawable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="63" column="0" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/cs355/view/RectangleDrawable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="54" column="0" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1026,7 +984,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="47" column="0" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1042,7 +999,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1058,7 +1014,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="11" column="70" selection-start-line="11" selection-start-column="70" selection-end-line="11" selection-end-column="70" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1067,16 +1022,6 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="64" column="0" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/cs355/model/drawing/selectable/HandleFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="21" column="20" selection-start-line="21" selection-start-column="20" selection-end-line="21" selection-end-column="20" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1108,7 +1053,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="9" column="17" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1116,17 +1060,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="24" column="14" selection-start-line="24" selection-start-column="14" selection-end-line="24" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/cs355/model/drawing/selectable/DragHandle.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1134,9 +1067,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="50" column="18" selection-start-line="50" selection-start-column="18" selection-end-line="50" selection-end-column="18" />
-          <folding>
-            <element signature="e#0#985#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1144,7 +1074,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1153,47 +1082,6 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="36" column="37" selection-start-line="36" selection-start-column="37" selection-end-line="36" selection-end-column="37" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/cs355/model/drawing/Triangle.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="175" column="0" selection-start-line="175" selection-start-column="0" selection-end-line="175" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/cs355/model/drawing/Line.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="155" column="67" selection-start-line="155" selection-start-column="67" selection-end-line="155" selection-end-column="67" />
-          <folding>
-            <element signature="e#4923#4924#0" expanded="true" />
-            <element signature="e#5000#5001#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/cs355/model/drawing/Rectangle.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="115" column="28" selection-start-line="115" selection-start-column="28" selection-end-line="115" selection-end-column="28" />
-          <folding>
-            <element signature="e#2747#2748#0" expanded="true" />
-            <element signature="e#2785#2786#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/cs355/model/drawing/Ellipse.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="124" column="42" selection-start-line="124" selection-start-column="42" selection-end-line="124" selection-end-column="42" />
-          <folding>
-            <element signature="e#3150#3151#0" expanded="true" />
-            <element signature="e#3193#3194#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1213,14 +1101,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/cs355/controller/SquareController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="84" column="24" selection-start-line="84" selection-start-column="24" selection-end-line="84" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/cs355/CS355Frame.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1234,46 +1114,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/cs355/model/drawing/CS355DrawingImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="143" column="4" selection-start-line="143" selection-start-column="4" selection-end-line="143" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/cs355/model/drawing/Shape.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="77" column="0" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1873#1874#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/cs355/model/drawing/Square.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="101" column="0" selection-start-line="101" selection-start-column="0" selection-end-line="101" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/cs355/view/CircleHandleDrawable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="54" column="0" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/cs355/controller/HandleControllerFactory.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1316,6 +1160,41 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/cs355/model/drawing/Shape.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="75" column="0" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1789#1790#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cs355/model/drawing/selectable/CircleHandleFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="19" column="25" selection-start-line="19" selection-start-column="25" selection-end-line="19" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cs355/view/RectangleDrawable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cs355/view/EllipseDrawable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/cs355/controller/CS355ControllerImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1324,21 +1203,77 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/cs355/controller/SelectController.java">
+    <entry file="file://$PROJECT_DIR$/src/cs355/controller/EllipseController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="205" column="16" selection-start-line="205" selection-start-column="16" selection-end-line="205" selection-end-column="16" />
+          <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cs355/controller/SquareController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="84" column="24" selection-start-line="84" selection-start-column="24" selection-end-line="84" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cs355/controller/CircleController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="78" column="24" selection-start-line="78" selection-start-column="24" selection-end-line="78" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cs355/model/drawing/CS355DrawingImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="143" column="4" selection-start-line="143" selection-start-column="4" selection-end-line="143" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cs355/model/drawing/Square.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="89" column="0" selection-start-line="89" selection-start-column="0" selection-end-line="89" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cs355/model/drawing/Ellipse.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="117" column="0" selection-start-line="117" selection-start-column="0" selection-end-line="117" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cs355/model/drawing/Triangle.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="178" column="0" selection-start-line="178" selection-start-column="0" selection-end-line="178" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cs355/model/drawing/Rectangle.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="108" column="0" selection-start-line="108" selection-start-column="0" selection-end-line="108" selection-end-column="0" />
           <folding>
-            <element signature="e#7587#7588#0" expanded="true" />
-            <element signature="e#7636#7637#0" expanded="true" />
+            <element signature="e#2752#2753#0" expanded="true" />
+            <element signature="e#2797#2798#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/cs355/model/drawing/selectable/CircleHandle.java">
+    <entry file="file://$PROJECT_DIR$/src/cs355/view/CircleHandleDrawable.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="27" column="4" selection-start-line="27" selection-start-column="4" selection-end-line="27" selection-end-column="4" />
+          <caret line="54" column="0" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1353,18 +1288,66 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/cs355/model/drawing/selectable/DragHandle.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="26" column="8" selection-start-line="26" selection-start-column="8" selection-end-line="26" selection-end-column="8" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/cs355/model/drawing/selectable/Handle.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="61" column="0" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
+          <caret line="48" column="0" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/cs355/model/drawing/Circle.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.509839">
-          <caret line="78" column="50" selection-start-line="78" selection-start-column="50" selection-end-line="78" selection-end-column="50" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="76" column="0" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cs355/model/drawing/selectable/CircleHandle.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="44" column="0" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
+          <folding>
+            <element signature="e#1959#1960#0" expanded="true" />
+            <element signature="e#2012#2013#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cs355/controller/LineController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="58" column="13" selection-start-line="58" selection-start-column="13" selection-end-line="58" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cs355/model/drawing/Line.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="16" column="4" selection-start-line="16" selection-start-column="4" selection-end-line="16" selection-end-column="4" />
+          <folding>
+            <element signature="e#4813#4814#0" expanded="true" />
+            <element signature="e#4890#4891#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cs355/controller/SelectController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.47715735">
+          <caret line="115" column="50" selection-start-line="115" selection-start-column="50" selection-end-line="115" selection-end-column="51" />
           <folding />
         </state>
       </provider>

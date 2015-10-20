@@ -176,7 +176,7 @@ public class Triangle extends Shape {
 
 	@Override
 	public void updateHandles(double zoomFactor) {
-		for (Handle handle : this.handles) {
+		for (Handle handle : this.getHandles()) {
 			handle.updateHandle(this.getCenter(), this.getCenter(), zoomFactor);
 		}
 	}

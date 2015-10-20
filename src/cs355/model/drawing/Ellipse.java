@@ -115,14 +115,14 @@ public class Ellipse extends Shape {
 
 	@Override
 	public void updateHandles(double zoomFactor) {
-		for (Handle handle : this.handles) {
+		for (Handle handle : this.getHandles()) {
 			handle.updateHandle(this.getCenter(), this.getCenter(), zoomFactor);
 		}
 	}
 
 	@Override
 	public double getMinimumY() {
-		return -1 * ( this.getHeight() / 2 );
+		return -1 * ( this.getHeight() / 2.0 );
 	}
 
 }

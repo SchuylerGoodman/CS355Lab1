@@ -24,6 +24,7 @@ public class DragHandle extends CircleHandle {
 
     @Override
     public void updateHandle(Point2D.Double anchorPoint, Point2D.Double center, double zoomFactor) {
+        super.updateHandle(anchorPoint, center, zoomFactor);
         this.getAnchorPoint().setLocation(anchorPoint);
         this.getHandleShape().getCenter().setLocation(center);
     }
