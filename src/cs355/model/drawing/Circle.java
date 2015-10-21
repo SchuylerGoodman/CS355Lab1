@@ -76,7 +76,6 @@ public class Circle extends Shape {
 		if (Math.abs(ptObj.getX()) > bound.getX() || Math.abs(ptObj.getY()) > bound.getY()) {
 			return false;
 		}
-		//TODO Zoom messes with handle bounding box
 
 		// check if the point is further from center than the radius
 		double magnitude = Math.sqrt(Math.pow(ptObj.getX(), 2.0) + Math.pow(ptObj.getY(), 2.0));

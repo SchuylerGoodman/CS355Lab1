@@ -23,21 +23,20 @@ public class ViewModel extends AbstractViewModel {
 
     private ZoomLevel zoomLevel;
 
-    private int scrollMin;
-
-    private int scrollMax;
-
-    private int knobSize;
+    private boolean canUpdate;
 
     public ViewModel() {
 
         // start at neutral zoom with top-left corner at origin
         this.center = new Point2D.Double(NEUTRAL_WIDTH / 2.0, NEUTRAL_WIDTH / 2.0);
         this.zoomLevel = ZoomLevel.NEUTRAL;
+        this.canUpdate = true;
     }
 
     @Override
     public void updateFrame() {
+
+        this.canUpdate = false;
 
         int knobSize = this.getKnobSize();
 
@@ -57,12 +56,17 @@ public class ViewModel extends AbstractViewModel {
 
         GUIFunctions.setZoomText(this.getZoomFactor());
 
+        this.setChanged();
+
+        this.canUpdate = true;
     }
 
     public void setCenter(Point2D.Double newCenter) {
         this.center.setLocation(newCenter);
 
-        this.setChanged();
+        if (this.canUpdate) {
+            this.setChanged();
+        }
     }
 
     public void setHScrollPosition(int horizontalScrollPosition) {
@@ -82,7 +86,9 @@ public class ViewModel extends AbstractViewModel {
                 this.center.getY()
         ));
 
-        this.setChanged();
+        if (this.canUpdate) {
+            this.setChanged();
+        }
     }
 
     public void setVScrollPosition(int verticalScrollPosition) {
@@ -102,7 +108,9 @@ public class ViewModel extends AbstractViewModel {
                 verticalScrollPosition + (knobSize / 2)
         ));
 
-        this.setChanged();
+        if (this.canUpdate) {
+            this.setChanged();
+        }
     }
 
     public void zoomIn() {
@@ -115,7 +123,9 @@ public class ViewModel extends AbstractViewModel {
         //this.setVScrollPosition(this.getVScrollBarPosit());
 
         // update view
-        this.setChanged();
+        if (this.canUpdate) {
+            this.setChanged();
+        }
     }
 
     public void zoomOut() {
@@ -128,7 +138,9 @@ public class ViewModel extends AbstractViewModel {
         this.setVScrollPosition(this.getVScrollBarPosit());
 
         // update view
-        this.setChanged();
+        if (this.canUpdate) {
+            this.setChanged();
+        }
     }
 
     public double getZoomFactor() {
