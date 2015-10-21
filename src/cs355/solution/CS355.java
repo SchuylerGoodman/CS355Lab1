@@ -3,6 +3,7 @@ package cs355.solution;
 import cs355.GUIFunctions;
 import cs355.controller.CS355Controller;
 import cs355.controller.CS355ControllerImpl;
+import cs355.model.view.AbstractViewModel;
 import cs355.model.view.ViewModel;
 import cs355.model.drawing.CS355Drawing;
 import cs355.model.drawing.CS355DrawingImpl;
@@ -30,7 +31,7 @@ public class CS355 {
 		// Construct model, view, and controller
 		CS355Drawing model = new CS355DrawingImpl();
 
-        ViewModel viewModel = new ViewModel();
+        AbstractViewModel viewModel = new ViewModel();
 		ViewRefresher view = new ViewRefresherImpl(viewModel, model);
 		CS355Controller controller = new CS355ControllerImpl(model, viewModel, initialColor);
 
@@ -45,6 +46,9 @@ public class CS355 {
 		GUIFunctions.changeSelectedColor(initialColor);
 
 		// Start first refresh
+		viewModel.updateFrame();
+		//GUIFunctions.setHScrollBarMax(2047);
+		//GUIFunctions.setHScrollBarKnob(2047);
 		GUIFunctions.refresh();
 	}
 }

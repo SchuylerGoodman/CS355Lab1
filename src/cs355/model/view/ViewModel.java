@@ -2,6 +2,7 @@ package cs355.model.view;
 
 import cs355.GUIFunctions;
 
+import javax.swing.text.View;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 
@@ -11,6 +12,12 @@ import java.awt.geom.Point2D;
 public class ViewModel extends AbstractViewModel {
 
     private static double NEUTRAL_WIDTH = 512;
+
+    private static int SCROLL_MIN = 0;
+
+    // scroll bar max is the neutral (starting) width / most zoomed out zoom factor
+    // minus one so the total range still has 4 as a factor.
+    private static int SCROLL_MAX = (int) ( NEUTRAL_WIDTH / ZoomLevel.NONE.getFactor() ) - 1;
 
     private Point2D.Double center;
 
@@ -22,36 +29,80 @@ public class ViewModel extends AbstractViewModel {
 
     private int knobSize;
 
-    private int horizontalScrollPosition;
-
-    private int verticalScrollPosition;
-
     public ViewModel() {
 
+        // start at neutral zoom with top-left corner at origin
         this.center = new Point2D.Double(NEUTRAL_WIDTH / 2.0, NEUTRAL_WIDTH / 2.0);
         this.zoomLevel = ZoomLevel.NEUTRAL;
-
-        // scroll min is 0
-        this.scrollMin = 0;
-
-        // scroll bar max is the neutral (starting) width / most zoomed out zoom factor
-        this.scrollMax = (int) ( NEUTRAL_WIDTH / ZoomLevel.NONE.getFactor() );
-
-        // start scroll bars at origin
-        this.horizontalScrollPosition = 0;
-        this.verticalScrollPosition = 0;
     }
 
-    public void setCenter(Point2D.Double center) {
-        this.center.setLocation(center);
+    @Override
+    public void updateFrame() {
+
+        int knobSize = this.getKnobSize();
+
+        GUIFunctions.setHScrollBarMin(ViewModel.SCROLL_MIN);
+        GUIFunctions.setHScrollBarMax(ViewModel.SCROLL_MAX);
+        int hPosit = this.getHScrollBarPosit();
+        GUIFunctions.setHScrollBarKnob(knobSize);
+        GUIFunctions.setHScrollBarPosit(hPosit);
+        GUIFunctions.setHScrollBarKnob(knobSize);
+
+        GUIFunctions.setVScrollBarMin(ViewModel.SCROLL_MIN);
+        GUIFunctions.setVScrollBarMax(ViewModel.SCROLL_MAX);
+        int vPosit = this.getVScrollBarPosit();
+        GUIFunctions.setVScrollBarKnob(knobSize);
+        GUIFunctions.setVScrollBarPosit(vPosit);
+        GUIFunctions.setVScrollBarKnob(knobSize);
+
+        GUIFunctions.setZoomText(this.getZoomFactor());
+
+    }
+
+    public void setCenter(Point2D.Double newCenter) {
+        this.center.setLocation(newCenter);
+
+        this.setChanged();
     }
 
     public void setHScrollPosition(int horizontalScrollPosition) {
-        this.horizontalScrollPosition = horizontalScrollPosition;
+
+        int knobSize = this.getKnobSize();
+
+        if (horizontalScrollPosition + knobSize > ViewModel.SCROLL_MAX) {
+            horizontalScrollPosition = ViewModel.SCROLL_MAX - knobSize;
+        }
+
+        if (horizontalScrollPosition <= ViewModel.SCROLL_MIN) {
+            horizontalScrollPosition = ViewModel.SCROLL_MIN;
+        }
+
+        this.setCenter(new Point2D.Double(
+                horizontalScrollPosition + (knobSize / 2),
+                this.center.getY()
+        ));
+
+        this.setChanged();
     }
 
     public void setVScrollPosition(int verticalScrollPosition) {
-        this.verticalScrollPosition = verticalScrollPosition;
+
+        int knobSize = this.getKnobSize();
+
+        if (verticalScrollPosition + knobSize > ViewModel.SCROLL_MAX) {
+            verticalScrollPosition = ViewModel.SCROLL_MAX - knobSize;
+        }
+
+        if (verticalScrollPosition <= ViewModel.SCROLL_MIN) {
+            verticalScrollPosition = ViewModel.SCROLL_MIN;
+        }
+
+        this.setCenter(new Point2D.Double(
+                this.center.getX(),
+                verticalScrollPosition + (knobSize / 2)
+        ));
+
+        this.setChanged();
     }
 
     public void zoomIn() {
@@ -59,10 +110,9 @@ public class ViewModel extends AbstractViewModel {
         // set zoom level to one level in
         this.zoomLevel = this.zoomLevel.in();
 
-        // update scroll knobs
-        int knobSize = (int) ( NEUTRAL_WIDTH / this.zoomLevel.getFactor() );
-        GUIFunctions.setHScrollBarKnob(knobSize);
-        GUIFunctions.setVScrollBarKnob(knobSize);
+        // validate center position
+        //this.setHScrollPosition(this.getHScrollBarPosit());
+        //this.setVScrollPosition(this.getVScrollBarPosit());
 
         // update view
         this.setChanged();
@@ -73,10 +123,9 @@ public class ViewModel extends AbstractViewModel {
         // set zoom level to one level out
         this.zoomLevel = this.zoomLevel.out();
 
-        // update scroll knobs
-        int knobSize = (int) ( NEUTRAL_WIDTH / this.zoomLevel.getFactor() );
-        GUIFunctions.setHScrollBarKnob(knobSize);
-        GUIFunctions.setVScrollBarKnob(knobSize);
+        // validate center position
+        this.setHScrollPosition(this.getHScrollBarPosit());
+        this.setVScrollPosition(this.getVScrollBarPosit());
 
         // update view
         this.setChanged();
@@ -87,7 +136,7 @@ public class ViewModel extends AbstractViewModel {
     }
 
     public AffineTransform getViewToWorld() {
-        // TODO test transform methods
+
         // get translate
         Point2D.Double translation = this.getTranslation();
 
@@ -127,6 +176,53 @@ public class ViewModel extends AbstractViewModel {
     }
 
     /**
+     * Gets the size of the scroll knobs.
+     *
+     * @return the scroll knob size.
+     */
+    private int getKnobSize() {
+        return (int) ( NEUTRAL_WIDTH / this.zoomLevel.getFactor() );
+    }
+
+    /**
+     * Gets the horizontal scroll bar position.
+     *
+     * @return the position of the left side of the view in world space.
+     */
+    private int getHScrollBarPosit() {
+        return (int) ( this.center.getX() - ( this.getKnobSize() / 2 ) );
+        //int position = this.getScrollBarPosit(this.center.getX());
+        //this.setHScrollPosition(position);
+
+        //return position;
+    }
+
+    /**
+     * Gets the vertical scroll bar position.
+     *
+     * @return the position of the top of the view in world space.
+     */
+    private int getVScrollBarPosit() {
+        return (int) ( this.center.getY() - ( this.getKnobSize() / 2 ) );
+        //int position = this.getScrollBarPosit(this.center.getY());
+        //this.setVScrollPosition(position);
+
+        //return position;
+    }
+
+    private int getScrollBarPosit(double centerCoord) {
+        int position = (int) ( centerCoord - ( this.getKnobSize() / 2 ) );
+        if (position < ViewModel.SCROLL_MIN) {
+            position = ViewModel.SCROLL_MIN;
+        }
+        else if (position > ViewModel.SCROLL_MAX - this.getKnobSize() + 1) {
+            position = ViewModel.SCROLL_MAX - this.getKnobSize();
+        }
+
+        return position;
+    }
+
+    /**
      * Calculates the translation vector necessary to keep the view at this center and zoom level.
      *
      * @return a Point2D.Double representing how much the view should be translated.
@@ -134,24 +230,8 @@ public class ViewModel extends AbstractViewModel {
     private Point2D.Double getTranslation() {
         Point2D.Double translation = new Point2D.Double();
 
-        double zoomDifference = NEUTRAL_WIDTH / ( 2 * this.zoomLevel.getFactor() );
-        translation.setLocation(
-                this.center.getX() - zoomDifference,
-                this.center.getY() - zoomDifference
-        );
-
+        translation.setLocation(this.getHScrollBarPosit(), this.getVScrollBarPosit());
         return translation;
-    }
-
-    /**
-     * Updates the view.
-     * Called when the zoom level or the scroll position changes.
-     */
-    private void updateView() {
-
-        // notify observers
-        this.setChanged();
-        this.notifyObservers();
     }
 
     private enum ZoomLevel {

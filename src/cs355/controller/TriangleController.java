@@ -68,15 +68,11 @@ public class TriangleController implements IController {
                     thirdCopy
             );
 
-            System.out.println("before: " + triangle.getA());
-
             // Transform triangle points from world to object coordinates
             AffineTransform worldToObj = triangle.getWorldToObj();
             worldToObj.transform(firstCopy, firstCopy);
             worldToObj.transform(secondCopy, secondCopy);
             worldToObj.transform(thirdCopy, thirdCopy);
-
-            System.out.println("after: " + triangle.getA());
 
             // These have already changed, because worldToObj transforms in place
             // but the handle needs to be updated, so this is how it will happen for now.

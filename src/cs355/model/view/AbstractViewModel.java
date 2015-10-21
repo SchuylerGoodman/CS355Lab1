@@ -10,6 +10,11 @@ import java.util.Observable;
 public abstract class AbstractViewModel extends Observable {
 
     /**
+     * Updates the frame to match the view model.
+     */
+    public abstract void updateFrame();
+
+    /**
      * Setter for the center of the view in world coordinates.
      *
      * @param center a point in world coordinates indicating the center of the view window.

@@ -90,6 +90,7 @@ public class CS355ControllerImpl extends Observable implements CS355Controller {
     public void zoomInButtonHit() {
         this.viewModel.zoomIn();
         this.updateShapeHandles();
+        this.viewModel.updateFrame();
         this.viewModel.notifyObservers();
     }
 
@@ -97,17 +98,20 @@ public class CS355ControllerImpl extends Observable implements CS355Controller {
     public void zoomOutButtonHit() {
         this.viewModel.zoomOut();
         this.updateShapeHandles();
+        this.viewModel.updateFrame();
         this.viewModel.notifyObservers();
     }
 
     @Override
     public void hScrollbarChanged(int value) {
         this.viewModel.setHScrollPosition(value);
+        this.viewModel.notifyObservers();
     }
 
     @Override
     public void vScrollbarChanged(int value) {
         this.viewModel.setVScrollPosition(value);
+        this.viewModel.notifyObservers();
     }
 
     @Override
