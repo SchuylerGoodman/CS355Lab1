@@ -1,4 +1,4 @@
-package cs355.controller;
+package cs355.controller.mouse;
 
 import cs355.GUIFunctions;
 import cs355.model.drawing.CS355Drawing;
@@ -13,7 +13,7 @@ import java.awt.geom.Point2D;
 /**
  * Created by goodman on 9/10/2015.
  */
-public class LineController implements IController {
+public class LineController implements IMouseEventController {
 
     /**
      * The index of the shape being controlled in the model.

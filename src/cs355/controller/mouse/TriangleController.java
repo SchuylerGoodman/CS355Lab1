@@ -1,4 +1,4 @@
-package cs355.controller;
+package cs355.controller.mouse;
 
 import cs355.model.drawing.CS355Drawing;
 import cs355.model.drawing.Triangle;
@@ -11,7 +11,7 @@ import java.awt.geom.Point2D;
 /**
  * Class that controls how a triangle is drawn.
  */
-public class TriangleController implements IController {
+public class TriangleController implements IMouseEventController {
 
     private static int MAX_POINTS = 3;
 

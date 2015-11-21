@@ -2,7 +2,7 @@ package cs355.view;
 
 import cs355.model.exception.InvalidShapeException;
 import cs355.model.drawing.Triangle;
-import cs355.model.view.AbstractViewModel;
+import cs355.model.view.IViewModel;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
@@ -18,7 +18,7 @@ public class TriangleDrawable extends ShapeDrawable {
     }
 
     @Override
-    public void draw(Graphics2D g2d, AbstractViewModel viewModel) {
+    public void draw(Graphics2D g2d, IViewModel viewModel) {
 
         super.draw(g2d, viewModel);
 

@@ -1,5 +1,6 @@
 package cs355.model.scene;
 
+import java.awt.*;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Observable;
@@ -26,6 +27,11 @@ public class CS355Scene extends Observable {
 		insts = new ArrayList<>();
 		camPos = new Point3D();
 		camRot = 0.0;
+
+		// dummy house placeholder for now
+		Instance i = new Instance(Color.red, new Point3D(0.0, 0.0, 1.0), 0.0, 1.0, new Axes());
+		this.insts.add(i);
+
 	}
 
 	/**

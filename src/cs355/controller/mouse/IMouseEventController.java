@@ -1,4 +1,4 @@
-package cs355.controller;
+package cs355.controller.mouse;
 
 import cs355.model.drawing.CS355Drawing;
 
@@ -8,7 +8,7 @@ import java.awt.event.MouseEvent;
 /**
  * Interface for classes that handle mouse events in the controller to draw shapes in the drawing model.
  */
-interface IController {
+public interface IMouseEventController {
 
     /**
      * Handles the mouse click event.

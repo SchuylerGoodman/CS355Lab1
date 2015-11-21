@@ -1,9 +1,14 @@
 package cs355.controller;
 
 import cs355.GUIFunctions;
+import cs355.controller.keyboard.CameraController;
+import cs355.controller.keyboard.IKeyboardEventController;
+import cs355.controller.keyboard.NoneKeyboardEventController;
+import cs355.controller.mouse.*;
 import cs355.model.drawing.CS355Drawing;
 import cs355.model.drawing.Shape;
-import cs355.model.view.AbstractViewModel;
+import cs355.model.scene.IScene;
+import cs355.model.view.IViewModel;
 
 import java.awt.Color;
 import java.awt.event.MouseEvent;
@@ -26,7 +31,12 @@ public class CS355ControllerImpl extends Observable implements CS355Controller {
     /**
      * Model that controls the size and orientation of the view.
      */
-    private AbstractViewModel viewModel;
+    private IViewModel viewModel;
+
+    /**
+     * Model for the 3D scene.
+     */
+    private IScene scene;
 
     /**
      * The color selected in the UI.
@@ -36,13 +46,17 @@ public class CS355ControllerImpl extends Observable implements CS355Controller {
     /**
      * The shape controller to use to handle events.
      */
-    private IController selectedController;
+    private IMouseEventController selectedMouseEventController;
 
-    public CS355ControllerImpl(CS355Drawing model, AbstractViewModel viewModel, Color c) {
+    private IKeyboardEventController selectedKeyboardController;
+
+    public CS355ControllerImpl(CS355Drawing model, IViewModel viewModel, IScene scene, Color c) {
         this.model = model;
         this.viewModel = viewModel;
+        this.scene = scene;
         this.selectedColor = c;
-        this.selectedController = new NoneController();
+        this.selectedMouseEventController = new NoneMouseEventController();
+        this.selectedKeyboardController = new NoneKeyboardEventController();
     }
 
     @Override
@@ -55,36 +69,36 @@ public class CS355ControllerImpl extends Observable implements CS355Controller {
 
     @Override
     public void lineButtonHit() {
-        this.setSelectedController(new LineController());
+        this.setSelectedMouseEventController(new LineController());
     }
 
     @Override
     public void squareButtonHit() {
-        this.setSelectedController(new SquareController());
+        this.setSelectedMouseEventController(new SquareController());
     }
 
     @Override
     public void rectangleButtonHit() {
-        this.setSelectedController(new RectangleController());
+        this.setSelectedMouseEventController(new RectangleController());
     }
 
     @Override
     public void circleButtonHit() {
-        this.setSelectedController(new CircleController());
+        this.setSelectedMouseEventController(new CircleController());
     }
 
     @Override
     public void ellipseButtonHit() {
-        this.setSelectedController(new EllipseController());
+        this.setSelectedMouseEventController(new EllipseController());
     }
 
     @Override
     public void triangleButtonHit() {
-        this.setSelectedController(new TriangleController());
+        this.setSelectedMouseEventController(new TriangleController());
     }
 
     @Override
-    public void selectButtonHit() { this.setSelectedController(new SelectController(this, this, viewModel)); }
+    public void selectButtonHit() { this.setSelectedMouseEventController(new SelectController(this, this, viewModel)); }
 
     @Override
     public void zoomInButtonHit() {
@@ -117,16 +131,41 @@ public class CS355ControllerImpl extends Observable implements CS355Controller {
     @Override
     public void openScene(File file) {
 
+        // call open scene on IScene object
+        this.scene.open(file);
+
+        // notify scene observers
+        this.scene.notifyObservers();
+
     }
 
     @Override
     public void toggle3DModelDisplay() {
+
+        // toggle display in view model
+        this.viewModel.toggle3DModelDisplay();
+
+        // use camera controller if now on, otherwise switch to none controller
+        if (this.viewModel.is3DModelDisplayed()) {
+            this.selectedKeyboardController = new CameraController(this.scene);
+        }
+        else {
+            this.selectedKeyboardController = new NoneKeyboardEventController();
+        }
+
+        // notify view model observers
+        this.viewModel.notifyObservers();
 
     }
 
     @Override
     public void keyPressed(Iterator<Integer> iterator) {
 
+        // pass iterator to camera controller
+        this.selectedKeyboardController.keyPressed(iterator);
+
+        // notify scene observers
+        this.scene.notifyObservers();
     }
 
     @Override
@@ -238,55 +277,55 @@ public class CS355ControllerImpl extends Observable implements CS355Controller {
     @Override
     public void mouseClicked(MouseEvent e) {
         this.mouseEventToWorldSpace(e);
-        this.selectedController.mouseClicked(e, this.model, this.selectedColor);
+        this.selectedMouseEventController.mouseClicked(e, this.model, this.selectedColor);
         this.model.notifyObservers();
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
         this.mouseEventToWorldSpace(e);
-        this.selectedController.mousePressed(e, this.model, this.selectedColor);
+        this.selectedMouseEventController.mousePressed(e, this.model, this.selectedColor);
         this.model.notifyObservers();
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
         this.mouseEventToWorldSpace(e);
-        this.selectedController.mouseReleased(e, this.model, this.selectedColor);
+        this.selectedMouseEventController.mouseReleased(e, this.model, this.selectedColor);
         this.model.notifyObservers();
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
         this.mouseEventToWorldSpace(e);
-        this.selectedController.mouseEntered(e, this.model, this.selectedColor);
+        this.selectedMouseEventController.mouseEntered(e, this.model, this.selectedColor);
         this.model.notifyObservers();
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
         this.mouseEventToWorldSpace(e);
-        this.selectedController.mouseExited(e, this.model, this.selectedColor);
+        this.selectedMouseEventController.mouseExited(e, this.model, this.selectedColor);
         this.model.notifyObservers();
     }
 
     @Override
     public void mouseDragged(MouseEvent e) {
         this.mouseEventToWorldSpace(e);
-        this.selectedController.mouseDragged(e, this.model, this.selectedColor);
+        this.selectedMouseEventController.mouseDragged(e, this.model, this.selectedColor);
         this.model.notifyObservers();
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
         this.mouseEventToWorldSpace(e);
-        this.selectedController.mouseMoved(e, this.model, this.selectedColor);
+        this.selectedMouseEventController.mouseMoved(e, this.model, this.selectedColor);
         this.model.notifyObservers();
     }
 
-    private void setSelectedController(IController controller) {
-        this.selectedController.close();
-        this.selectedController = controller;
+    private void setSelectedMouseEventController(IMouseEventController controller) {
+        this.selectedMouseEventController.close();
+        this.selectedMouseEventController = controller;
         this.model.notifyObservers();
     }
 
@@ -318,7 +357,7 @@ public class CS355ControllerImpl extends Observable implements CS355Controller {
     }
 
     private int findSelectedShapeIndex() {
-        if (!(this.selectedController instanceof SelectController)) {
+        if (!(this.selectedMouseEventController instanceof SelectController)) {
             return -1;
         }
 

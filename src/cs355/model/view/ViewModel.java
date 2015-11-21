@@ -1,15 +1,17 @@
 package cs355.model.view;
 
 import cs355.GUIFunctions;
+import cs355.model.scene.IScene;
+import cs355.model.scene.Point4D;
 
-import javax.swing.text.View;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
+import java.util.Observable;
 
 /**
  * Created by BaronVonBaerenstein on 10/17/2015.
  */
-public class ViewModel extends AbstractViewModel {
+public class ViewModel extends Observable implements IViewModel {
 
     private static double NEUTRAL_WIDTH = 512;
 
@@ -19,18 +21,37 @@ public class ViewModel extends AbstractViewModel {
     // minus one so the total range still has 4 as a factor.
     private static int SCROLL_MAX = (int) ( NEUTRAL_WIDTH / ZoomLevel.NONE.getFactor() ) - 1;
 
+    // For perspective projection
+    private static final double ASPECT_RATIO = 1.0;
+    private static final double MAX_FIELD_OF_VIEW_Y = Math.toRadians(100.0);
+    private static final double MAX_FIELD_OF_VIEW_X = ASPECT_RATIO * MAX_FIELD_OF_VIEW_Y;
+
+    // For clipping
+    private static final double CLIP_NEAR = 1.0;
+    private static final double CLIP_FAR = 200.0;
+
+    /**
+     * The scene for the 3D display
+     */
+    private IScene scene;
+
     private Point2D.Double center;
 
     private ZoomLevel zoomLevel;
 
     private boolean canUpdate;
 
-    public ViewModel() {
+    private boolean display3DIsOn;
+
+    public ViewModel(IScene scene) {
+
+        this.scene = scene;
 
         // start at neutral zoom with top-left corner at origin
         this.center = new Point2D.Double(NEUTRAL_WIDTH / 2.0, NEUTRAL_WIDTH / 2.0);
-        this.zoomLevel = ZoomLevel.NEUTRAL;
+        this.zoomLevel = ZoomLevel.NONE;
         this.canUpdate = true;
+        this.display3DIsOn = false;
     }
 
     @Override
@@ -118,10 +139,6 @@ public class ViewModel extends AbstractViewModel {
         // set zoom level to one level in
         this.zoomLevel = this.zoomLevel.in();
 
-        // validate center position
-        //this.setHScrollPosition(this.getHScrollBarPosit());
-        //this.setVScrollPosition(this.getVScrollBarPosit());
-
         // update view
         if (this.canUpdate) {
             this.setChanged();
@@ -187,6 +204,105 @@ public class ViewModel extends AbstractViewModel {
         return worldToView;
     }
 
+    @Override
+    public Matrix4D getWorldToClip() {
+
+        // get camera coordinates
+        Point4D cameraPosition = this.scene.getCameraPosition();
+
+        // negate camera coordinates
+        double camX = -1 * cameraPosition.x;
+        double camY = -1 * cameraPosition.y;
+        double camZ = -1 * cameraPosition.z;
+
+        // initialize translation matrix
+        Matrix4D translate = new Matrix4D();
+        translate.m03 = camX;
+        translate.m13 = camY;
+        translate.m23 = camZ;
+
+        // get camera axes
+        Vector4D forwardAxis = this.scene.getCameraForward();
+        Vector4D rightAxis = this.scene.getCameraRight();
+        Vector4D upAxis = this.scene.getCameraUp();
+
+        // initialize rotation matrix
+        Matrix4D rotate = new Matrix4D();
+        rotate.m00 = rightAxis.v0;
+        rotate.m01 = rightAxis.v1;
+        rotate.m02 = rightAxis.v2;
+        rotate.m10 = upAxis.v0;
+        rotate.m11 = upAxis.v1;
+        rotate.m12 = upAxis.v2;
+        rotate.m20 = forwardAxis.v0;
+        rotate.m21 = forwardAxis.v1;
+        rotate.m22 = forwardAxis.v2;
+
+        // get zoom_y
+        double zoomY = 1 / ( Math.tan(MAX_FIELD_OF_VIEW_Y / 2.0) );
+
+        // get zoom_x
+        double zoomX = 1 / ( Math.tan(MAX_FIELD_OF_VIEW_X / 2.0) );
+
+        // initialize clip matrix
+        Matrix4D clip = new Matrix4D();
+        clip.m00 = zoomX;
+        clip.m11 = zoomY;
+        clip.m22 = (CLIP_FAR + CLIP_NEAR) / (CLIP_FAR - CLIP_NEAR);
+        clip.m23 = (-2 * CLIP_NEAR * CLIP_FAR) / (CLIP_FAR - CLIP_NEAR);
+        clip.m32 = 1.0;
+        clip.m33 = 0.0;
+
+        // concatenate matrices
+        Matrix4D worldToClip = clip.concatenate(rotate.concatenate(translate, null), null);
+
+        return worldToClip;
+    }
+
+    @Override
+    public Matrix4D getClipToWorld() {
+        return null;
+    }
+
+    @Override
+    public Matrix3D getCanonicalToScreen() {
+
+        // get width of screen
+        double width = NEUTRAL_WIDTH / this.getZoomFactor();
+
+        // get height of screen
+        double height = ( NEUTRAL_WIDTH / ASPECT_RATIO ) / this.getZoomFactor();
+
+        // initialize screen matrix
+        Matrix3D canonicalToScreen = new Matrix3D();
+        canonicalToScreen.m00 = width / 2.0;
+        canonicalToScreen.m02 = width / 2.0;
+        canonicalToScreen.m11 = -1 * height / 2.0;
+        canonicalToScreen.m12 = height / 2.0;
+
+        return canonicalToScreen;
+    }
+
+    @Override
+    public Matrix3D getScreenToCanonical() {
+        return null;
+    }
+
+    @Override
+    public void toggle3DModelDisplay() {
+
+        // toggle model displayed boolean
+        this.display3DIsOn = !this.display3DIsOn;
+
+        this.setChanged();
+
+    }
+
+    @Override
+    public boolean is3DModelDisplayed() {
+        return this.display3DIsOn;
+    }
+
     /**
      * Gets the size of the scroll knobs.
      *
@@ -203,10 +319,6 @@ public class ViewModel extends AbstractViewModel {
      */
     private int getHScrollBarPosit() {
         return (int) ( this.center.getX() - ( this.getKnobSize() / 2 ) );
-        //int position = this.getScrollBarPosit(this.center.getX());
-        //this.setHScrollPosition(position);
-
-        //return position;
     }
 
     /**
@@ -216,22 +328,6 @@ public class ViewModel extends AbstractViewModel {
      */
     private int getVScrollBarPosit() {
         return (int) ( this.center.getY() - ( this.getKnobSize() / 2 ) );
-        //int position = this.getScrollBarPosit(this.center.getY());
-        //this.setVScrollPosition(position);
-
-        //return position;
-    }
-
-    private int getScrollBarPosit(double centerCoord) {
-        int position = (int) ( centerCoord - ( this.getKnobSize() / 2 ) );
-        if (position < ViewModel.SCROLL_MIN) {
-            position = ViewModel.SCROLL_MIN;
-        }
-        else if (position > ViewModel.SCROLL_MAX - this.getKnobSize() + 1) {
-            position = ViewModel.SCROLL_MAX - this.getKnobSize();
-        }
-
-        return position;
     }
 
     /**
@@ -247,7 +343,7 @@ public class ViewModel extends AbstractViewModel {
     }
 
     private enum ZoomLevel {
-        NONE(0.25), PARTIAL(0.5), NEUTRAL(1), MOST(2), FULL(4);
+        NONE(0.25), PARTIAL(0.5), NEUTRAL(1.0), MOST(2.0), FULL(4.0);
 
         private final double factor;
         private ZoomLevel(double factor) {

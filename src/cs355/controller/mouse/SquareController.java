@@ -1,4 +1,4 @@
-package cs355.controller;
+package cs355.controller.mouse;
 
 import cs355.GUIFunctions;
 import cs355.model.drawing.*;
@@ -9,9 +9,9 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
 
 /**
- * Created by goodman on 9/10/2015.
+ * Class that handles input for drawing squares.
  */
-public class CircleController implements IController {
+public class SquareController implements IMouseEventController {
 
     /**
      * The initial coordinates of the mouse press.
@@ -23,7 +23,7 @@ public class CircleController implements IController {
      */
     private int index;
 
-    public CircleController() {
+    public SquareController() {
         initialCoordinates = new Point2D.Double();
         this.index = -1;
     }
@@ -39,10 +39,10 @@ public class CircleController implements IController {
         initialCoordinates.setLocation(e.getPoint());
 
         // Create new line
-        Circle circle = new Circle(c, initialCoordinates, 0.0);
+        Square square = new Square(c, initialCoordinates, 0.0);
 
         // Add line to model and save index
-        this.index = model.addShape(circle);
+        this.index = model.addShape(square);
     }
 
     @Override
@@ -60,19 +60,19 @@ public class CircleController implements IController {
     @Override
     public void mouseDragged(MouseEvent e, CS355Drawing model, Color c) {
 
-        // Get shape at saved index from model and verify it is a circle
+        // Get shape at saved index from model and verify it is a square
         Shape shape = model.getShape(this.index);
-        if (!(shape instanceof cs355.model.drawing.Circle)) {
-            GUIFunctions.printf("Invalid shape - expected cs355.model.drawing.Circle at index %d", this.index);
+        if (!(shape instanceof cs355.model.drawing.Square)) {
+            GUIFunctions.printf("Invalid shape - expected cs355.model.drawing.Square at index %d", this.index);
             return;
         }
 
-        // Cast the shape to a circle and save the new coordinates
-        Circle circle = (Circle) shape;
+        // Cast the shape to a square and save the new coordinates
+        Square square = (Square) shape;
 
-        // Initialize new center coordinates to initial coordinates
-        Point2D.Double center = new Point2D.Double();
-        center.setLocation(this.initialCoordinates);
+        // Initialize new top left corner coordinates to initial coordinates
+        Point2D.Double upperLeftCorner = new Point2D.Double();
+        upperLeftCorner.setLocation(this.initialCoordinates);
 
         // Get current pointer coordinates
         Point2D.Double currentCoordinates = new Point2D.Double();
@@ -82,23 +82,27 @@ public class CircleController implements IController {
         double xDifference = currentCoordinates.getX() - initialCoordinates.getX();
         double yDifference = currentCoordinates.getY() - initialCoordinates.getY();
 
-        // Get radius
-        double radius = Math.min(
+        // Get side size
+        double size = Math.min(
                 Math.abs(xDifference),
                 Math.abs(yDifference)
-        ) / 2.0;
+        );
 
-        // Get unit vectors for the differences to preserve sign
-        double xDirection = xDifference / Math.abs(xDifference);
-        double yDirection = yDifference / Math.abs(yDifference);
-
-        // Calculate position of the center of the circle
-        center.x = this.initialCoordinates.getX() + (xDirection * radius);
-        center.y = this.initialCoordinates.getY() + (yDirection * radius);
+        // Calculate position of top-left corner
+        if (xDifference < 0) {
+            upperLeftCorner.x = this.initialCoordinates.getX() - size;
+        }
+        if (yDifference < 0) {
+            upperLeftCorner.y = this.initialCoordinates.getY() - size;
+        }
 
         // Set the new parameters
-        circle.setCenter(center);
-        circle.setRadius(radius);
+        Point2D.Double center = new Point2D.Double(
+                upperLeftCorner.getX() + size / 2,
+                upperLeftCorner.getY() + size / 2
+        );
+        square.setCenter(center);
+        square.setSize(size);
     }
 
     @Override

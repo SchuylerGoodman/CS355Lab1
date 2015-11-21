@@ -1,9 +1,10 @@
-package cs355.controller;
+package cs355.controller.mouse;
 
+import cs355.controller.CS355Controller;
 import cs355.model.drawing.*;
 import cs355.model.drawing.Shape;
 import cs355.model.drawing.selectable.Handle;
-import cs355.model.view.AbstractViewModel;
+import cs355.model.view.IViewModel;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -14,7 +15,7 @@ import java.util.List;
 /**
  * Class that handles input for selecting and manipulating objects.
  */
-public class SelectController implements IController, Observer {
+public class SelectController implements IMouseEventController, Observer {
 
     /**
      * The number of pixels of tolerance from a line that will still result in a selection.
@@ -34,7 +35,7 @@ public class SelectController implements IController, Observer {
     /**
      * Model that controls the size and orientation of the view.
      */
-    private AbstractViewModel viewModel;
+    private IViewModel viewModel;
 
     /**
      * The shape which has been selected.
@@ -58,7 +59,7 @@ public class SelectController implements IController, Observer {
      * @param colorChangeNotifier = an observable that notifies this controller if the color has changed.
      * @param viewModel = a model for the view, which stores information about the orientation.
      */
-    public SelectController(CS355Controller controller, Observable colorChangeNotifier, AbstractViewModel viewModel) {
+    public SelectController(CS355Controller controller, Observable colorChangeNotifier, IViewModel viewModel) {
         initialCoordinates = new Point2D.Double();
         this.controller = controller;
         this.viewModel = viewModel;

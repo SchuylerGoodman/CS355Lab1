@@ -1,4 +1,4 @@
-package cs355.controller;
+package cs355.controller.mouse;
 
 import cs355.model.drawing.CS355Drawing;
 import cs355.model.drawing.Line;

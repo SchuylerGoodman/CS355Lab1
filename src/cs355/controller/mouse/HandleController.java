@@ -1,4 +1,4 @@
-package cs355.controller;
+package cs355.controller.mouse;
 
 import cs355.model.drawing.CS355Drawing;
 import cs355.model.drawing.selectable.Handle;
@@ -9,7 +9,7 @@ import java.awt.event.MouseEvent;
 /**
  * Created by BaronVonBaerenstein on 10/2/2015.
  */
-public abstract class HandleController implements IController {
+public abstract class HandleController implements IMouseEventController {
 
     private Handle handle;
 

@@ -1,4 +1,4 @@
-package cs355.controller;
+package cs355.controller.mouse;
 
 import cs355.GUIFunctions;
 import cs355.model.drawing.*;
@@ -11,7 +11,7 @@ import java.awt.geom.Point2D;
 /**
  * Created by goodman on 9/10/2015.
  */
-public class EllipseController implements IController {
+public class CircleController implements IMouseEventController {
 
     /**
      * The initial coordinates of the mouse press.
@@ -23,7 +23,7 @@ public class EllipseController implements IController {
      */
     private int index;
 
-    public EllipseController() {
+    public CircleController() {
         initialCoordinates = new Point2D.Double();
         this.index = -1;
     }
@@ -39,10 +39,10 @@ public class EllipseController implements IController {
         initialCoordinates.setLocation(e.getPoint());
 
         // Create new line
-        Ellipse ellipse = new Ellipse(c, initialCoordinates, 0.0, 0.0);
+        Circle circle = new Circle(c, initialCoordinates, 0.0);
 
         // Add line to model and save index
-        this.index = model.addShape(ellipse);
+        this.index = model.addShape(circle);
     }
 
     @Override
@@ -60,15 +60,15 @@ public class EllipseController implements IController {
     @Override
     public void mouseDragged(MouseEvent e, CS355Drawing model, Color c) {
 
-        // Get shape at saved index from model and verify it is an ellipse
+        // Get shape at saved index from model and verify it is a circle
         Shape shape = model.getShape(this.index);
-        if (!(shape instanceof cs355.model.drawing.Ellipse)) {
-            GUIFunctions.printf("Invalid shape - expected cs355.model.drawing.Ellipse at index %d", this.index);
+        if (!(shape instanceof cs355.model.drawing.Circle)) {
+            GUIFunctions.printf("Invalid shape - expected cs355.model.drawing.Circle at index %d", this.index);
             return;
         }
 
-        // Cast the shape to a ellipse and save the new coordinates
-        Ellipse ellipse = (Ellipse) shape;
+        // Cast the shape to a circle and save the new coordinates
+        Circle circle = (Circle) shape;
 
         // Initialize new center coordinates to initial coordinates
         Point2D.Double center = new Point2D.Double();
@@ -82,18 +82,23 @@ public class EllipseController implements IController {
         double xDifference = currentCoordinates.getX() - initialCoordinates.getX();
         double yDifference = currentCoordinates.getY() - initialCoordinates.getY();
 
-        // Calculate position of the center of the ellipse
-        center.x = this.initialCoordinates.getX() + (xDifference / 2);
-        center.y = this.initialCoordinates.getY() + (yDifference / 2);
+        // Get radius
+        double radius = Math.min(
+                Math.abs(xDifference),
+                Math.abs(yDifference)
+        ) / 2.0;
 
-        // Get width and height
-        double width = Math.abs(xDifference);
-        double height = Math.abs(yDifference);
+        // Get unit vectors for the differences to preserve sign
+        double xDirection = xDifference / Math.abs(xDifference);
+        double yDirection = yDifference / Math.abs(yDifference);
+
+        // Calculate position of the center of the circle
+        center.x = this.initialCoordinates.getX() + (xDirection * radius);
+        center.y = this.initialCoordinates.getY() + (yDirection * radius);
 
         // Set the new parameters
-        ellipse.setCenter(center);
-        ellipse.setWidth(width);
-        ellipse.setHeight(height);
+        circle.setCenter(center);
+        circle.setRadius(radius);
     }
 
     @Override

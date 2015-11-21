@@ -3,7 +3,7 @@ package cs355.view;
 import cs355.model.drawing.*;
 import cs355.model.drawing.Shape;
 import cs355.model.drawing.selectable.CircleHandle;
-import cs355.model.view.AbstractViewModel;
+import cs355.model.view.IViewModel;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
@@ -29,7 +29,7 @@ public class CircleHandleDrawable implements IDrawable {
     }
 
     @Override
-    public void draw(Graphics2D g2d, AbstractViewModel viewModel) {
+    public void draw(Graphics2D g2d, IViewModel viewModel) {
 
         Circle handleCircle = (Circle) this.handle.getHandleShape();
         Point2D.Double handleCenter = handleCircle.getCenter();

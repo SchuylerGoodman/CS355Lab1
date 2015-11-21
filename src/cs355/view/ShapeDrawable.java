@@ -4,7 +4,7 @@ import cs355.GUIFunctions;
 import cs355.model.drawing.selectable.Handle;
 import cs355.model.exception.InvalidHandleException;
 import cs355.model.drawing.Shape;
-import cs355.model.view.AbstractViewModel;
+import cs355.model.view.IViewModel;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ public abstract class ShapeDrawable implements IDrawable {
     }
 
     @Override
-    public void draw(Graphics2D g2d, AbstractViewModel viewModel) {
+    public void draw(Graphics2D g2d, IViewModel viewModel) {
 
         // Regulate the stroke, so the width of the border doesn't change with the zoom level
         float strokeWidth = 2 / (float) viewModel.getZoomFactor();
@@ -37,7 +37,7 @@ public abstract class ShapeDrawable implements IDrawable {
      * @param g2d = the graphics object on which to draw the handles.
      * @param viewModel = transformation from world space to view space.
      */
-    protected void drawHandles(Graphics2D g2d, AbstractViewModel viewModel) {
+    protected void drawHandles(Graphics2D g2d, IViewModel viewModel) {
 
         DrawableFactory factory = new DrawableFactory();
 

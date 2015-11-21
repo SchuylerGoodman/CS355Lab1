@@ -1,6 +1,6 @@
 package cs355.view;
 
-import cs355.model.view.AbstractViewModel;
+import cs355.model.view.IViewModel;
 
 import java.awt.*;
 
@@ -14,5 +14,5 @@ public interface IDrawable {
      *  @param g2d = Graphics2D object on which to draw.
      * @param viewModel = transformation matrix to change world space coordinates to view space.
      */
-    void draw(Graphics2D g2d, AbstractViewModel viewModel);
+    void draw(Graphics2D g2d, IViewModel viewModel);
 }

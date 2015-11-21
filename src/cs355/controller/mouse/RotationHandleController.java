@@ -1,4 +1,4 @@
-package cs355.controller;
+package cs355.controller.mouse;
 
 import cs355.model.drawing.*;
 import cs355.model.drawing.Shape;
@@ -6,7 +6,6 @@ import cs355.model.drawing.selectable.Handle;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
-import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 
 /**
