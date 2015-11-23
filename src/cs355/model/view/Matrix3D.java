@@ -70,9 +70,9 @@ public class Matrix3D {
             dest = new Point3D();
         }
 
-        dest.x = this.m00 * right.x + this.m01 * right.x + this.m02 * right.x;
-        dest.y = this.m10 * right.y + this.m11 * right.y + this.m12 * right.y;
-        dest.z = this.m20 * right.z + this.m21 * right.z + this.m22 * right.z;
+        dest.x = this.m00 * right.x + this.m01 * right.y + this.m02 * right.z;
+        dest.y = this.m10 * right.x + this.m11 * right.y + this.m12 * right.z;
+        dest.z = this.m20 * right.x + this.m21 * right.y + this.m22 * right.z;
 
         return dest;
     }

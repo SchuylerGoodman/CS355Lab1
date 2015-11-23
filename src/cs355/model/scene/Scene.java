@@ -70,10 +70,13 @@ public class Scene extends Observable implements IScene {
     @Override
     public void setCameraRotation(double rot) {
 
+        System.out.println("rot: " + rot);
+        double angle = Math.toRadians(rot);
+
         Vector4D newForwardAxis = new Vector4D(
-                Math.sin(rot),
+                Math.sin(angle),
                 0.0,
-                Math.cos(rot),
+                Math.cos(angle),
                 0.0
         );
 

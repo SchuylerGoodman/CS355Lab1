@@ -3,6 +3,7 @@ package cs355.model.scene;
 import cs355.model.view.Vector4D;
 
 import java.util.Comparator;
+import java.util.Vector;
 
 /**
  * Created by BaronVonBaerenstein on 11/17/2015.
@@ -15,6 +16,13 @@ public class Line4D implements Comparable<Line4D> {
     public Line4D() {
         this.start = new Point4D();
         this.end = new Point4D();
+    }
+
+    public Line4D(Line4D other) {
+        this(
+                new Point4D(other.start),
+                new Point4D(other.end)
+        );
     }
 
     /**
@@ -33,6 +41,87 @@ public class Line4D implements Comparable<Line4D> {
         this.end = new Point4D(line.end);
     }
 
+    public Point4D pointAtX(double x, Point4D dest) {
+
+        if (dest == null) {
+            dest = new Point4D();
+        }
+
+        Line4D lineCanonical = this.createCanonical(null);
+        Point4D start = lineCanonical.start;
+        Point4D end = lineCanonical.end;
+
+        Vector4D difference = start.difference(end, null);
+        if (difference.v0 == 0.0) {
+            return null;
+        }
+
+        double t = this.solveT(start.x, difference.v0, x);
+
+        dest.x = x;
+        dest.y = start.y + ( t * difference.v1 );
+        dest.z = start.z + ( t * difference.v2 );
+        dest.w = start.w;
+
+        return dest;
+    }
+
+    public Point4D pointAtY(double y, Point4D dest) {
+
+        if (dest == null) {
+            dest = new Point4D();
+        }
+
+        Line4D lineCanonical = this.createCanonical(null);
+        Point4D start = lineCanonical.start;
+        Point4D end = lineCanonical.end;
+
+        Vector4D difference = start.difference(end, null);
+        if (difference.v1 == 0.0) {
+            return null;
+        }
+
+        double t = this.solveT(start.y, difference.v1, y);
+
+        dest.x = start.x + ( t * difference.v0 );
+        dest.y = y;
+        dest.z = start.z + ( t * difference.v2 );
+        dest.w = start.w;
+
+        return dest;
+    }
+
+    public Point4D pointAtZ(double z, Point4D dest) {
+
+        if (dest == null) {
+            dest = new Point4D();
+        }
+
+        Line4D lineCanonical = this.createCanonical(null);
+        Point4D start = lineCanonical.start;
+        Point4D end = lineCanonical.end;
+
+        Vector4D difference = start.difference(end, null);
+        if (difference.v2 == 0.0) {
+            return null;
+        }
+
+        double t = this.solveT(start.z, difference.v2, z);
+
+        dest.x = start.x + ( t * difference.v0 );
+        dest.y = start.y + ( t * difference.v1 );
+        dest.z = z;
+        dest.w = start.w;
+
+        return dest;
+    }
+
+    private double solveT(double p0, double p, double pt) {
+
+        double t = ( pt - p0 ) / p;
+        return t;
+    }
+
     /**
      * Create a version of this line that corresponds to the canonical view space (w = 1.0)
      *
@@ -45,19 +134,8 @@ public class Line4D implements Comparable<Line4D> {
             dest = new Line4D();
         }
 
-        Point4D start = new Point4D();
-        double startW = this.start.w;
-        start.x = this.start.x / startW;
-        start.y = this.start.y / startW;
-        start.z = this.start.z / startW;
-        start.w = this.start.w / startW;
-
-        Point4D end = new Point4D();
-        double endW = this.end.w;
-        end.x = this.end.x / endW;
-        end.y = this.end.y / endW;
-        end.z = this.end.z / endW;
-        end.w = this.end.w / endW;
+        Point4D start = this.start.createCanonical(null);
+        Point4D end = this.end.createCanonical(null);
 
         dest.start = start;
         dest.end = end;

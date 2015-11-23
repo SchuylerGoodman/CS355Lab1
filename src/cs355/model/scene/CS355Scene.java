@@ -29,7 +29,7 @@ public class CS355Scene extends Observable {
 		camRot = 0.0;
 
 		// dummy house placeholder for now
-		Instance i = new Instance(Color.red, new Point3D(0.0, 0.0, 1.0), 0.0, 1.0, new Axes());
+		Instance i = new Instance(Color.red, new Point3D(0.0, 0.0, 1.0), 0.0, 1.0, new HouseModel());
 		this.insts.add(i);
 
 	}

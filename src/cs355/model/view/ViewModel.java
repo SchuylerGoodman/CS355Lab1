@@ -23,7 +23,7 @@ public class ViewModel extends Observable implements IViewModel {
 
     // For perspective projection
     private static final double ASPECT_RATIO = 1.0;
-    private static final double MAX_FIELD_OF_VIEW_Y = Math.toRadians(100.0);
+    private static final double MAX_FIELD_OF_VIEW_Y = Math.toRadians(75.0);
     private static final double MAX_FIELD_OF_VIEW_X = ASPECT_RATIO * MAX_FIELD_OF_VIEW_Y;
 
     // For clipping
@@ -268,16 +268,16 @@ public class ViewModel extends Observable implements IViewModel {
     public Matrix3D getCanonicalToScreen() {
 
         // get width of screen
-        double width = NEUTRAL_WIDTH / this.getZoomFactor();
+        double width = NEUTRAL_WIDTH;
 
         // get height of screen
-        double height = ( NEUTRAL_WIDTH / ASPECT_RATIO ) / this.getZoomFactor();
+        double height = NEUTRAL_WIDTH / ASPECT_RATIO;
 
         // initialize screen matrix
         Matrix3D canonicalToScreen = new Matrix3D();
-        canonicalToScreen.m00 = width / 2.0;
+        canonicalToScreen.m00 = width / ( this.getZoomFactor() * 2.0 );
         canonicalToScreen.m02 = width / 2.0;
-        canonicalToScreen.m11 = -1 * height / 2.0;
+        canonicalToScreen.m11 = -1 * height / ( this.getZoomFactor() * 2.0 );
         canonicalToScreen.m12 = height / 2.0;
 
         return canonicalToScreen;

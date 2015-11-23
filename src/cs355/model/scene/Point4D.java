@@ -34,6 +34,10 @@ public class Point4D {
         this.w = w;
     }
 
+    public Point4D(Point4D other) {
+        this(other.x, other.y, other.z, other.w);
+    }
+
     public Point4D(Point3D point) {
         this(point.x, point.y, point.z, 1.0);
     }
@@ -64,6 +68,20 @@ public class Point4D {
         dest.v1 = this.y - right.y;
         dest.v2 = this.z - right.z;
         dest.v3 = this.w - right.w;
+
+        return dest;
+    }
+
+    public Point4D createCanonical(Point4D dest) {
+
+        if (dest == null) {
+            dest = new Point4D();
+        }
+
+        dest.x = this.x / this.w;
+        dest.y = this.y / this.w;
+        dest.z = this.y / this.w;
+        dest.w = this.w / this.w;
 
         return dest;
     }

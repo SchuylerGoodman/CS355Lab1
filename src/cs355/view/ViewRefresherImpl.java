@@ -7,6 +7,7 @@ import cs355.model.drawing.*;
 import cs355.model.exception.InvalidModelException;
 import cs355.model.view.Matrix3D;
 import cs355.model.view.Matrix4D;
+import cs355.model.view.Vector4D;
 
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
@@ -52,9 +53,7 @@ public class ViewRefresherImpl implements ViewRefresher {
 
             List<Line> lineModels = this.getLineModels();
 
-            for (Line line : lineModels) {
-                shapes.add(line);
-            }
+            shapes.addAll(lineModels);
         }
 
         // Get an iterator for the shapes in the model
@@ -122,7 +121,8 @@ public class ViewRefresherImpl implements ViewRefresher {
 
                 // If line is inside clip space, convert to model in screen coordinates and add to list
                 if (this.isInsideClip(clipLine)) {
-                    Line4D canonicalLine4D = clipLine.createCanonical(null);
+                    Line4D clippedLine = this.clipLine(clipLine);
+                    Line4D canonicalLine4D = clippedLine.createCanonical(null);
                     canonicalLines.add(canonicalLine4D);
                 }
             }
@@ -133,9 +133,12 @@ public class ViewRefresherImpl implements ViewRefresher {
             // Add lines to model list
             for (Line4D canonicalLine4D : canonicalLines) {
 
+                // Get a vector pointing from start to end
+                Vector4D lineAsVector = canonicalLine4D.end.difference(canonicalLine4D.start, null);
+
                 // Create a 3D canonical line with just x, y, w dimensions
                 Point3D start = new Point3D(canonicalLine4D.start.x, canonicalLine4D.start.y, canonicalLine4D.start.w);
-                Point3D end = new Point3D(canonicalLine4D.end.x, canonicalLine4D.end.y, canonicalLine4D.end.w);
+                Point3D end = new Point3D(lineAsVector.v0, lineAsVector.v1, lineAsVector.v3);
                 Line3D canonicalLine = new Line3D(start, end);
 
                 // Transform 3D canonical line to screen coordinates
@@ -163,7 +166,7 @@ public class ViewRefresherImpl implements ViewRefresher {
 
         // If either endpoint fails the near clip test, line is clipped out
         // Near clipping test
-        if (line.start.z < nStartW || line.end.z < nEndW) {
+        if (line.start.z < nStartW && line.end.z < nEndW) {
             return false;
         }
 
@@ -195,5 +198,79 @@ public class ViewRefresherImpl implements ViewRefresher {
 
         return true;
 
+    }
+
+    private Line4D clipLine(Line4D line) {
+
+        // TODO get line to clip inside box, but not get removed completely unless all out of bounds.
+        Line4D clipLine = new Line4D(line);
+
+        double startW = clipLine.start.w;
+        double nStartW = -1 * startW;
+        double endW = clipLine.end.w;
+        double nEndW = -1 * endW;
+
+
+        // Fix x values
+        if (clipLine.start.x < nStartW) {
+            //clipLine.start.x = nStartW;
+            clipLine.start = clipLine.pointAtX(nStartW, null);
+        }
+        else if (startW < clipLine.start.x) {
+            //clipLine.start.x = startW;
+            clipLine.start = clipLine.pointAtX(startW, null);
+        }
+
+        if (clipLine.end.x < nEndW) {
+            //clipLine.end.x = nEndW;
+            clipLine.end = clipLine.pointAtX(nEndW, null);
+        }
+        else if (endW < clipLine.end.x) {
+            //clipLine.end.x = endW;
+            clipLine.end = clipLine.pointAtX(endW, null);
+        }
+
+        // Fix y values
+        if (clipLine.start.y < nStartW) {
+            //clipLine.start.y = nStartW;
+            clipLine.start = clipLine.pointAtY(nStartW, null);
+        }
+        else if (startW < clipLine.start.y) {
+            //clipLine.start.y = startW;
+            clipLine.start = clipLine.pointAtY(startW, null);
+        }
+
+        if (clipLine.end.y < nEndW) {
+            //clipLine.end.y = nEndW;
+            clipLine.end = clipLine.pointAtY(nEndW, null);
+        }
+        else if (endW < clipLine.end.y) {
+            //clipLine.end.y = endW;
+            clipLine.end = clipLine.pointAtY(endW, null);
+        }
+
+
+        // Fix z values
+        if (clipLine.start.z < nStartW) {
+            //clipLine.start.z = nStartW;
+            clipLine.start = clipLine.pointAtZ(nStartW, null);
+        }
+        else if (startW < clipLine.start.z) {
+            //clipLine.start.z = startW;
+            clipLine.start = clipLine.pointAtZ(startW, null);
+        }
+
+
+        if (clipLine.end.z < nEndW) {
+            //clipLine.end.z = nEndW
+            clipLine.end = clipLine.pointAtZ(nEndW, null);
+        }
+        else if (endW < clipLine.end.z) {
+            //clipLine.end.z = endW;
+            clipLine.end = clipLine.pointAtZ(endW, null);
+        }
+
+
+        return clipLine;
     }
 }
