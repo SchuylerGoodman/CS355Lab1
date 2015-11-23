@@ -194,9 +194,6 @@ public class CameraController implements IKeyboardEventController {
      */
     private void turnLeft(int degrees) {
 
-        // Get the angle in radians
-        double angle = Math.toRadians(degrees);
-
         // Get the current rotation and add degrees
         double cameraRotation = this.scene.getCameraRotation();
         double newRotation = cameraRotation + degrees;

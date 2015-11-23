@@ -121,8 +121,8 @@ public class ViewRefresherImpl implements ViewRefresher {
 
                 // If line is inside clip space, convert to model in screen coordinates and add to list
                 if (this.isInsideClip(clipLine)) {
-                    Line4D clippedLine = this.clipLine(clipLine);
-                    Line4D canonicalLine4D = clippedLine.createCanonical(null);
+                    //Line4D clippedLine = this.clipLine(clipLine);
+                    Line4D canonicalLine4D = clipLine.createCanonical(null);
                     canonicalLines.add(canonicalLine4D);
                 }
             }
@@ -159,14 +159,14 @@ public class ViewRefresherImpl implements ViewRefresher {
 
     private boolean isInsideClip(Line4D line) {
 
-        double startW = line.start.w;
+        double startW = Math.abs(line.start.w);
         double nStartW = -1 * startW;
-        double endW = line.end.w;
+        double endW = Math.abs(line.end.w);
         double nEndW = -1 * endW;
 
         // If either endpoint fails the near clip test, line is clipped out
         // Near clipping test
-        if (line.start.z < nStartW && line.end.z < nEndW) {
+        if (line.start.z < nStartW || line.end.z < nEndW) {
             return false;
         }
 
@@ -205,9 +205,9 @@ public class ViewRefresherImpl implements ViewRefresher {
         // TODO get line to clip inside box, but not get removed completely unless all out of bounds.
         Line4D clipLine = new Line4D(line);
 
-        double startW = clipLine.start.w;
+        double startW = Math.abs(line.start.w);
         double nStartW = -1 * startW;
-        double endW = clipLine.end.w;
+        double endW = Math.abs(line.end.w);
         double nEndW = -1 * endW;
 
 
@@ -260,7 +260,6 @@ public class ViewRefresherImpl implements ViewRefresher {
             clipLine.start = clipLine.pointAtZ(startW, null);
         }
 
-
         if (clipLine.end.z < nEndW) {
             //clipLine.end.z = nEndW
             clipLine.end = clipLine.pointAtZ(nEndW, null);
@@ -269,6 +268,7 @@ public class ViewRefresherImpl implements ViewRefresher {
             //clipLine.end.z = endW;
             clipLine.end = clipLine.pointAtZ(endW, null);
         }
+
 
 
         return clipLine;

@@ -48,7 +48,7 @@ public class Camera implements ICamera {
 
         // Find out if the angle is counter-clockwise or clockwise around y
         // If it is clockwise, make it negative
-        double sign = startForwardAxis.cross(forwardAxis, null).magnitude();
+        double sign = startForwardAxis.cross(forwardAxis, null).v1;
         if (sign < 0) {
             angleRadians *= -1;
         }

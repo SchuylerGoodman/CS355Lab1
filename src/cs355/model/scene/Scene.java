@@ -70,9 +70,10 @@ public class Scene extends Observable implements IScene {
     @Override
     public void setCameraRotation(double rot) {
 
-        System.out.println("rot: " + rot);
+        // Get target angle in radians.
         double angle = Math.toRadians(rot);
 
+        // Create new forward axis from target angle (angle from neutral Z).
         Vector4D newForwardAxis = new Vector4D(
                 Math.sin(angle),
                 0.0,
@@ -80,6 +81,7 @@ public class Scene extends Observable implements IScene {
                 0.0
         );
 
+        // Set the camera forward axis to the new one.
         this.camera.setForwardAxis(newForwardAxis);
         this.setChanged();
     }

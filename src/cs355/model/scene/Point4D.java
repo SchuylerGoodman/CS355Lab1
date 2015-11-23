@@ -80,7 +80,7 @@ public class Point4D {
 
         dest.x = this.x / this.w;
         dest.y = this.y / this.w;
-        dest.z = this.y / this.w;
+        dest.z = this.z / this.w;
         dest.w = this.w / this.w;
 
         return dest;
