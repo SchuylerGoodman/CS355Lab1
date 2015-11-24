@@ -276,15 +276,19 @@ public class ViewModel extends Observable implements IViewModel {
         double height = width / ASPECT_RATIO;
 
         // get amount to translate
-        Point2D.Double translation = this.getTranslation();
-        System.out.println(translation);
+        double knobSize = this.getKnobSize();
+        double scrollMiddle = ( SCROLL_MAX + 1 ) / 2.0;
+        double xScrollDiff = ( scrollMiddle - this.getHScrollBarPosit() ) * this.getZoomFactor();
+        double xTranslate = ( NEUTRAL_WIDTH / 2.0 ) + xScrollDiff;
+        double yScrollDiff = ( scrollMiddle - this.getVScrollBarPosit() ) * this.getZoomFactor();
+        double yTranslate = ( NEUTRAL_WIDTH * ASPECT_RATIO / 2.0 ) + yScrollDiff;
 
         // initialize screen matrix
         Matrix3D canonicalToScreen = new Matrix3D();
         canonicalToScreen.m00 = width / 2.0; //width / ( this.getZoomFactor() * 2.0 );
-        canonicalToScreen.m02 = NEUTRAL_WIDTH / 2.0;
+        canonicalToScreen.m02 = xScrollDiff;
         canonicalToScreen.m11 = -1 * height / 2.0; //-1 * height / ( this.getZoomFactor() * 2.0 );
-        canonicalToScreen.m12 = NEUTRAL_WIDTH * ASPECT_RATIO / 2.0;
+        canonicalToScreen.m12 = yScrollDiff;
 
         return canonicalToScreen;
     }
@@ -324,7 +328,9 @@ public class ViewModel extends Observable implements IViewModel {
      * @return the position of the left side of the view in world space.
      */
     private int getHScrollBarPosit() {
-        return (int) ( this.center.getX() - ( this.getKnobSize() / 2 ) );
+        double xCenter = this.center.getX();
+        double knob = this.getKnobSize();
+        return (int) ( xCenter - ( knob / 2 ) );
     }
 
     /**

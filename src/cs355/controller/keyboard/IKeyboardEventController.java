@@ -10,7 +10,7 @@ public interface IKeyboardEventController {
     /**
      * Handles any key pressed events.
      *
-     * @param iterator = I have no idea how this works yet TODO figure out how key pressed works
+     * @param iterator = an iterator holding the codes of all the keys currently being pressed.
      */
     public void keyPressed(Iterator<Integer> iterator);
 }

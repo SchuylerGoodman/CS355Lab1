@@ -202,14 +202,12 @@ public class ViewRefresherImpl implements ViewRefresher {
 
     private Line4D clipLine(Line4D line) {
 
-        // TODO get line to clip inside box, but not get removed completely unless all out of bounds.
         Line4D clipLine = new Line4D(line);
 
         double startW = Math.abs(line.start.w);
         double nStartW = -1 * startW;
         double endW = Math.abs(line.end.w);
         double nEndW = -1 * endW;
-
 
         // Fix x values
         if (clipLine.start.x < nStartW) {
@@ -250,6 +248,7 @@ public class ViewRefresherImpl implements ViewRefresher {
         }
 
 
+        /*
         // Fix z values
         if (clipLine.start.z < nStartW) {
             //clipLine.start.z = nStartW;
@@ -268,6 +267,7 @@ public class ViewRefresherImpl implements ViewRefresher {
             //clipLine.end.z = endW;
             clipLine.end = clipLine.pointAtZ(endW, null);
         }
+        */
 
 
 

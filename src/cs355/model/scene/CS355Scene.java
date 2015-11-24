@@ -5,6 +5,7 @@ import java.io.File;
 import java.math.MathContext;
 import java.util.ArrayList;
 import java.util.Observable;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -30,10 +31,27 @@ public class CS355Scene extends Observable {
 		camPos.y = 2.5;
 		camRot = 0.0;
 
-		// dummy house placeholder for now
-		Instance i = new Instance(Color.red, new Point3D(0.0, 0.0, 15.0), Math.PI, 1.0, new HouseModel());
-		this.insts.add(i);
+		int numHousesOnStreet = 20;
+		Random r = new Random();
+		for (int i = -1 * numHousesOnStreet; i < numHousesOnStreet; ++i) {
+			Instance instance = new Instance(
+					new Color(r.nextInt(255), r.nextInt(255), r.nextInt(255)),
+					new Point3D(15 * i, 0.0, 30.0),
+					Math.PI,
+					1.0,
+					new HouseModel()
+			);
+			this.insts.add(instance);
 
+			instance = new Instance(
+					new Color(r.nextInt(255), r.nextInt(255), r.nextInt(255)),
+					new Point3D(15 * i, 0.0, -30.0),
+					0.0,
+					1.0,
+					new HouseModel()
+			);
+			this.insts.add(instance);
+		}
 	}
 
 	/**

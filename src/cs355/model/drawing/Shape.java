@@ -136,7 +136,6 @@ public abstract class Shape extends Observable {
 			 that other shapes would need multiple rotation handles.
 
 			 It really all comes down to the "Line" being represented in a weird way.
-			 TODO think of a better way to handle needing different types of handles. Maybe some ShapeHandles class?
 			 */
 			CircleHandleFactory factory = new CircleHandleFactory();
 			this.handles = new ArrayList<>();
