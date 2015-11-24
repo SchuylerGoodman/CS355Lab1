@@ -30,16 +30,26 @@ public class LineDrawable extends ShapeDrawable {
         );
 
         // Concatenate objToWorld and worldToView transforms to get objToView
-        AffineTransform objToView = new AffineTransform(viewModel.getWorldToView());
-        objToView.concatenate(line.getObjToWorld());
+        AffineTransform transform;
 
         // Regulate the stroke, so the width of the border doesn't change with the zoom level
         // and so the line has width 1
         float strokeWidth = 1 / (float) viewModel.getZoomFactor();
+
+        // This is kind of awful but I don't care anymore.
+        if (this.getUseTransforms()) {
+            transform = new AffineTransform(viewModel.getWorldToView());
+            transform.concatenate(line.getObjToWorld());
+        }
+        else {
+            transform = line.getObjToWorld();
+            strokeWidth = 1;
+        }
+
         g2d.setStroke(new BasicStroke(strokeWidth));
 
         g2d.setPaint(line.getColor());
-        g2d.setTransform(objToView);
+        g2d.setTransform(transform);
         g2d.fill(drawLine);
         g2d.draw(drawLine);
     }

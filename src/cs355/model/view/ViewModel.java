@@ -23,8 +23,8 @@ public class ViewModel extends Observable implements IViewModel {
 
     // For perspective projection
     private static final double ASPECT_RATIO = 1.0;
-    private static final double MAX_FIELD_OF_VIEW_Y = Math.toRadians(75.0);
-    private static final double MAX_FIELD_OF_VIEW_X = ASPECT_RATIO * MAX_FIELD_OF_VIEW_Y;
+    private static final double FIELD_OF_VIEW_Y = Math.toRadians(30.0);
+    private static final double FIELD_OF_VIEW_X = ASPECT_RATIO * FIELD_OF_VIEW_Y;
 
     // For clipping
     private static final double CLIP_NEAR = 1.0;
@@ -48,8 +48,10 @@ public class ViewModel extends Observable implements IViewModel {
         this.scene = scene;
 
         // start at neutral zoom with top-left corner at origin
-        this.center = new Point2D.Double(NEUTRAL_WIDTH / 2.0, NEUTRAL_WIDTH / 2.0);
         this.zoomLevel = ZoomLevel.NONE;
+        double width = NEUTRAL_WIDTH / this.getZoomFactor();
+        double height = width / ASPECT_RATIO;
+        this.center = new Point2D.Double(width / 2.0, height / 2.0);
         this.canUpdate = true;
         this.display3DIsOn = false;
     }
@@ -238,11 +240,11 @@ public class ViewModel extends Observable implements IViewModel {
         rotate.m21 = forwardAxis.v1;
         rotate.m22 = forwardAxis.v2;
 
-        // get zoom_y
-        double zoomY = 1 / ( Math.tan(MAX_FIELD_OF_VIEW_Y / 2.0) );
-
         // get zoom_x
-        double zoomX = 1 / ( Math.tan(MAX_FIELD_OF_VIEW_X / 2.0) );
+        double zoomX = 1 / ( Math.tan(FIELD_OF_VIEW_X / 2.0) );
+
+        // get zoom_y
+        double zoomY = 1 / ( Math.tan(FIELD_OF_VIEW_Y / 2.0) );
 
         // initialize clip matrix
         Matrix4D clip = new Matrix4D();
@@ -268,17 +270,21 @@ public class ViewModel extends Observable implements IViewModel {
     public Matrix3D getCanonicalToScreen() {
 
         // get width of screen
-        double width = NEUTRAL_WIDTH;
+        double width = NEUTRAL_WIDTH / ZoomLevel.NONE.getFactor() * this.getZoomFactor();
 
         // get height of screen
-        double height = NEUTRAL_WIDTH / ASPECT_RATIO;
+        double height = width / ASPECT_RATIO;
+
+        // get amount to translate
+        Point2D.Double translation = this.getTranslation();
+        System.out.println(translation);
 
         // initialize screen matrix
         Matrix3D canonicalToScreen = new Matrix3D();
-        canonicalToScreen.m00 = width / ( this.getZoomFactor() * 2.0 );
-        canonicalToScreen.m02 = width / 2.0;
-        canonicalToScreen.m11 = -1 * height / ( this.getZoomFactor() * 2.0 );
-        canonicalToScreen.m12 = height / 2.0;
+        canonicalToScreen.m00 = width / 2.0; //width / ( this.getZoomFactor() * 2.0 );
+        canonicalToScreen.m02 = NEUTRAL_WIDTH / 2.0;
+        canonicalToScreen.m11 = -1 * height / 2.0; //-1 * height / ( this.getZoomFactor() * 2.0 );
+        canonicalToScreen.m12 = NEUTRAL_WIDTH * ASPECT_RATIO / 2.0;
 
         return canonicalToScreen;
     }

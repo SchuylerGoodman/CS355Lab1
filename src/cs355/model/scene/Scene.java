@@ -106,7 +106,7 @@ public class Scene extends Observable implements IScene {
         Point4D position = new Point4D(this.internalScene.getCameraPosition());
         this.camera = new Camera(
                 position,
-                this.internalScene.getCameraRotation()
+                Math.toDegrees(this.internalScene.getCameraRotation())
         );
 
         this.setChanged();

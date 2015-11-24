@@ -16,8 +16,11 @@ public abstract class ShapeDrawable implements IDrawable {
 
     protected Shape shape;
 
+    private boolean useTransforms;
+
     public ShapeDrawable(Shape s) {
         this.shape = s;
+        this.useTransforms = true;
     }
 
     @Override
@@ -30,6 +33,16 @@ public abstract class ShapeDrawable implements IDrawable {
         if (this.shape.getSelected()) {
             this.drawHandles(g2d, viewModel);
         }
+    }
+
+    @Override
+    public void setUseTransforms(boolean useTransforms) {
+        this.useTransforms = useTransforms;
+    }
+
+    @Override
+    public boolean getUseTransforms() {
+        return this.useTransforms;
     }
 
     /**

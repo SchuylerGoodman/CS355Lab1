@@ -121,8 +121,8 @@ public class ViewRefresherImpl implements ViewRefresher {
 
                 // If line is inside clip space, convert to model in screen coordinates and add to list
                 if (this.isInsideClip(clipLine)) {
-                    //Line4D clippedLine = this.clipLine(clipLine);
-                    Line4D canonicalLine4D = clipLine.createCanonical(null);
+                    Line4D clippedLine = this.clipLine(clipLine);
+                    Line4D canonicalLine4D = clippedLine.createCanonical(null);
                     canonicalLines.add(canonicalLine4D);
                 }
             }
@@ -144,7 +144,7 @@ public class ViewRefresherImpl implements ViewRefresher {
                 // Transform 3D canonical line to screen coordinates
                 Line3D screenLine = canonicalToScreen.transform(canonicalLine, null);
 
-                Line lineModel = new Line(
+                Line lineModel = new DerivedLine(
                         instance.getColor(),
                         new Point2D.Double(screenLine.start.x, screenLine.start.y),
                         new Point2D.Double(screenLine.end.x, screenLine.end.y)

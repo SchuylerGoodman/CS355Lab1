@@ -11,29 +11,30 @@ import cs355.model.drawing.selectable.Handle;
  */
 public class DrawableFactory {
     public IDrawable create(Shape s) throws InvalidShapeException {
+        IDrawable drawable;
         if (s instanceof Line) {
             Line line = (Line) s;
-            return new LineDrawable(line);
+            drawable = new LineDrawable(line);
         }
         else if (s instanceof Square) {
             Square square = (Square) s;
-            return new SquareDrawable(square);
+            drawable = new SquareDrawable(square);
         }
         else if (s instanceof Rectangle) {
             Rectangle rectangle = (Rectangle) s;
-            return new RectangleDrawable(rectangle);
+            drawable = new RectangleDrawable(rectangle);
         }
         else if (s instanceof Circle) {
             Circle circle = (Circle) s;
-            return new CircleDrawable(circle);
+            drawable = new CircleDrawable(circle);
         }
         else if (s instanceof Ellipse) {
             Ellipse ellipse = (Ellipse) s;
-            return new EllipseDrawable(ellipse);
+            drawable = new EllipseDrawable(ellipse);
         }
         else if (s instanceof Triangle) {
             Triangle triangle = (Triangle) s;
-            return new TriangleDrawable(triangle);
+            drawable = new TriangleDrawable(triangle);
         }
         else {
             throw new InvalidShapeException(
@@ -43,6 +44,12 @@ public class DrawableFactory {
                     )
             );
         }
+
+        if (s instanceof I3DDerived) {
+            drawable.setUseTransforms(false);
+        }
+
+        return drawable;
     }
 
     /**

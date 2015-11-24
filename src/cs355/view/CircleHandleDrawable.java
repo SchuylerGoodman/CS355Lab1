@@ -20,12 +20,15 @@ public class CircleHandleDrawable implements IDrawable {
      */
     private CircleHandle handle;
 
+    private boolean useTransforms;
+
     /**
      * Constructor for handle drawables.
      * @param h = the handle model.
      */
     public CircleHandleDrawable(CircleHandle h) {
         this.handle = h;
+        this.useTransforms = true;
     }
 
     @Override
@@ -63,5 +66,15 @@ public class CircleHandleDrawable implements IDrawable {
         g2d.setPaint(handleCircle.getColor());
         g2d.setTransform(objToView);
         g2d.draw(drawCircle);
+    }
+
+    @Override
+    public void setUseTransforms(boolean useTransforms) {
+        this.useTransforms = useTransforms;
+    }
+
+    @Override
+    public boolean getUseTransforms() {
+        return this.useTransforms;
     }
 }
