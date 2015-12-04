@@ -52,6 +52,7 @@ public class Sharpen extends AlterRGB {
         color[2] = this.sharpenColor(blues);
 
         return color;
+        //return this.getClosestColor(color, reds, greens, blues);
     }
 
     /**

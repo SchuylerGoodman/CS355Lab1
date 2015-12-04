@@ -35,31 +35,11 @@ public class MedianBlur extends AlterRGB {
     @Override
     protected int[] alterPixelRGB(int[] reds, int[] greens, int[] blues) {
 
-        int totalKernelSize = reds.length;
-
         // Get the median colors and put them in a median color vector for calculating distance
         int[] median = this.getTrueMedianColor(reds, greens, blues);
-        Vector4D medianVector = new Vector4D(median[0], median[1], median[2], 0.0);
 
-        // Calculate distance from median for each color and make sortable list of them
-        ArrayList<DistanceColorPair> distanceColorPairs = new ArrayList<>();
-        for (int i = 0; i < totalKernelSize; ++i) {
-
-            // Make color vector and get distance from median color
-            Vector4D colorVector = new Vector4D(reds[i], greens[i], blues[i], 0.0);
-            double distance = medianVector.difference(colorVector, null).magnitude();
-
-            // Add pair to list
-            int[] color = { reds[i], greens[i], blues[i] };
-            DistanceColorPair pair = new DistanceColorPair(distance, color);
-            distanceColorPairs.add(pair);
-        }
-
-        // Sort pairs by squared distance (increasing)
-        Collections.sort(distanceColorPairs);
-
-        // Return the color with lowest distance from median (first in list)
-        return distanceColorPairs.get(0).getColor();
+        // Return the color closest to it
+        return this.getClosestColor(median, reds, greens, blues);
     }
 
     /**

@@ -2,20 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="142b2127-3561-4edc-974d-f26c84a0d5cf" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/cs355/model/image/kernel/AlterRGB.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/cs355/model/image/kernel/IBorderPolicy.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/cs355/model/image/kernel/IKernel.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/cs355/model/image/Image.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/cs355/model/image/kernel/MedianBlur.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/cs355/model/image/kernel/PaddedBorder.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/cs355/model/image/kernel/Sharpen.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/cs355/model/image/kernel/UniformBlur.java" />
-      <change type="DELETED" beforePath="F:\GitHub\CS355Painter\src\cs355\controller\IKeypressController.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs355/solution/CS355.java" afterPath="$PROJECT_DIR$/src/cs355/solution/CS355.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs355/controller/CS355ControllerImpl.java" afterPath="$PROJECT_DIR$/src/cs355/controller/CS355ControllerImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs355/model/view/IViewModel.java" afterPath="$PROJECT_DIR$/src/cs355/model/view/IViewModel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs355/model/view/ViewModel.java" afterPath="$PROJECT_DIR$/src/cs355/model/view/ViewModel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs355/view/ViewRefresherImpl.java" afterPath="$PROJECT_DIR$/src/cs355/view/ViewRefresherImpl.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/cs355/model/image/kernel/EdgeDetection.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs355/model/image/kernel/AlterRGB.java" afterPath="$PROJECT_DIR$/src/cs355/model/image/kernel/AlterRGB.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs355/model/image/kernel/MedianBlur.java" afterPath="$PROJECT_DIR$/src/cs355/model/image/kernel/MedianBlur.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs355/model/image/kernel/Sharpen.java" afterPath="$PROJECT_DIR$/src/cs355/model/image/kernel/Sharpen.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="CS355Painter.iws" />
@@ -44,9 +34,21 @@
             <state vertical-scroll-proportion="0.0">
               <caret line="229" column="0" selection-start-line="229" selection-start-column="0" selection-end-line="229" selection-end-column="0" />
               <folding>
-                <element signature="e#4976#4977#0" expanded="true" />
-                <element signature="e#5014#5015#0" expanded="true" />
-                <element signature="e#6083#6084#0" expanded="true" />
+                <element signature="imports" expanded="false" />
+                <element signature="e#872#873#0" expanded="false" />
+                <element signature="e#904#905#0" expanded="false" />
+                <element signature="e#5239#5240#0" expanded="false" />
+                <element signature="e#5275#5276#0" expanded="false" />
+                <element signature="e#5506#5507#0" expanded="false" />
+                <element signature="e#5544#5545#0" expanded="false" />
+                <element signature="e#5779#5780#0" expanded="false" />
+                <element signature="e#5817#5818#0" expanded="false" />
+                <element signature="e#6313#6314#0" expanded="false" />
+                <element signature="e#6350#6351#0" expanded="false" />
+                <element signature="e#6454#6455#0" expanded="false" />
+                <element signature="e#6473#6474#0" expanded="false" />
+                <element signature="e#6580#6581#0" expanded="false" />
+                <element signature="e#6600#6601#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -66,21 +68,41 @@
         <entry file="file://$PROJECT_DIR$/src/cs355/model/image/kernel/AlterRGB.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="32" column="23" selection-start-line="32" selection-start-column="23" selection-end-line="32" selection-end-column="23" />
-              <folding />
+              <caret line="12" column="25" selection-start-line="12" selection-start-column="25" selection-end-line="12" selection-end-column="25" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#4464#4465#0" expanded="true" />
+                <element signature="e#4510#4511#0" expanded="true" />
+                <element signature="e#4549#4550#0" expanded="true" />
+                <element signature="e#4593#4594#0" expanded="true" />
+                <element signature="e#4628#4629#0" expanded="true" />
+                <element signature="e#4674#4675#0" expanded="true" />
+                <element signature="e#4745#4746#0" expanded="true" />
+                <element signature="e#4811#4812#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Sharpen.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="EdgeDetection.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/cs355/model/image/kernel/EdgeDetection.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.16693944">
+              <caret line="6" column="3" selection-start-line="6" selection-start-column="3" selection-end-line="6" selection-end-column="3" />
+              <folding>
+                <element signature="e#192#193#0" expanded="true" />
+                <element signature="e#216#217#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Sharpen.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/cs355/model/image/kernel/Sharpen.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.41571194">
-              <caret line="71" column="77" selection-start-line="71" selection-start-column="77" selection-end-line="71" selection-end-column="77" />
-              <folding>
-                <element signature="e#984#985#0" expanded="true" />
-                <element signature="e#1020#1021#0" expanded="true" />
-              </folding>
+            <state vertical-scroll-proportion="0.0">
+              <caret line="72" column="49" selection-start-line="72" selection-start-column="49" selection-end-line="72" selection-end-column="49" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -90,12 +112,7 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
               <caret line="0" column="13" selection-start-line="0" selection-start-column="13" selection-end-line="0" selection-end-column="13" />
-              <folding>
-                <element signature="e#539#540#0" expanded="true" />
-                <element signature="e#587#588#0" expanded="true" />
-                <element signature="e#640#641#0" expanded="true" />
-                <element signature="e#680#681#0" expanded="true" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -114,28 +131,12 @@
         <entry file="file://$PROJECT_DIR$/src/cs355/model/image/kernel/MedianBlur.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="31" column="31" selection-start-line="31" selection-start-column="31" selection-end-line="31" selection-end-column="31" />
+              <caret line="62" column="44" selection-start-line="62" selection-start-column="44" selection-end-line="62" selection-end-column="44" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#686#687#0" expanded="true" />
-                <element signature="e#734#735#0" expanded="true" />
                 <element signature="e#787#788#0" expanded="true" />
                 <element signature="e#827#828#0" expanded="true" />
-                <element signature="e#3618#3619#0" expanded="true" />
-                <element signature="e#3664#3665#0" expanded="true" />
-                <element signature="e#3735#3736#0" expanded="true" />
-                <element signature="e#3801#3802#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="IBorderPolicy.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/cs355/model/image/kernel/IBorderPolicy.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="34" column="23" selection-start-line="34" selection-start-column="23" selection-end-line="34" selection-end-column="23" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -156,7 +157,10 @@
             <state vertical-scroll-proportion="0.0">
               <caret line="65" column="25" selection-start-line="65" selection-start-column="25" selection-end-line="65" selection-end-column="25" />
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#561#562#0" expanded="false" />
+                <element signature="e#584#585#0" expanded="false" />
+                <element signature="e#4498#4499#0" expanded="false" />
+                <element signature="e#4531#4532#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -183,7 +187,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/cs355/model/view/CameraDefaults.java" />
         <option value="$PROJECT_DIR$/src/cs355/model/view/ICameraDefaults.java" />
         <option value="$PROJECT_DIR$/src/cs355/model/view/CameraController.java" />
         <option value="$PROJECT_DIR$/src/cs355/model/view/Camera.java" />
@@ -230,10 +233,11 @@
         <option value="$PROJECT_DIR$/src/cs355/model/image/kernel/MeanBlur.java" />
         <option value="$PROJECT_DIR$/src/cs355/model/image/kernel/IKernel.java" />
         <option value="$PROJECT_DIR$/src/cs355/model/image/kernel/UniformBlur.java" />
-        <option value="$PROJECT_DIR$/src/cs355/model/image/kernel/MedianBlur.java" />
-        <option value="$PROJECT_DIR$/src/cs355/model/image/kernel/AlterRGB.java" />
         <option value="$PROJECT_DIR$/src/cs355/model/image/Image.java" />
+        <option value="$PROJECT_DIR$/src/cs355/model/image/kernel/AlterRGB.java" />
+        <option value="$PROJECT_DIR$/src/cs355/model/image/kernel/MedianBlur.java" />
         <option value="$PROJECT_DIR$/src/cs355/model/image/kernel/Sharpen.java" />
+        <option value="$PROJECT_DIR$/src/cs355/model/image/kernel/EdgeDetection.java" />
       </list>
     </option>
   </component>
@@ -328,7 +332,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="Scratches" />
       <pane id="Scope" />
       <pane id="ProjectPane">
@@ -669,6 +672,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -998,7 +1002,13 @@
       <option name="project" value="LOCAL" />
       <updated>1448340753460</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Added Image implementation and hooked it into the viewmodel/view/controller. Added median blur, uniform blur, and sharpen kernels. Implemented grayscale, contrast, and brightness point operations. Need to work on sharpen kernel, since it acts weird. Need to implement edge detection kernel.">
+      <created>1449209447592</created>
+      <option name="number" value="00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1449209447592</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TodoView">
@@ -1027,7 +1037,6 @@
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2375" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="JProfiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32629356" sideWeight="0.49166667" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2484375" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -1038,6 +1047,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32629356" sideWeight="0.49166667" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -1069,7 +1079,8 @@
     <MESSAGE value="Tried to fix refresh weirdness. At least it refreshes less often now..." />
     <MESSAGE value="Coded up solution for 3D scene in shell. Doesn't work yet, though." />
     <MESSAGE value="All done!" />
-    <option name="LAST_COMMIT_MESSAGE" value="All done!" />
+    <MESSAGE value="Added Image implementation and hooked it into the viewmodel/view/controller. Added median blur, uniform blur, and sharpen kernels. Implemented grayscale, contrast, and brightness point operations. Need to work on sharpen kernel, since it acts weird. Need to implement edge detection kernel." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Image implementation and hooked it into the viewmodel/view/controller. Added median blur, uniform blur, and sharpen kernels. Implemented grayscale, contrast, and brightness point operations. Need to work on sharpen kernel, since it acts weird. Need to implement edge detection kernel." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1090,13 +1101,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_60/src.zip!/java/lang/Math.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="1236" column="25" selection-start-line="1236" selection-start-column="25" selection-end-line="1236" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/cs355/model/view/Matrix3D.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1360,7 +1364,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="57" column="0" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1368,9 +1371,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="274" column="67" selection-start-line="274" selection-start-column="67" selection-end-line="274" selection-end-column="67" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1378,7 +1378,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="45" column="0" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1403,9 +1402,21 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="229" column="0" selection-start-line="229" selection-start-column="0" selection-end-line="229" selection-end-column="0" />
           <folding>
-            <element signature="e#4976#4977#0" expanded="true" />
-            <element signature="e#5014#5015#0" expanded="true" />
-            <element signature="e#6083#6084#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#872#873#0" expanded="false" />
+            <element signature="e#904#905#0" expanded="false" />
+            <element signature="e#5239#5240#0" expanded="false" />
+            <element signature="e#5275#5276#0" expanded="false" />
+            <element signature="e#5506#5507#0" expanded="false" />
+            <element signature="e#5544#5545#0" expanded="false" />
+            <element signature="e#5779#5780#0" expanded="false" />
+            <element signature="e#5817#5818#0" expanded="false" />
+            <element signature="e#6313#6314#0" expanded="false" />
+            <element signature="e#6350#6351#0" expanded="false" />
+            <element signature="e#6454#6455#0" expanded="false" />
+            <element signature="e#6473#6474#0" expanded="false" />
+            <element signature="e#6580#6581#0" expanded="false" />
+            <element signature="e#6600#6601#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1426,21 +1437,36 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/cs355/model/image/Image.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="65" column="25" selection-start-line="65" selection-start-column="25" selection-end-line="65" selection-end-column="25" />
+          <folding>
+            <element signature="e#561#562#0" expanded="false" />
+            <element signature="e#584#585#0" expanded="false" />
+            <element signature="e#4498#4499#0" expanded="false" />
+            <element signature="e#4531#4532#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/cs355/model/image/kernel/MedianBlur.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="31" column="31" selection-start-line="31" selection-start-column="31" selection-end-line="31" selection-end-column="31" />
+          <caret line="62" column="44" selection-start-line="62" selection-start-column="44" selection-end-line="62" selection-end-column="44" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#686#687#0" expanded="true" />
-            <element signature="e#734#735#0" expanded="true" />
             <element signature="e#787#788#0" expanded="true" />
             <element signature="e#827#828#0" expanded="true" />
-            <element signature="e#3618#3619#0" expanded="true" />
-            <element signature="e#3664#3665#0" expanded="true" />
-            <element signature="e#3735#3736#0" expanded="true" />
-            <element signature="e#3801#3802#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cs355/model/image/kernel/Sharpen.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="72" column="49" selection-start-line="72" selection-start-column="49" selection-end-line="72" selection-end-column="49" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1448,40 +1474,35 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="13" selection-start-line="0" selection-start-column="13" selection-end-line="0" selection-end-column="13" />
-          <folding>
-            <element signature="e#539#540#0" expanded="true" />
-            <element signature="e#587#588#0" expanded="true" />
-            <element signature="e#640#641#0" expanded="true" />
-            <element signature="e#680#681#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/cs355/model/image/kernel/AlterRGB.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="32" column="23" selection-start-line="32" selection-start-column="23" selection-end-line="32" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/cs355/model/image/Image.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="65" column="25" selection-start-line="65" selection-start-column="25" selection-end-line="65" selection-end-column="25" />
+          <caret line="12" column="25" selection-start-line="12" selection-start-column="25" selection-end-line="12" selection-end-column="25" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#4464#4465#0" expanded="true" />
+            <element signature="e#4510#4511#0" expanded="true" />
+            <element signature="e#4549#4550#0" expanded="true" />
+            <element signature="e#4593#4594#0" expanded="true" />
+            <element signature="e#4628#4629#0" expanded="true" />
+            <element signature="e#4674#4675#0" expanded="true" />
+            <element signature="e#4745#4746#0" expanded="true" />
+            <element signature="e#4811#4812#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/cs355/model/image/kernel/Sharpen.java">
+    <entry file="file://$PROJECT_DIR$/src/cs355/model/image/kernel/EdgeDetection.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.41571194">
-          <caret line="71" column="77" selection-start-line="71" selection-start-column="77" selection-end-line="71" selection-end-column="77" />
+        <state vertical-scroll-proportion="0.16693944">
+          <caret line="6" column="3" selection-start-line="6" selection-start-column="3" selection-end-line="6" selection-end-column="3" />
           <folding>
-            <element signature="e#984#985#0" expanded="true" />
-            <element signature="e#1020#1021#0" expanded="true" />
+            <element signature="e#192#193#0" expanded="true" />
+            <element signature="e#216#217#0" expanded="true" />
           </folding>
         </state>
       </provider>

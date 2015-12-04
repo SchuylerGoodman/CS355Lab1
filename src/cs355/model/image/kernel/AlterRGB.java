@@ -1,6 +1,11 @@
 package cs355.model.image.kernel;
 
 import cs355.model.image.CS355Image;
+import cs355.model.view.Vector4D;
+import javafx.util.Pair;
+
+import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Created by BaronVonBaerenstein on 12/3/2015.
@@ -54,6 +59,34 @@ public abstract class AlterRGB implements IKernel {
         }
     }
 
+    protected int[] getClosestColor(int[] target, int[] reds, int[] greens, int[] blues) {
+
+        int totalKernelSize = reds.length;
+
+        // Turn target color into vector
+        Vector4D targetVector = new Vector4D(target[0], target[1], target[2], 0.0);
+
+        // Calculate distance from target for each color and make sortable list of them
+        ArrayList<DistanceColorPair> distanceColorPairs = new ArrayList<>();
+        for (int i = 0; i < totalKernelSize; ++i) {
+
+            // Make color vector and get distance from target color
+            Vector4D colorVector = new Vector4D(reds[i], greens[i], blues[i], 0.0);
+            double distance = targetVector.difference(colorVector, null).magnitude();
+
+            // Add pair to list
+            int[] color = { reds[i], greens[i], blues[i] };
+            DistanceColorPair pair = new DistanceColorPair(distance, color);
+            distanceColorPairs.add(pair);
+        }
+
+        // Sort pairs by squared distance (increasing)
+        Collections.sort(distanceColorPairs);
+
+        // Return the color with lowest distance from target (first in list)
+        return distanceColorPairs.get(0).getColor();
+    }
+
     /**
      * Gets the radius of the kernel.
      *
@@ -77,4 +110,22 @@ public abstract class AlterRGB implements IKernel {
      */
     protected abstract int[] alterPixelRGB(int[] reds, int[] greens, int[] blues);
 
+    private class DistanceColorPair extends Pair<Double, int[]> implements Comparable<DistanceColorPair> {
+        public DistanceColorPair(Double distance, int[] color) {
+            super(distance, color);
+        }
+
+        public Double getDistance() {
+            return this.getKey();
+        }
+
+        public int[] getColor() {
+            return this.getValue();
+        }
+
+        @Override
+        public int compareTo(DistanceColorPair o) {
+            return this.getKey().compareTo(o.getKey());
+        }
+    }
 }
