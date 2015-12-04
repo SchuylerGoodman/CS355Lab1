@@ -7,6 +7,7 @@ import cs355.controller.keyboard.NoneKeyboardEventController;
 import cs355.controller.mouse.*;
 import cs355.model.drawing.CS355Drawing;
 import cs355.model.drawing.Shape;
+import cs355.model.image.CS355Image;
 import cs355.model.scene.IScene;
 import cs355.model.view.IViewModel;
 
@@ -39,6 +40,11 @@ public class CS355ControllerImpl extends Observable implements CS355Controller {
     private IScene scene;
 
     /**
+     * The model for the background image.
+     */
+    private CS355Image image;
+
+    /**
      * The color selected in the UI.
      */
     private Color selectedColor;
@@ -50,10 +56,11 @@ public class CS355ControllerImpl extends Observable implements CS355Controller {
 
     private IKeyboardEventController selectedKeyboardController;
 
-    public CS355ControllerImpl(CS355Drawing model, IViewModel viewModel, IScene scene, Color c) {
+    public CS355ControllerImpl(CS355Drawing model, IViewModel viewModel, IScene scene, CS355Image image, Color c) {
         this.model = model;
         this.viewModel = viewModel;
         this.scene = scene;
+        this.image = image;
         this.selectedColor = c;
         this.selectedMouseEventController = new NoneMouseEventController();
         this.selectedKeyboardController = new NoneKeyboardEventController();
@@ -170,17 +177,21 @@ public class CS355ControllerImpl extends Observable implements CS355Controller {
 
     @Override
     public void openImage(File file) {
-
+        this.image.open(file);
+        if (this.viewModel.isBackgroundDisplayed()) {
+            this.image.notifyObservers();
+        }
     }
 
     @Override
     public void saveImage(File file) {
-
+        this.image.save(file);
     }
 
     @Override
     public void toggleBackgroundDisplay() {
-
+        this.viewModel.toggleBackgroundDisplay();
+        this.viewModel.notifyObservers();
     }
 
     @Override
@@ -205,37 +216,44 @@ public class CS355ControllerImpl extends Observable implements CS355Controller {
 
     @Override
     public void doEdgeDetection() {
-        this.model.notifyObservers();
+        this.image.edgeDetection();
+        this.image.notifyObservers();
     }
 
     @Override
     public void doSharpen() {
-        this.model.notifyObservers();
+        this.image.sharpen();
+        this.image.notifyObservers();
     }
 
     @Override
     public void doMedianBlur() {
-        this.model.notifyObservers();
+        this.image.medianBlur();
+        this.image.notifyObservers();
     }
 
     @Override
     public void doUniformBlur() {
-        this.model.notifyObservers();
+        this.image.uniformBlur();
+        this.image.notifyObservers();
     }
 
     @Override
     public void doGrayscale() {
-        this.model.notifyObservers();
+        this.image.grayscale();
+        this.image.notifyObservers();
     }
 
     @Override
     public void doChangeContrast(int contrastAmountNum) {
-        this.model.notifyObservers();
+        this.image.contrast(contrastAmountNum);
+        this.image.notifyObservers();
     }
 
     @Override
     public void doChangeBrightness(int brightnessAmountNum) {
-        this.model.notifyObservers();
+        this.image.brightness(brightnessAmountNum);
+        this.image.notifyObservers();
     }
 
     @Override

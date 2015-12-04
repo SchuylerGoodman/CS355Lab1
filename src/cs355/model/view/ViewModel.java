@@ -30,6 +30,10 @@ public class ViewModel extends Observable implements IViewModel {
     private static final double CLIP_NEAR = 1.0;
     private static final double CLIP_FAR = 200.0;
 
+    // For image rendering
+    public static double MAX_WIDTH = NEUTRAL_WIDTH / ZoomLevel.NONE.getFactor();
+    public static double MAX_HEIGHT = MAX_WIDTH / ASPECT_RATIO;
+
     /**
      * The scene for the 3D display
      */
@@ -43,6 +47,8 @@ public class ViewModel extends Observable implements IViewModel {
 
     private boolean display3DIsOn;
 
+    private boolean displayBackgroundIsOn;
+
     public ViewModel(IScene scene) {
 
         this.scene = scene;
@@ -54,6 +60,7 @@ public class ViewModel extends Observable implements IViewModel {
         this.center = new Point2D.Double(width / 2.0, height / 2.0);
         this.canUpdate = true;
         this.display3DIsOn = false;
+        this.displayBackgroundIsOn = false;
     }
 
     @Override
@@ -262,11 +269,6 @@ public class ViewModel extends Observable implements IViewModel {
     }
 
     @Override
-    public Matrix4D getClipToWorld() {
-        return null;
-    }
-
-    @Override
     public Matrix3D getCanonicalToScreen() {
 
         // get width of screen
@@ -294,11 +296,6 @@ public class ViewModel extends Observable implements IViewModel {
     }
 
     @Override
-    public Matrix3D getScreenToCanonical() {
-        return null;
-    }
-
-    @Override
     public void toggle3DModelDisplay() {
 
         // toggle model displayed boolean
@@ -311,6 +308,21 @@ public class ViewModel extends Observable implements IViewModel {
     @Override
     public boolean is3DModelDisplayed() {
         return this.display3DIsOn;
+    }
+
+    @Override
+    public void toggleBackgroundDisplay() {
+
+        // toggle background displayed boolean
+        this.displayBackgroundIsOn = !this.displayBackgroundIsOn;
+
+        this.setChanged();
+
+    }
+
+    @Override
+    public boolean isBackgroundDisplayed() {
+        return this.displayBackgroundIsOn;
     }
 
     /**

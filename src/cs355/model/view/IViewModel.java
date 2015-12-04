@@ -78,28 +78,12 @@ public interface IViewModel extends IObservable {
     public Matrix4D getWorldToClip();
 
     /**
-     * Getter for a transformation matrix from clip coordinates to world coordinates.
-     * For 3D rendering.
-     *
-     * @return a Matrix4D for changing a point from clip to world coordinates.
-     */
-    public Matrix4D getClipToWorld();
-
-    /**
      * Getter for a transformation matrix from canonical coordinates to screen coordinates.
      * For 3D rendering.
      *
      * @return a Matrix4D for changing a point from canonical coordinates to screen coordinates.
      */
     public Matrix3D getCanonicalToScreen();
-
-    /**
-     * Getter for a transformation matrix from screen coordinates to canonical coordinates.
-     * For 3D rendering.
-     *
-     * @return a Matrix4D for changing a point from screen coordinates to canonical coordinates.
-     */
-    public Matrix3D getScreenToCanonical();
 
     /**
      * Toggles display of the 3D model.
@@ -112,5 +96,17 @@ public interface IViewModel extends IObservable {
      * @return true if displayed, otherwise false.
      */
     public boolean is3DModelDisplayed();
+
+    /**
+     * Toggles display of the background.
+     */
+    public void toggleBackgroundDisplay();
+
+    /**
+     * Says whether the background image is being displayed or not.
+     *
+     * @return true if displayed, otherwise false.
+     */
+    public boolean isBackgroundDisplayed();
 
 }

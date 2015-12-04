@@ -1,16 +1,16 @@
 package cs355.view;
 
 import cs355.GUIFunctions;
+import cs355.model.image.CS355Image;
 import cs355.model.scene.*;
-import cs355.model.view.IViewModel;
+import cs355.model.view.*;
 import cs355.model.drawing.*;
 import cs355.model.exception.InvalidModelException;
-import cs355.model.view.Matrix3D;
-import cs355.model.view.Matrix4D;
-import cs355.model.view.Vector4D;
 
 import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
+import java.awt.image.BufferedImage;
 import java.util.*;
 
 /**
@@ -33,10 +33,16 @@ public class ViewRefresherImpl implements ViewRefresher {
      */
     private IScene scene;
 
-    public ViewRefresherImpl(IViewModel viewModel, CS355Drawing model, IScene scene) {
+    /**
+     * The model for the background image.
+     */
+    private CS355Image image;
+
+    public ViewRefresherImpl(IViewModel viewModel, CS355Drawing model, IScene scene, CS355Image image) {
         this.viewModel = viewModel;
         this.model = model;
         this.scene = scene;
+        this.image = image;
     }
 
     @Override
@@ -47,6 +53,25 @@ public class ViewRefresherImpl implements ViewRefresher {
 
         // Initialize the factory for the drawables
         DrawableFactory drawableFactory = new DrawableFactory();
+
+        // If we are drawing the background image, draw it first
+        if (this.viewModel.isBackgroundDisplayed()) {
+
+            BufferedImage drawImage = this.image.getImage();
+            AffineTransform worldToView = this.viewModel.getWorldToView();
+            g2d.setTransform(worldToView);
+
+            double imageWidth = this.image.getWidth();
+            double imageHeight = this.image.getHeight();
+
+            int centerX = (int) ViewModel.MAX_WIDTH / 2;
+            int centerY = (int) ViewModel.MAX_HEIGHT / 2;
+
+            int topLeftX = centerX - ( (int) imageWidth / 2 );
+            int topLeftY = centerY - ( (int) imageHeight / 2 );
+
+            g2d.drawImage(drawImage, topLeftX, topLeftY, null);
+        }
 
         // If we are drawing 3D model, add lines to front of list
         if (this.viewModel.is3DModelDisplayed()) {

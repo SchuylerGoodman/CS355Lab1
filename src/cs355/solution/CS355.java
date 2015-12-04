@@ -3,6 +3,8 @@ package cs355.solution;
 import cs355.GUIFunctions;
 import cs355.controller.CS355Controller;
 import cs355.controller.CS355ControllerImpl;
+import cs355.model.image.*;
+import cs355.model.image.Image;
 import cs355.model.scene.IScene;
 import cs355.model.scene.Scene;
 import cs355.model.view.IViewModel;
@@ -33,15 +35,17 @@ public class CS355 {
 		// Construct model, view, and controller
 		CS355Drawing drawing = new CS355DrawingImpl();
 		IScene scene = new Scene();
+		CS355Image image = new Image();
 
         IViewModel viewModel = new ViewModel(scene);
-		ViewRefresher view = new ViewRefresherImpl(viewModel, drawing, scene);
-		CS355Controller controller = new CS355ControllerImpl(drawing, viewModel, scene, initialColor);
+		ViewRefresher view = new ViewRefresherImpl(viewModel, drawing, scene, image);
+		CS355Controller controller = new CS355ControllerImpl(drawing, viewModel, scene, image, initialColor);
 
 		// Register view with model as observer
         viewModel.addObserver(view);
 		drawing.addObserver(view);
 		scene.addObserver(view);
+		image.addObserver(view);
 
 		// Initialize frame
 		GUIFunctions.createCS355Frame(controller, view);
