@@ -33,13 +33,14 @@ public class MedianBlur extends AlterRGB {
     }
 
     @Override
-    protected int[] alterPixelRGB(int[] reds, int[] greens, int[] blues) {
+    protected int[] alterPixelRGB(int[] reds, int[] greens, int[] blues, int[] data) {
 
         // Get the median colors and put them in a median color vector for calculating distance
         int[] median = this.getTrueMedianColor(reds, greens, blues);
 
         // Return the color closest to it
-        return this.getClosestColor(median, reds, greens, blues);
+        this.getClosestColor(median, reds, greens, blues, data);
+        return data;
     }
 
     /**
@@ -74,25 +75,6 @@ public class MedianBlur extends AlterRGB {
         median[2] = blueCopy[medianIndex];
 
         return median;
-    }
-
-    private class DistanceColorPair extends Pair<Double, int[]> implements Comparable<DistanceColorPair> {
-        public DistanceColorPair(Double distance, int[] color) {
-            super(distance, color);
-        }
-
-        public Double getDistance() {
-            return this.getKey();
-        }
-
-        public int[] getColor() {
-            return this.getValue();
-        }
-
-        @Override
-        public int compareTo(DistanceColorPair o) {
-            return this.getKey().compareTo(o.getKey());
-        }
     }
 
 }

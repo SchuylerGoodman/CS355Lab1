@@ -44,14 +44,17 @@ public class Sharpen extends AlterRGB {
     }
 
     @Override
-    protected int[] alterPixelRGB(int[] reds, int[] greens, int[] blues) {
+    protected int[] alterPixelRGB(int[] reds, int[] greens, int[] blues, int[] data) {
 
-        int[] color = new int[3];
-        color[0] = this.sharpenColor(reds);
-        color[1] = this.sharpenColor(greens);
-        color[2] = this.sharpenColor(blues);
+        if (data == null || data.length < 3) {
+            data = new int[3];
+        }
 
-        return color;
+        data[0] = this.sharpenColor(reds);
+        data[1] = this.sharpenColor(greens);
+        data[2] = this.sharpenColor(blues);
+
+        return data;
         //return this.getClosestColor(color, reds, greens, blues);
     }
 

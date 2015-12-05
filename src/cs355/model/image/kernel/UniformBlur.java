@@ -27,7 +27,11 @@ public class UniformBlur extends AlterRGB {
     }
 
     @Override
-    protected int[] alterPixelRGB(int[] reds, int[] greens, int[] blues) {
+    protected int[] alterPixelRGB(int[] reds, int[] greens, int[] blues, int[] data) {
+
+        if (data == null || data.length < 3) {
+            data = new int[3];
+        }
 
         int red = 0;
         int green = 0;
@@ -47,7 +51,9 @@ public class UniformBlur extends AlterRGB {
         blue /= length;
 
         // Return average RGB
-        int[] color = { red, green, blue };
-        return color;
+        data[0] = red;
+        data[1] = green;
+        data[2] = blue;
+        return data;
     }
 }

@@ -57,6 +57,10 @@ public class Image extends CS355Image {
     @Override
     public void edgeDetection() {
 
+        // Initialize and apply edge detection kernel
+        IKernel edgeDetection = new EdgeDetection();
+        this.applyKernel(edgeDetection);
+
         this.setImageChanged();
     }
 
